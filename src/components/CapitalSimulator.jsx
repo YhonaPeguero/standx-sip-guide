@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { CAPITAL_PRESETS, MAX_CAPITAL, MIN_CAPITAL } from '../constants/chart';
+import { useI18n } from '../i18n';
 import { formatCurrencyWhole } from '../lib/formatters';
 
 const PRESET_LABELS = {
@@ -17,9 +18,11 @@ export default function CapitalSimulator({
   onPresetSelect,
   activeAmount,
 }) {
+  const { t } = useI18n();
+
   return (
     <div className="mt-7 hairline pt-6">
-      <span className="eyebrow">Capital Simulator</span>
+      <span className="eyebrow">{t('capitalSimulator.eyebrow')}</span>
 
       <div className="mt-3 grid grid-cols-2 gap-2">
         {CAPITAL_PRESETS.map((preset) => {
@@ -52,7 +55,7 @@ export default function CapitalSimulator({
           htmlFor="capital-amount"
           className="mono block text-[10px] uppercase tracking-[0.18em] text-[var(--sx-muted)]"
         >
-          Custom amount
+          {t('capitalSimulator.customAmount')}
         </label>
 
         <div className="relative mt-2">
@@ -83,13 +86,16 @@ export default function CapitalSimulator({
           </p>
         ) : (
           <p className="mt-1.5 text-[11px] text-[var(--sx-muted)]">
-            Min {formatCurrencyWhole(MIN_CAPITAL)} · Max {formatCurrencyWhole(MAX_CAPITAL)}
+            {t('capitalSimulator.rangeHint', {
+              min: formatCurrencyWhole(MIN_CAPITAL),
+              max: formatCurrencyWhole(MAX_CAPITAL),
+            })}
           </p>
         )}
       </div>
 
       <p className="mt-4 text-[11px] leading-[1.5] text-[var(--sx-muted)]">
-        Simulated example for educational purposes. Actual results may vary.
+        {t('capitalSimulator.note')}
       </p>
     </div>
   );

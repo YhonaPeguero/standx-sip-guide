@@ -1,6 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { useI18n } from '../i18n';
 
 export default function MicroCopy({ isOn }) {
+  const { t } = useI18n();
+
   return (
     <div className="relative flex h-7 items-center">
       <AnimatePresence mode="wait" initial={false}>
@@ -12,7 +15,7 @@ export default function MicroCopy({ isOn }) {
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           className="text-[16px] tracking-[-0.01em] text-[var(--sx-text-muted)] sm:text-[18px]"
         >
-          {isOn ? 'Your capital, earning.' : 'Your capital, idle.'}
+          {isOn ? t('microCopy.on') : t('microCopy.off')}
         </motion.p>
       </AnimatePresence>
     </div>

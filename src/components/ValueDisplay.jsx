@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
+import { useI18n } from '../i18n';
 
 export default function ValueDisplay({ estimatedValueLabel, yieldPctLabel, isOn }) {
+  const { t } = useI18n();
+
   return (
     <div>
       <p className="mono text-[10px] font-medium uppercase tracking-[0.18em] text-[var(--sx-muted)]">
-        Total Yield Generated
+        {t('valueDisplay.label')}
       </p>
 
       <div className="mt-2 flex items-end gap-3">

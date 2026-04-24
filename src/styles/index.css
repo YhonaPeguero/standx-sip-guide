@@ -15,16 +15,16 @@
   --sx-border-soft: #18241f;
   --sx-border-strong: #2a3f37;
   --sx-border-active: rgba(0, 102, 50, 0.55);
-  --sx-text: #e8eeea;
-  --sx-text-muted: #a3b0a7;
-  --sx-muted: #8b9891;
-  --sx-muted-soft: #6b7771;
+  --sx-text: #edf4ef;
+  --sx-text-muted: #b2bfb7;
+  --sx-muted: #97a59c;
+  --sx-muted-soft: #74827a;
   --sx-primary: #006632;
   --sx-primary-hover: #007a3c;
   --sx-primary-pressed: #005227;
   --sx-primary-soft: rgba(0, 102, 50, 0.22);
-  --sx-primary-bright: #3d976f;
-  --sx-primary-soft-text: #7ec0a0;
+  --sx-primary-bright: #4eaf84;
+  --sx-primary-soft-text: #8bd2b2;
   --sx-accent: #fac6c3;
   --sx-accent-soft: rgba(250, 198, 195, 0.16);
 

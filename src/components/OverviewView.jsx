@@ -5,8 +5,11 @@ import StatusChip from './StatusChip';
 import ToggleSwitch from './ToggleSwitch';
 import YieldLoopFlow from './YieldLoopFlow';
 import Button from './ui/Button';
+import { useI18n } from '../i18n';
 
 export default function OverviewView({ isOn, onToggle, onOpenSimulator, educationSectionId }) {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-12 sm:space-y-16">
       <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
@@ -18,7 +21,7 @@ export default function OverviewView({ isOn, onToggle, onOpenSimulator, educatio
 
         <div className="flex flex-wrap items-center gap-3">
           <Button variant="primary" size="lg" onClick={onOpenSimulator} iconRight={<span>→</span>}>
-            Open simulator
+            {t('overview.openSimulator')}
           </Button>
         </div>
       </section>
@@ -28,7 +31,7 @@ export default function OverviewView({ isOn, onToggle, onOpenSimulator, educatio
           className="relative flex flex-col border border-[var(--sx-border)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)]"
           style={{ borderRadius: 6 }}
         >
-          <span className="eyebrow">Interactive Preview</span>
+          <span className="eyebrow">{t('overview.interactivePreview')}</span>
 
           <div className="mt-6 flex justify-center">
             <ToggleSwitch isOn={isOn} onChange={onToggle} />
@@ -36,14 +39,14 @@ export default function OverviewView({ isOn, onToggle, onOpenSimulator, educatio
 
           <p className="mt-6 text-[13px] leading-[1.55] text-[var(--sx-text-muted)]">
             {isOn
-              ? 'When active, the loop simulates how capital can keep moving through yield layers.'
-              : 'Turn SIP on to preview how the yield loop can work over time.'}
+              ? t('overview.previewActive')
+              : t('overview.previewIdle')}
           </p>
 
           <div className="mt-auto pt-6">
             <div className="hairline pt-4">
               <p className="text-[12px] leading-[1.5] text-[var(--sx-muted)]">
-                The whole story plays out in three connected steps shown on the right.
+                {t('overview.storyHint')}
               </p>
             </div>
           </div>

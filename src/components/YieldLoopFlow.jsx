@@ -1,24 +1,10 @@
 import { motion } from 'framer-motion';
+import { useI18n } from '../i18n';
 
-const FLOW_NODES = [
-  {
-    id: 'dusd',
-    label: 'Capital',
-    title: 'DUSD',
-    copy: 'Start with capital in DUSD, the base layer of the loop.',
-  },
-  {
-    id: 'sip-2',
-    label: 'Active',
-    title: 'SIP #2 Position Yield',
-    copy: 'Eligible activity can keep earning while positions stay open.',
-  },
-  {
-    id: 'sip-3',
-    label: 'Compounds',
-    title: 'SIP #3 DUSD Yield Expansion',
-    copy: 'Yield pathways can route value back into DUSD growth.',
-  },
+const FLOW_NODE_IDS = [
+  { id: 'dusd', key: 'dusd' },
+  { id: 'sip-2', key: 'sip2' },
+  { id: 'sip-3', key: 'sip3' },
 ];
 
 function FlowConnector({ isOn, vertical = false }) {
@@ -122,27 +108,36 @@ function FlowNode({ node, index, isOn }) {
 }
 
 export default function YieldLoopFlow({ isOn }) {
+  const { t } = useI18n();
+
+  const flowNodes = FLOW_NODE_IDS.map((node) => ({
+    id: node.id,
+    label: t(`yieldLoop.nodes.${node.key}.label`),
+    title: t(`yieldLoop.nodes.${node.key}.title`),
+    copy: t(`yieldLoop.nodes.${node.key}.copy`),
+  }));
+
   return (
     <article
       className="relative border border-[var(--sx-border)] bg-[var(--sx-surface)] p-5 shadow-[var(--sx-shadow-lg)] sm:p-7"
       style={{ borderRadius: 6 }}
     >
       <div className="flex items-center justify-between gap-3">
-        <span className="eyebrow">StandX Yield Loop</span>
+        <span className="eyebrow">{t('yieldLoop.eyebrow')}</span>
         <motion.span
           animate={{ opacity: isOn ? 1 : 0.45, color: isOn ? '#FAC6C3' : 'var(--sx-muted)' }}
           transition={{ duration: 0.3 }}
           className="mono text-[10px] uppercase tracking-[0.22em]"
         >
-          {isOn ? 'Loop Live' : 'Loop Paused'}
+          {isOn ? t('yieldLoop.live') : t('yieldLoop.paused')}
         </motion.span>
       </div>
 
       <div className="mt-5 grid gap-2 md:grid-cols-[1fr_44px_1fr_44px_1fr] md:items-stretch">
-        {FLOW_NODES.map((node, index) => (
+        {flowNodes.map((node, index) => (
           <div key={node.id} className="contents">
             <FlowNode node={node} index={index} isOn={isOn} />
-            {index < FLOW_NODES.length - 1 ? (
+            {index < flowNodes.length - 1 ? (
               <>
                 <FlowConnector isOn={isOn} />
                 <FlowConnector isOn={isOn} vertical />
@@ -153,8 +148,7 @@ export default function YieldLoopFlow({ isOn }) {
       </div>
 
       <p className="mt-5 text-[12px] leading-[1.5] text-[var(--sx-muted)]">
-        Capital flows through DUSD, gets activated by SIP #2, and is reinforced by SIP #3 to keep the
-        loop running.
+        {t('yieldLoop.summary')}
       </p>
     </article>
   );

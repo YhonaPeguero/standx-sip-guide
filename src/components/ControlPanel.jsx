@@ -1,6 +1,7 @@
 import CapitalSimulator from './CapitalSimulator';
 import ToggleSwitch from './ToggleSwitch';
 import Button from './ui/Button';
+import { useI18n } from '../i18n';
 
 export default function ControlPanel({
   isOn,
@@ -13,18 +14,20 @@ export default function ControlPanel({
   onPresetSelect,
   activeCapital,
 }) {
+  const { t } = useI18n();
+
   return (
     <aside
       className="border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)] lg:p-7"
       style={{ borderRadius: 6 }}
     >
       <div className="flex flex-col gap-1.5 text-center">
-        <span className="eyebrow">Control Panel</span>
+        <span className="eyebrow">{t('controlPanel.eyebrow')}</span>
         <h2 className="text-[28px] font-semibold tracking-[-0.025em] text-[var(--sx-text)] sm:text-[30px]">
-          SIP Switch
+          {t('controlPanel.title')}
         </h2>
         <p className="text-[13px] leading-[1.5] text-[var(--sx-text-muted)]">
-          Visualize how active capital can earn over time.
+          {t('controlPanel.description')}
         </p>
       </div>
 
@@ -49,7 +52,7 @@ export default function ControlPanel({
           onClick={onLearnHowItWorks}
           iconRight={<span>→</span>}
         >
-          Learn how it works
+          {t('controlPanel.learnHowItWorks')}
         </Button>
       </div>
     </aside>

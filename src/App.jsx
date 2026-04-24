@@ -7,7 +7,6 @@ import TopBar from './components/TopBar';
 import YieldPlaybookView from './components/YieldPlaybookView';
 import {
   BASE_VALUE,
-  CHART_MARKERS,
   DEFAULT_CAPITAL,
   DEFAULT_RANGE_ID,
   MAX_CAPITAL,
@@ -15,11 +14,12 @@ import {
   TIME_RANGES,
 } from './constants/chart';
 import { useSipMotion } from './hooks/useSipMotion';
+import { useI18n } from './i18n';
 import { formatCurrencyAdaptive, formatPercentValue } from './lib/formatters';
 
 const CAPITAL_PATTERN = /^\d*(\.\d{0,2})?$/;
-const MAX_ERROR = 'Max amount: $1,000,000';
-const MIN_ERROR = 'Min amount: $100';
+const MAX_ERROR_KEY = 'maxAmount';
+const MIN_ERROR_KEY = 'minAmount';
 const EDUCATION_SECTION_ID = 'overview-learn-flow';
 
 const sanitizeInput = (value) => value.replace(/[$,\s]/g, '');
@@ -34,12 +34,13 @@ const normalizeCapitalInput = (value) => {
 };
 
 export default function App() {
+  const { t } = useI18n();
   const [activeTab, setActiveTab] = useState('overview');
   const [isOn, setIsOn] = useState(false);
   const [rangeId, setRangeId] = useState(DEFAULT_RANGE_ID);
   const [capitalAmount, setCapitalAmount] = useState(DEFAULT_CAPITAL);
   const [capitalInput, setCapitalInput] = useState(String(DEFAULT_CAPITAL));
-  const [capitalError, setCapitalError] = useState('');
+  const [capitalErrorKey, setCapitalErrorKey] = useState('');
 
   const selectedRange = useMemo(
     () => TIME_RANGES.find((range) => range.id === rangeId) ?? TIME_RANGES[0],
@@ -55,7 +56,7 @@ export default function App() {
   const handleCapitalPreset = useCallback((amount) => {
     setCapitalAmount(amount);
     setCapitalInput(String(amount));
-    setCapitalError('');
+    setCapitalErrorKey('');
   }, []);
 
   const handleCapitalInputChange = useCallback((rawValue) => {
@@ -68,59 +69,69 @@ export default function App() {
     setCapitalInput(nextValue);
 
     if (nextValue.length === 0) {
-      setCapitalError(MIN_ERROR);
+      setCapitalErrorKey(MIN_ERROR_KEY);
       return;
     }
 
     const parsedAmount = Number(nextValue);
 
     if (!Number.isFinite(parsedAmount)) {
-      setCapitalError(MIN_ERROR);
+      setCapitalErrorKey(MIN_ERROR_KEY);
       return;
     }
 
     if (parsedAmount > MAX_CAPITAL) {
-      setCapitalError(MAX_ERROR);
+      setCapitalErrorKey(MAX_ERROR_KEY);
       return;
     }
 
     if (parsedAmount < MIN_CAPITAL) {
-      setCapitalError(MIN_ERROR);
+      setCapitalErrorKey(MIN_ERROR_KEY);
       return;
     }
 
     setCapitalAmount(parsedAmount);
-    setCapitalError('');
+    setCapitalErrorKey('');
   }, []);
 
   const handleCapitalInputBlur = useCallback(() => {
     if (capitalInput.trim().length === 0) {
       setCapitalInput(normalizeCapitalInput(capitalAmount));
-      setCapitalError('');
+      setCapitalErrorKey('');
       return;
     }
 
     const parsedAmount = Number(capitalInput);
 
     if (!Number.isFinite(parsedAmount)) {
-      setCapitalError(MIN_ERROR);
+      setCapitalErrorKey(MIN_ERROR_KEY);
       return;
     }
 
     if (parsedAmount > MAX_CAPITAL) {
-      setCapitalError(MAX_ERROR);
+      setCapitalErrorKey(MAX_ERROR_KEY);
       return;
     }
 
     if (parsedAmount < MIN_CAPITAL) {
-      setCapitalError(MIN_ERROR);
+      setCapitalErrorKey(MIN_ERROR_KEY);
       return;
     }
 
     setCapitalAmount(parsedAmount);
     setCapitalInput(normalizeCapitalInput(parsedAmount));
-    setCapitalError('');
+    setCapitalErrorKey('');
   }, [capitalAmount, capitalInput]);
+
+  const capitalError = useMemo(
+    () => (capitalErrorKey ? t(`app.errors.${capitalErrorKey}`) : ''),
+    [capitalErrorKey, t],
+  );
+
+  const chartMarkers = useMemo(() => {
+    const localizedMarkers = t('app.chartMarkers');
+    return Array.isArray(localizedMarkers) ? localizedMarkers : [];
+  }, [t]);
 
   const estimatedValueLabel = useMemo(
     () => formatCurrencyAdaptive(simulated.estimatedValue, { threshold: 850000 }),
@@ -196,7 +207,7 @@ export default function App() {
                 linePath={linePath}
                 areaPath={areaPath}
                 endY={endY}
-                markers={CHART_MARKERS}
+                markers={chartMarkers}
                 simulated={simulated}
                 estimatedValueLabel={estimatedValueLabel}
                 yieldPctLabel={yieldPctLabel}
@@ -221,14 +232,14 @@ export default function App() {
         </AnimatePresence>
 
         <footer className="mt-12 flex flex-col gap-2 border-t border-[var(--sx-border)] pt-4 text-[11px] leading-[1.5] text-[var(--sx-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <p>Educational simulation only. Actual results may vary.</p>
+          <p>{t('app.footer.disclaimer')}</p>
           <a
             href="https://x.com/RyuuDefi"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex w-fit items-center text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
           >
-            Created by: Thisnotmeme,
+            {t('app.footer.createdBy')}
           </a>
         </footer>
       </main>

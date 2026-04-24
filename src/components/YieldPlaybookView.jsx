@@ -1,61 +1,54 @@
 import Button from './ui/Button';
 import Card from './ui/Card';
 import SectionHeader from './ui/SectionHeader';
+import { useI18n } from '../i18n';
 
-const PLAYBOOK_CARDS = [
+const PLAYBOOK_CARD_DEFS = [
   {
     id: 'hold-dusd',
-    tag: 'Passive',
-    title: 'Hold DUSD',
-    headline: 'Earn passively without staking',
-    copy: 'Keep DUSD ready while still participating in simulated yield behavior over time.',
-    benefit: 'Capital stays liquid while yield stays visible.',
-    actionLabel: 'Try this flow',
+    key: 'holdDusd',
     actionType: 'try',
   },
   {
     id: 'trade-awareness',
-    tag: 'Active',
-    title: 'Trade with awareness',
-    headline: 'Eligible positions may earn through SIP #2',
-    copy: 'Use SIP #2 as a lens to understand how activity and yield can work together.',
-    benefit: 'Better timing decisions with less idle capital.',
-    actionLabel: 'Learn more',
+    key: 'tradeAwareness',
     actionType: 'learn',
   },
   {
     id: 'understand-loop',
-    tag: 'System',
-    title: 'Understand the loop',
-    headline: 'SIP #3 routes activity back into DUSD yield',
-    copy: 'Follow the loop view to see how different actions can feed into long-term growth.',
-    benefit: 'Clearer mental model of how the system compounds.',
-    actionLabel: 'Learn more',
+    key: 'understandLoop',
     actionType: 'learn',
   },
   {
     id: 'combine-layers',
-    tag: 'Strategy',
-    title: 'Combine the layers',
-    headline: 'DUSD base yield + active position yield',
-    copy: 'Test different capital amounts and ranges to compare layered outcomes in one place.',
-    benefit: 'Practical strategy planning with fast what-if checks.',
-    actionLabel: 'Try this flow',
+    key: 'combineLayers',
     actionType: 'try',
   },
 ];
 
 export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
+  const { t } = useI18n();
+
+  const playbookCards = PLAYBOOK_CARD_DEFS.map((card) => ({
+    ...card,
+    tag: t(`playbook.cards.${card.key}.tag`),
+    title: t(`playbook.cards.${card.key}.title`),
+    headline: t(`playbook.cards.${card.key}.headline`),
+    copy: t(`playbook.cards.${card.key}.copy`),
+    benefit: t(`playbook.cards.${card.key}.benefit`),
+    actionLabel: t(`playbook.actions.${card.actionType}`),
+  }));
+
   return (
     <section className="space-y-12">
       <SectionHeader
-        eyebrow="Community Yield Playbook"
-        title="Practical paths to learn DUSD and SIP behavior quickly"
-        description="Short, opinionated cards built from how the community actually thinks about each flow."
+        eyebrow={t('playbook.eyebrow')}
+        title={t('playbook.title')}
+        description={t('playbook.description')}
       />
 
       <div className="grid gap-4 lg:grid-cols-2">
-        {PLAYBOOK_CARDS.map((card) => (
+        {playbookCards.map((card) => (
           <Card key={card.id} tone="raised" padding="lg" interactive className="h-full">
             <div className="flex h-full flex-col gap-4">
               <div className="flex items-center gap-2">
@@ -66,7 +59,7 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
                   {card.tag}
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--sx-muted-soft)]">
-                  Strategy card
+                  {t('playbook.strategyCard')}
                 </span>
               </div>
 
@@ -85,7 +78,7 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
                 className="flex items-start gap-2 border-l-2 border-[var(--sx-primary)] pl-3 text-[12px] leading-[1.5] text-[var(--sx-primary-bright)]"
               >
                 <span className="mono uppercase tracking-[0.16em] text-[var(--sx-muted)]">
-                  Benefit:
+                  {t('playbook.benefitLabel')}
                 </span>
                 <span>{card.benefit}</span>
               </div>
@@ -107,7 +100,7 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
 
       <div className="hairline pt-5">
         <p className="text-[12px] leading-[1.5] text-[var(--sx-muted)]">
-          Educational simulation only. Actual results may vary.
+          {t('playbook.disclaimer')}
         </p>
       </div>
     </section>

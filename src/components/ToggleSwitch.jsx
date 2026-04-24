@@ -1,12 +1,15 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { useI18n } from '../i18n';
 
 export default function ToggleSwitch({ isOn, onChange }) {
+  const { t } = useI18n();
+
   return (
     <button
       type="button"
       onClick={onChange}
       aria-pressed={isOn}
-      aria-label={isOn ? 'Turn yield off' : 'Turn yield on'}
+      aria-label={isOn ? t('toggle.ariaOn') : t('toggle.ariaOff')}
       className="relative block h-[170px] w-[122px] cursor-pointer overflow-hidden border border-[var(--sx-border)] bg-[var(--sx-surface-2)] px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--sx-bg)]"
       style={{ borderRadius: 8 }}
     >
@@ -31,7 +34,7 @@ export default function ToggleSwitch({ isOn, onChange }) {
             className="inline-block"
             style={{ color: isOn ? 'var(--sx-primary-bright)' : 'var(--sx-muted)' }}
           >
-            {isOn ? 'ON' : 'OFF'}
+            {isOn ? t('toggle.on') : t('toggle.off')}
           </motion.span>
         </AnimatePresence>
       </div>
@@ -85,7 +88,7 @@ export default function ToggleSwitch({ isOn, onChange }) {
             className="inline-block"
             style={{ color: isOn ? '#FAC6C3' : '#6f7d74' }}
           >
-            {isOn ? 'ACTIVE' : 'IDLE'}
+            {isOn ? t('toggle.active') : t('toggle.idle')}
           </motion.span>
         </AnimatePresence>
       </div>

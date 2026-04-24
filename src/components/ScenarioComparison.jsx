@@ -1,4 +1,5 @@
 import { formatCurrencyAdaptive, formatPercentValue } from '../lib/formatters';
+import { useI18n } from '../i18n';
 
 export default function ScenarioComparison({
   initialCapital,
@@ -6,6 +7,7 @@ export default function ScenarioComparison({
   onEstimatedGain,
   onYieldPct,
 }) {
+  const { t } = useI18n();
   const offValueLabel = formatCurrencyAdaptive(initialCapital, { threshold: 100000 });
   const onValueLabel = formatCurrencyAdaptive(onEstimatedValue, { threshold: 100000 });
   const onGainLabel = formatCurrencyAdaptive(onEstimatedGain, { threshold: 100000 });
@@ -13,7 +15,7 @@ export default function ScenarioComparison({
 
   return (
     <div className="mt-7 border-t border-[var(--sx-border)] pt-6">
-      <span className="eyebrow">Scenario Comparison</span>
+      <span className="eyebrow">{t('scenario.eyebrow')}</span>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <article
@@ -22,17 +24,17 @@ export default function ScenarioComparison({
         >
           <div className="flex items-center justify-between">
             <span className="mono text-[10px] uppercase tracking-[0.16em] text-[var(--sx-muted)]">
-              SIP Off
+              {t('scenario.sipOff')}
             </span>
             <span className="mono text-[10px] uppercase tracking-[0.16em] text-[var(--sx-muted-soft)]">
-              Idle
+              {t('scenario.idle')}
             </span>
           </div>
           <p className="mono mt-3 text-[22px] font-semibold tracking-[-0.02em] text-[var(--sx-text)]">
             {offValueLabel}
           </p>
           <p className="mt-1.5 text-[12px] leading-[1.5] text-[var(--sx-muted)]">
-            No projected gain while idle.
+            {t('scenario.noGainIdle')}
           </p>
         </article>
 
@@ -45,10 +47,10 @@ export default function ScenarioComparison({
         >
           <div className="flex items-center justify-between">
             <span className="mono text-[10px] uppercase tracking-[0.16em] text-[var(--sx-primary-bright)]">
-              SIP On
+              {t('scenario.sipOn')}
             </span>
             <span className="mono text-[10px] uppercase tracking-[0.16em] text-[#FAC6C3]">
-              Active
+              {t('scenario.active')}
             </span>
           </div>
           <p className="mono mt-3 text-[22px] font-semibold tracking-[-0.02em] text-[var(--sx-text)]">

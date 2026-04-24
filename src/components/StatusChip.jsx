@@ -1,6 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { useI18n } from '../i18n';
 
 export default function StatusChip({ isOn }) {
+  const { t } = useI18n();
+
   return (
     <div>
       <motion.div
@@ -41,7 +44,7 @@ export default function StatusChip({ isOn }) {
             className="mono text-[10px] font-semibold uppercase tracking-[0.24em]"
             style={{ color: isOn ? '#FAC6C3' : 'var(--sx-muted)' }}
           >
-            {isOn ? 'Active Protocol' : 'Protocol Idle'}
+            {isOn ? t('statusChip.on') : t('statusChip.off')}
           </motion.span>
         </AnimatePresence>
       </motion.div>

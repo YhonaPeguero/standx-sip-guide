@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { formatCurrencyAdaptive, formatPercentValue } from '../lib/formatters';
+import { useI18n } from '../i18n';
 
 function StatCell({ label, value, valueColor }) {
   return (
@@ -17,6 +18,7 @@ function StatCell({ label, value, valueColor }) {
 }
 
 export default function ProtocolStats({ initialCapital, estimatedValue, estimatedGain, yieldPct, isOn }) {
+  const { t } = useI18n();
   const initialLabel = formatCurrencyAdaptive(initialCapital, { threshold: 100000 });
   const estimatedLabel = formatCurrencyAdaptive(estimatedValue, { threshold: 100000 });
   const gainLabel = formatCurrencyAdaptive(estimatedGain, { threshold: 100000 });
@@ -24,15 +26,15 @@ export default function ProtocolStats({ initialCapital, estimatedValue, estimate
 
   return (
     <div className="mt-7 grid grid-cols-2 gap-5 border-t border-[var(--sx-border)] pt-6 lg:grid-cols-4">
-      <StatCell label="Initial Capital" value={initialLabel} valueColor="var(--sx-text)" />
-      <StatCell label="Estimated Value" value={estimatedLabel} valueColor="var(--sx-text)" />
+      <StatCell label={t('protocolStats.initialCapital')} value={initialLabel} valueColor="var(--sx-text)" />
+      <StatCell label={t('protocolStats.estimatedValue')} value={estimatedLabel} valueColor="var(--sx-text)" />
       <StatCell
-        label="Estimated Gain"
+        label={t('protocolStats.estimatedGain')}
         value={isOn ? `+${gainLabel}` : '$0.00'}
         valueColor={isOn ? 'var(--sx-primary-bright)' : '#839188'}
       />
       <StatCell
-        label="Yield %"
+        label={t('protocolStats.yieldPct')}
         value={yieldLabel}
         valueColor={isOn ? 'var(--sx-primary-bright)' : 'var(--sx-text)'}
       />

@@ -1,82 +1,143 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useI18n } from '../i18n';
 
-const NAV_ITEMS = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'simulator', label: 'Simulator' },
-  { id: 'playbook', label: 'Yield Playbook' },
-];
-
-function HeaderIcon({ children, label }) {
-  return (
-    <motion.button
-      type="button"
-      whileHover={{ y: -1, color: 'var(--sx-text)' }}
-      whileTap={{ scale: 0.96 }}
-      transition={{ duration: 0.18 }}
-      className="grid h-9 w-9 place-items-center border border-[var(--sx-border)] bg-[var(--sx-surface)] text-[var(--sx-muted)] outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/60"
-      style={{ borderRadius: 4 }}
-      aria-label={label}
-    >
-      {children}
-    </motion.button>
-  );
-}
+const NAV_IDS = ['overview', 'simulator', 'playbook'];
 
 export default function TopBar({ activeTab, onTabChange }) {
+  const { t, locale, setLocale, localeOptions } = useI18n();
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  const navItems = useMemo(
+    () => [
+      { id: NAV_IDS[0], label: t('topBar.nav.overview') },
+      { id: NAV_IDS[1], label: t('topBar.nav.simulator') },
+      { id: NAV_IDS[2], label: t('topBar.nav.playbook') },
+    ],
+    [t],
+  );
+
+  const activeLocale = localeOptions.find((option) => option.code === locale) ?? localeOptions[0];
+
+  useEffect(() => {
+    if (!isLanguageMenuOpen) {
+      return undefined;
+    }
+
+    const handlePointerDown = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsLanguageMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsLanguageMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [isLanguageMenuOpen]);
+
   return (
     <header className="relative z-20 w-full border-b border-[var(--sx-border)] bg-[rgba(6,11,9,0.85)] backdrop-blur-md">
       <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4 sm:py-5">
           <div className="flex items-center gap-3">
-            <span className="text-[24px] font-semibold tracking-[-0.03em] text-[var(--sx-primary-soft-text)] sm:text-[28px]">
+            <span className="text-[24px] font-semibold tracking-[-0.03em] text-[#00ff2a] sm:text-[28px]">
               StandX
             </span>
             <span
-              className="hidden h-5 items-center border border-[var(--sx-border)] bg-[var(--sx-surface-2)] px-2 text-[10px] font-medium uppercase tracking-[0.2em] text-[var(--sx-muted)] md:inline-flex"
+              className="hidden h-5 items-center border border-[rgba(139,210,178,0.3)] bg-[rgba(0,102,50,0.16)] px-2 text-[10px] font-medium uppercase tracking-[0.2em] text-[var(--sx-primary-soft-text)] md:inline-flex"
               style={{ borderRadius: 3 }}
             >
-              Community
+              {t('topBar.community')}
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <HeaderIcon label="Open workspace switcher">
-              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
-                <path
-                  d="M5 5H19V19H5V5Z"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M9 9H15V15H9V9Z"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </HeaderIcon>
+          <div className="relative" ref={menuRef}>
+            <motion.button
+              type="button"
+              whileHover={{ borderColor: 'var(--sx-border-strong)', y: -1 }}
+              whileTap={{ scale: 0.985 }}
+              transition={{ duration: 0.18 }}
+              onClick={() => setIsLanguageMenuOpen((value) => !value)}
+              aria-haspopup="listbox"
+              aria-expanded={isLanguageMenuOpen}
+              aria-label={t('topBar.language.buttonAria')}
+              className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
+              style={{ borderRadius: 4 }}
+            >
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--sx-muted)]">
+                {t('topBar.language.button')}
+              </span>
+              <span className="mono text-[11px] font-semibold tracking-[0.14em] text-[var(--sx-text)]">
+                {activeLocale.label}
+              </span>
+              <motion.span
+                animate={{ rotate: isLanguageMenuOpen ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+                className="text-[10px] text-[var(--sx-muted)]"
+                aria-hidden="true"
+              >
+                ▾
+              </motion.span>
+            </motion.button>
 
-            <HeaderIcon label="Open settings">
-              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
-                <path
-                  d="M12 8.5A3.5 3.5 0 1 0 12 15.5A3.5 3.5 0 1 0 12 8.5Z"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                />
-                <path
-                  d="M19 12H21M3 12H5M12 3V5M12 19V21M17.2 6.8L18.6 5.4M5.4 18.6L6.8 17.2M17.2 17.2L18.6 18.6M5.4 5.4L6.8 6.8"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </HeaderIcon>
+            <AnimatePresence>
+              {isLanguageMenuOpen ? (
+                <motion.div
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute right-0 top-[calc(100%+8px)] z-30 w-[188px] border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-1.5 shadow-[var(--sx-shadow-lg)]"
+                  style={{ borderRadius: 6 }}
+                >
+                  <ul role="listbox" aria-label={t('topBar.language.menuAria')} className="space-y-1">
+                    {localeOptions.map((option) => {
+                      const active = option.code === locale;
+
+                      return (
+                        <li key={option.code}>
+                          <button
+                            type="button"
+                            role="option"
+                            aria-selected={active}
+                            onClick={() => {
+                              setLocale(option.code);
+                              setIsLanguageMenuOpen(false);
+                            }}
+                            className="flex w-full items-center justify-between px-2.5 py-2 text-left transition-colors duration-150"
+                            style={{
+                              borderRadius: 4,
+                              backgroundColor: active ? 'rgba(0,102,50,0.18)' : 'transparent',
+                            }}
+                          >
+                            <span className="mono text-[11px] font-semibold tracking-[0.14em] text-[var(--sx-text)]">
+                              {option.label}
+                            </span>
+                            <span className="text-[12px] text-[var(--sx-text-muted)]">{option.name}</span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </div>
         </div>
 
         <nav className="no-scrollbar -mb-px flex items-center gap-1 overflow-x-auto md:gap-2">
-          {NAV_ITEMS.map((item) => {
+          {navItems.map((item) => {
             const active = item.id === activeTab;
 
             return (
