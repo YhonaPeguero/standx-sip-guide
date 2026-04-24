@@ -37,7 +37,7 @@ export default function OverviewView({ isOn, onToggle, onOpenSimulator, educatio
             <ToggleSwitch isOn={isOn} onChange={onToggle} />
           </div>
 
-          <p className="mt-6 text-[13px] leading-[1.55] text-[var(--sx-text-muted)]">
+          <p className="mt-6 text-[14px] leading-[1.62] text-[var(--sx-text-muted)]">
             {isOn
               ? t('overview.previewActive')
               : t('overview.previewIdle')}
@@ -45,7 +45,7 @@ export default function OverviewView({ isOn, onToggle, onOpenSimulator, educatio
 
           <div className="mt-auto pt-6">
             <div className="hairline pt-4">
-              <p className="text-[12px] leading-[1.5] text-[var(--sx-muted)]">
+              <p className="text-[13px] leading-[1.58] text-[var(--sx-muted)]">
                 {t('overview.storyHint')}
               </p>
             </div>

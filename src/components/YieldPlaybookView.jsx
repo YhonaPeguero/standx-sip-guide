@@ -53,31 +53,31 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
             <div className="flex h-full flex-col gap-4">
               <div className="flex items-center gap-2">
                 <span
-                  className="mono inline-flex items-center px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--sx-primary-bright)]"
+                  className="mono inline-flex items-center px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--sx-primary-bright)]"
                   style={{ borderRadius: 3, backgroundColor: 'rgba(0,102,50,0.18)' }}
                 >
                   {card.tag}
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--sx-muted-soft)]">
+                <span className="text-[11px] uppercase tracking-[0.14em] text-[var(--sx-muted-soft)]">
                   {t('playbook.strategyCard')}
                 </span>
               </div>
 
-              <div className="space-y-2">
-                <h3 className="text-[19px] font-semibold leading-[1.2] tracking-[-0.015em] text-[var(--sx-text)]">
+              <div className="space-y-2.5">
+                <h3 className="text-[18px] font-semibold leading-[1.24] tracking-[-0.015em] text-[var(--sx-text)] sm:text-[19px]">
                   {card.title}
                 </h3>
-                <p className="text-[14px] leading-[1.4] text-[var(--sx-text-muted)]">
+                <p className="text-[15px] leading-[1.55] text-[var(--sx-text-muted)]">
                   {card.headline}
                 </p>
               </div>
 
-              <p className="text-[13px] leading-[1.55] text-[var(--sx-muted)]">{card.copy}</p>
+              <p className="text-[14px] leading-[1.62] text-[var(--sx-muted)]">{card.copy}</p>
 
               <div
-                className="flex items-start gap-2 border-l-2 border-[var(--sx-primary)] pl-3 text-[12px] leading-[1.5] text-[var(--sx-primary-bright)]"
+                className="flex items-start gap-2 border-l-2 border-[var(--sx-primary)] pl-3 text-[13px] leading-[1.6] text-[var(--sx-primary-bright)]"
               >
-                <span className="mono uppercase tracking-[0.16em] text-[var(--sx-muted)]">
+                <span className="mono uppercase tracking-[0.13em] text-[var(--sx-muted)]">
                   {t('playbook.benefitLabel')}
                 </span>
                 <span>{card.benefit}</span>
@@ -99,7 +99,7 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
       </div>
 
       <div className="hairline pt-5">
-        <p className="text-[12px] leading-[1.5] text-[var(--sx-muted)]">
+        <p className="text-[13px] leading-[1.58] text-[var(--sx-muted)]">
           {t('playbook.disclaimer')}
         </p>
       </div>

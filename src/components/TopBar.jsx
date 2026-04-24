@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n } from '../i18n';
+import StandXBrand from './StandXBrand';
 
 const NAV_IDS = ['overview', 'simulator', 'playbook'];
 
@@ -51,11 +52,9 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
       <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4 sm:py-5">
           <div className="flex items-center gap-3">
-            <span className="text-[24px] font-semibold tracking-[-0.03em] text-[#00ff2a] sm:text-[28px]">
-              StandX
-            </span>
+            <StandXBrand />
             <span
-              className="hidden h-5 items-center border border-[rgba(139,210,178,0.3)] bg-[rgba(0,102,50,0.16)] px-2 text-[10px] font-medium uppercase tracking-[0.2em] text-[var(--sx-primary-soft-text)] md:inline-flex"
+              className="hidden h-5 items-center border border-[rgba(139,210,178,0.3)] bg-[rgba(0,102,50,0.16)] px-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--sx-primary-soft-text)] md:inline-flex"
               style={{ borderRadius: 3 }}
             >
               {t('topBar.community')}
@@ -69,7 +68,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
               whileTap={{ scale: 0.985 }}
               transition={{ duration: 0.18 }}
               onClick={onStartGuide}
-              className="inline-flex h-9 items-center border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
+              className="inline-flex h-9 items-center border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
               style={{ borderRadius: 4 }}
             >
               {t('guide.button')}
@@ -88,16 +87,16 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                 className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
                 style={{ borderRadius: 4 }}
               >
-                <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--sx-muted)]">
+                <span className="mono text-[11px] uppercase tracking-[0.15em] text-[var(--sx-muted)]">
                   {t('topBar.language.button')}
                 </span>
-                <span className="mono text-[11px] font-semibold tracking-[0.14em] text-[var(--sx-text)]">
+                <span className="mono text-[12px] font-semibold tracking-[0.11em] text-[var(--sx-text)]">
                   {activeLocale.label}
                 </span>
                 <motion.span
                   animate={{ rotate: isLanguageMenuOpen ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
-                  className="text-[10px] text-[var(--sx-muted)]"
+                  className="text-[11px] text-[var(--sx-muted)]"
                   aria-hidden="true"
                 >
                   ▾
@@ -111,7 +110,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute right-0 top-[calc(100%+8px)] z-30 w-[188px] border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-1.5 shadow-[var(--sx-shadow-lg)]"
+                    className="absolute right-0 top-[calc(100%+8px)] z-30 w-[210px] border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-1.5 shadow-[var(--sx-shadow-lg)]"
                     style={{ borderRadius: 6 }}
                   >
                     <ul role="listbox" aria-label={t('topBar.language.menuAria')} className="space-y-1">
@@ -134,10 +133,10 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                                 backgroundColor: active ? 'rgba(0,102,50,0.18)' : 'transparent',
                               }}
                             >
-                              <span className="mono text-[11px] font-semibold tracking-[0.14em] text-[var(--sx-text)]">
+                              <span className="mono text-[12px] font-semibold tracking-[0.12em] text-[var(--sx-text)]">
                                 {option.label}
                               </span>
-                              <span className="text-[12px] text-[var(--sx-text-muted)]">{option.name}</span>
+                              <span className="text-[13px] text-[var(--sx-text-muted)]">{option.name}</span>
                             </button>
                           </li>
                         );
@@ -159,7 +158,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                 key={item.id}
                 type="button"
                 onClick={() => onTabChange(item.id)}
-                className="relative shrink-0 px-3 py-3 text-[13px] font-medium tracking-[-0.005em] outline-none transition-colors duration-200 focus-visible:text-[var(--sx-text)] sm:px-4 md:text-[14px]"
+                className="relative shrink-0 px-3 py-3 text-[14px] font-medium leading-[1.2] tracking-[-0.004em] outline-none transition-colors duration-200 focus-visible:text-[var(--sx-text)] sm:px-4 sm:text-[15px]"
                 style={{ color: active ? 'var(--sx-text)' : 'var(--sx-muted)' }}
               >
                 <span className="relative z-10">{item.label}</span>

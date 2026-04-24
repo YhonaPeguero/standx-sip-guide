@@ -81,7 +81,7 @@ export default function Chart({ linePath, areaPath, endY, isOn, markers }) {
         />
       </svg>
 
-      <div className="mono mt-2 flex items-center justify-between text-[10px] uppercase tracking-[0.14em] text-[var(--sx-muted)]">
+      <div className="mono mt-2 flex items-center justify-between text-[11px] uppercase tracking-[0.12em] text-[var(--sx-muted)]">
         {markers.map((marker) => (
           <span key={marker}>{marker}</span>
         ))}

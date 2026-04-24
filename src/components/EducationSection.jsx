@@ -54,17 +54,17 @@ export default function EducationSection({ sectionId }) {
           {flowSteps.map((step, index) => (
             <Card key={step.key} tone="subtle" padding="md" interactive className="h-full">
               <div className="flex items-center justify-between">
-                <span className="mono text-[10px] uppercase tracking-[0.16em] text-[var(--sx-primary-bright)]">
+                <span className="mono text-[11px] uppercase tracking-[0.14em] text-[var(--sx-primary-bright)]">
                   {t('education.stepLabel')} {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="mono text-[10px] tracking-[0.16em] text-[var(--sx-muted-soft)]">
+                <span className="mono text-[11px] tracking-[0.14em] text-[var(--sx-muted-soft)]">
                   {String(index + 1)}/4
                 </span>
               </div>
-              <h4 className="mt-3 text-[15px] font-medium leading-[1.3] tracking-[-0.01em] text-[var(--sx-text)]">
+              <h4 className="mt-3.5 text-[16px] font-medium leading-[1.34] tracking-[-0.01em] text-[var(--sx-text)] sm:text-[17px]">
                 {step.title}
               </h4>
-              <p className="mt-1.5 text-[12px] leading-[1.55] text-[var(--sx-text-muted)]">
+              <p className="mt-2 text-[13px] leading-[1.62] text-[var(--sx-text-muted)] sm:text-[14px]">
                 {step.copy}
               </p>
             </Card>
@@ -85,16 +85,16 @@ export default function EducationSection({ sectionId }) {
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between">
                   <span
-                    className="mono inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--sx-primary-bright)]"
+                    className="mono inline-flex items-center px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--sx-primary-bright)]"
                     style={{ borderRadius: 3, backgroundColor: 'rgba(0,102,50,0.18)' }}
                   >
                     {sip.tag}
                   </span>
                 </div>
-                <h4 className="mt-3 text-[17px] font-semibold leading-[1.25] tracking-[-0.015em] text-[var(--sx-text)]">
+                <h4 className="mt-3.5 text-[18px] font-semibold leading-[1.28] tracking-[-0.015em] text-[var(--sx-text)]">
                   {sip.title}
                 </h4>
-                <p className="mt-2 text-[13px] leading-[1.55] text-[var(--sx-text-muted)]">
+                <p className="mt-2.5 text-[14px] leading-[1.62] text-[var(--sx-text-muted)]">
                   {sip.copy}
                 </p>
 
@@ -110,7 +110,7 @@ export default function EducationSection({ sectionId }) {
       </div>
 
       <div className="hairline pt-5">
-        <p className="text-[12px] leading-[1.5] text-[var(--sx-muted)]">
+        <p className="text-[13px] leading-[1.58] text-[var(--sx-muted)]">
           {t('education.communityNote')}
         </p>
       </div>

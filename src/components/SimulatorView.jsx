@@ -74,6 +74,7 @@ export default function SimulatorView({
               onEstimatedValue={scenario.onEstimatedValue}
               onEstimatedGain={scenario.onEstimatedGain}
               onYieldPct={scenario.onYieldPct}
+              isOn={isOn}
             />
           </article>
         </div>

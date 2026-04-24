@@ -23,7 +23,7 @@ export default function ToggleSwitch({ isOn, onChange }) {
         }}
       />
 
-      <div className="mono text-center text-[10px] uppercase tracking-[0.2em]">
+      <div className="mono text-center text-[11px] uppercase tracking-[0.15em]">
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
             key={isOn ? 'state-on' : 'state-off'}
@@ -77,7 +77,7 @@ export default function ToggleSwitch({ isOn, onChange }) {
         </motion.div>
       </motion.div>
 
-      <div className="mono mt-3 text-center text-[10px] uppercase tracking-[0.2em]">
+      <div className="mono mt-3 text-center text-[11px] uppercase tracking-[0.15em]">
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
             key={isOn ? 'mode-active' : 'mode-idle'}

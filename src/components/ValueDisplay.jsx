@@ -6,7 +6,7 @@ export default function ValueDisplay({ estimatedValueLabel, yieldPctLabel, isOn 
 
   return (
     <div>
-      <p className="mono text-[10px] font-medium uppercase tracking-[0.18em] text-[var(--sx-muted)]">
+      <p className="mono text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--sx-muted)]">
         {t('valueDisplay.label')}
       </p>
 

@@ -41,7 +41,7 @@ export default function StatusChip({ isOn }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -3 }}
             transition={{ duration: 0.22 }}
-            className="mono text-[10px] font-semibold uppercase tracking-[0.24em]"
+            className="mono text-[11px] font-semibold uppercase tracking-[0.18em]"
             style={{ color: isOn ? '#00ff2a' : 'var(--sx-muted)' }}
           >
             {isOn ? t('statusChip.on') : t('statusChip.off')}

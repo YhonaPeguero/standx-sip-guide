@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import BackgroundFX from './components/BackgroundFX';
 import GuideOverlay from './components/GuideOverlay';
 import OverviewView from './components/OverviewView';
@@ -17,6 +17,7 @@ import {
 import { useSipMotion } from './hooks/useSipMotion';
 import { useI18n } from './i18n';
 import { formatCurrencyAdaptive, formatPercentValue } from './lib/formatters';
+import { calculateScenarioSnapshot } from './lib/simulator';
 import { canNarrateLanguage, speakGuideStep } from './lib/speechSynthesis';
 
 const CAPITAL_PATTERN = /^\d*(\.\d{0,2})?$/;
@@ -25,6 +26,7 @@ const MIN_ERROR_KEY = 'minAmount';
 const EDUCATION_SECTION_ID = 'overview-learn-flow';
 const GUIDE_PROMPT_SESSION_KEY = 'standx.guidePromptSeen';
 const GUIDE_SPOTLIGHT_PADDING = 10;
+const TABS = ['overview', 'simulator', 'playbook'];
 
 const GUIDE_STEPS = [
   {
@@ -75,6 +77,22 @@ const normalizeCapitalInput = (value) => {
   return value.toFixed(decimals);
 };
 
+const validateCapitalAmount = (value) => {
+  if (!Number.isFinite(value)) {
+    return { isValid: false, errorKey: MIN_ERROR_KEY };
+  }
+
+  if (value > MAX_CAPITAL) {
+    return { isValid: false, errorKey: MAX_ERROR_KEY };
+  }
+
+  if (value < MIN_CAPITAL) {
+    return { isValid: false, errorKey: MIN_ERROR_KEY };
+  }
+
+  return { isValid: true, amount: value, errorKey: '' };
+};
+
 const buildSpotlightRect = (rect) => {
   if (typeof window === 'undefined' || !rect) {
     return null;
@@ -120,6 +138,7 @@ export default function App() {
   const [isNarratedGuide, setIsNarratedGuide] = useState(false);
   const [isNarrationPaused, setIsNarrationPaused] = useState(false);
   const [showVoiceUnavailableNotice, setShowVoiceUnavailableNotice] = useState(false);
+  const safeActiveTab = TABS.includes(activeTab) ? activeTab : 'overview';
 
   const narrationRequestRef = useRef(0);
   const narrationToggleRequestRef = useRef(0);
@@ -144,9 +163,12 @@ export default function App() {
     [rangeId],
   );
 
+  const safeTarget = Number.isFinite(selectedRange?.target) ? selectedRange.target : BASE_VALUE;
+  const isSimulatorTabActive = safeActiveTab === 'simulator';
+
   const { simulated, linePath, areaPath, endY } = useSipMotion({
-    isOn,
-    target: selectedRange.target,
+    isOn: isSimulatorTabActive ? isOn : false,
+    target: isSimulatorTabActive ? safeTarget : BASE_VALUE,
     capital: capitalAmount,
   });
 
@@ -171,23 +193,14 @@ export default function App() {
     }
 
     const parsedAmount = Number(nextValue);
+    const validation = validateCapitalAmount(parsedAmount);
 
-    if (!Number.isFinite(parsedAmount)) {
-      setCapitalErrorKey(MIN_ERROR_KEY);
+    if (!validation.isValid) {
+      setCapitalErrorKey(validation.errorKey);
       return;
     }
 
-    if (parsedAmount > MAX_CAPITAL) {
-      setCapitalErrorKey(MAX_ERROR_KEY);
-      return;
-    }
-
-    if (parsedAmount < MIN_CAPITAL) {
-      setCapitalErrorKey(MIN_ERROR_KEY);
-      return;
-    }
-
-    setCapitalAmount(parsedAmount);
+    setCapitalAmount(validation.amount);
     setCapitalErrorKey('');
   }, []);
 
@@ -199,24 +212,16 @@ export default function App() {
     }
 
     const parsedAmount = Number(capitalInput);
+    const validation = validateCapitalAmount(parsedAmount);
 
-    if (!Number.isFinite(parsedAmount)) {
-      setCapitalErrorKey(MIN_ERROR_KEY);
+    if (!validation.isValid) {
+      setCapitalInput(normalizeCapitalInput(capitalAmount));
+      setCapitalErrorKey('');
       return;
     }
 
-    if (parsedAmount > MAX_CAPITAL) {
-      setCapitalErrorKey(MAX_ERROR_KEY);
-      return;
-    }
-
-    if (parsedAmount < MIN_CAPITAL) {
-      setCapitalErrorKey(MIN_ERROR_KEY);
-      return;
-    }
-
-    setCapitalAmount(parsedAmount);
-    setCapitalInput(normalizeCapitalInput(parsedAmount));
+    setCapitalAmount(validation.amount);
+    setCapitalInput(normalizeCapitalInput(validation.amount));
     setCapitalErrorKey('');
   }, [capitalAmount, capitalInput]);
 
@@ -258,18 +263,10 @@ export default function App() {
 
   const yieldPctLabel = useMemo(() => formatPercentValue(simulated.yieldPct), [simulated.yieldPct]);
 
-  const scenario = useMemo(() => {
-    const onEstimatedValue = capitalAmount * (selectedRange.target / BASE_VALUE);
-    const onEstimatedGain = Math.max(0, onEstimatedValue - capitalAmount);
-    const onYieldPct = capitalAmount > 0 ? (onEstimatedGain / capitalAmount) * 100 : 0;
-
-    return {
-      initialCapital: capitalAmount,
-      onEstimatedValue,
-      onEstimatedGain,
-      onYieldPct,
-    };
-  }, [capitalAmount, selectedRange.target]);
+  const scenario = useMemo(
+    () => calculateScenarioSnapshot({ capital: capitalAmount, target: safeTarget }),
+    [capitalAmount, safeTarget],
+  );
 
   const handleTabChange = useCallback((tabId) => {
     setActiveTab(tabId);
@@ -553,7 +550,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--sx-bg)] text-[var(--sx-text)]">
       <BackgroundFX isOn={isOn} />
-      <TopBar activeTab={activeTab} onTabChange={handleTabChange} onStartGuide={handleStartGuide} />
+      <TopBar activeTab={safeActiveTab} onTabChange={handleTabChange} onStartGuide={handleStartGuide} />
       {showGuidePrompt || isGuideOpen ? (
         <GuideOverlay
           isOpen={isGuideOpen}
@@ -578,55 +575,52 @@ export default function App() {
       ) : null}
 
       <main className="relative z-10 mx-auto w-full max-w-[1240px] px-4 pb-20 pt-10 sm:px-6 sm:pt-12 lg:px-8 lg:pt-16">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {activeTab === 'overview' ? (
-              <OverviewView
-                isOn={isOn}
-                onToggle={() => setIsOn((value) => !value)}
-                onOpenSimulator={handleOpenSimulator}
-                educationSectionId={EDUCATION_SECTION_ID}
-              />
-            ) : null}
+        <motion.div
+          key={safeActiveTab}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {safeActiveTab === 'overview' ? (
+            <OverviewView
+              isOn={isOn}
+              onToggle={() => setIsOn((value) => !value)}
+              onOpenSimulator={handleOpenSimulator}
+              educationSectionId={EDUCATION_SECTION_ID}
+            />
+          ) : null}
 
-            {activeTab === 'simulator' ? (
-              <SimulatorView
-                rangeId={rangeId}
-                onRangeChange={setRangeId}
-                isOn={isOn}
-                onToggle={() => setIsOn((value) => !value)}
-                linePath={linePath}
-                areaPath={areaPath}
-                endY={endY}
-                markers={chartMarkers}
-                simulated={simulated}
-                estimatedValueLabel={estimatedValueLabel}
-                yieldPctLabel={yieldPctLabel}
-                capitalInput={capitalInput}
-                capitalError={capitalError}
-                onCapitalInputChange={handleCapitalInputChange}
-                onCapitalInputBlur={handleCapitalInputBlur}
-                onPresetSelect={handleCapitalPreset}
-                activeCapital={capitalAmount}
-                onLearnHowItWorks={handleOpenOverviewLearning}
-                scenario={scenario}
-              />
-            ) : null}
+          {safeActiveTab === 'simulator' ? (
+            <SimulatorView
+              rangeId={rangeId}
+              onRangeChange={setRangeId}
+              isOn={isOn}
+              onToggle={() => setIsOn((value) => !value)}
+              linePath={linePath}
+              areaPath={areaPath}
+              endY={endY}
+              markers={chartMarkers}
+              simulated={simulated}
+              estimatedValueLabel={estimatedValueLabel}
+              yieldPctLabel={yieldPctLabel}
+              capitalInput={capitalInput}
+              capitalError={capitalError}
+              onCapitalInputChange={handleCapitalInputChange}
+              onCapitalInputBlur={handleCapitalInputBlur}
+              onPresetSelect={handleCapitalPreset}
+              activeCapital={capitalAmount}
+              onLearnHowItWorks={handleOpenOverviewLearning}
+              scenario={scenario}
+            />
+          ) : null}
 
-            {activeTab === 'playbook' ? (
-              <YieldPlaybookView
-                onTryFlow={handleOpenSimulator}
-                onLearnMore={handleOpenOverviewLearning}
-              />
-            ) : null}
-          </motion.div>
-        </AnimatePresence>
+          {safeActiveTab === 'playbook' ? (
+            <YieldPlaybookView
+              onTryFlow={handleOpenSimulator}
+              onLearnMore={handleOpenOverviewLearning}
+            />
+          ) : null}
+        </motion.div>
 
         <footer className="mt-12 flex flex-col gap-2 border-t border-[var(--sx-border)] pt-4 text-[11px] leading-[1.5] text-[var(--sx-muted)] sm:flex-row sm:items-center sm:justify-between">
           <p>{t('app.footer.disclaimer')}</p>

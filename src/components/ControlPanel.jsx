@@ -21,12 +21,12 @@ export default function ControlPanel({
       className="border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)] lg:p-7"
       style={{ borderRadius: 6 }}
     >
-      <div className="flex flex-col gap-1.5 text-center">
+      <div className="flex flex-col gap-2 text-center">
         <span className="eyebrow">{t('controlPanel.eyebrow')}</span>
         <h2 className="text-[28px] font-semibold tracking-[-0.025em] text-[var(--sx-text)] sm:text-[30px]">
           {t('controlPanel.title')}
         </h2>
-        <p className="text-[13px] leading-[1.5] text-[var(--sx-text-muted)]">
+        <p className="text-[14px] leading-[1.6] text-[var(--sx-text-muted)]">
           {t('controlPanel.description')}
         </p>
       </div>

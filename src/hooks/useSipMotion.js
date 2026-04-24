@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { animate, useMotionValue, useTransform } from 'framer-motion';
 import { BASE_VALUE, POINTS } from '../constants/chart';
 import { buildPoints, toAreaPath, toLinePath } from '../lib/chartPaths';
+import { calculateSimulationSnapshot } from '../lib/simulator';
 
 const ON_EASE = [0.16, 1, 0.3, 1];
 const OFF_EASE = [0.4, 0, 0.75, 0];
@@ -9,20 +10,22 @@ const ON_PROGRESS_FLOOR = 0.14;
 const OFF_PROGRESS_CEILING = 0.86;
 
 export function useSipMotion({ isOn, target, capital }) {
+  const safeTarget = Number.isFinite(target) ? target : BASE_VALUE;
   const onProgress = useMotionValue(0);
-  const chartTarget = useMotionValue(target);
-  const initialCapital = useMotionValue(capital);
-  const projectedCapital = useMotionValue(capital * (target / BASE_VALUE));
+  const chartTarget = useMotionValue(safeTarget);
 
-  const [simulated, setSimulated] = useState({
-    initialCapital: capital,
-    estimatedValue: capital,
-    estimatedGain: 0,
-    yieldPct: 0,
-  });
+  const simulated = useMemo(
+    () => calculateSimulationSnapshot({ capital, target, isOn }),
+    [capital, isOn, target],
+  );
 
   useEffect(() => {
-    const currentProgress = onProgress.get();
+    const currentRawProgress = onProgress.get();
+    const currentProgress = Number.isFinite(currentRawProgress) ? currentRawProgress : 0;
+
+    if (!Number.isFinite(currentRawProgress)) {
+      onProgress.set(0);
+    }
 
     if (isOn && currentProgress < ON_PROGRESS_FLOOR) {
       onProgress.set(ON_PROGRESS_FLOOR);
@@ -41,95 +44,49 @@ export function useSipMotion({ isOn, target, capital }) {
   }, [isOn, onProgress]);
 
   useEffect(() => {
-    const controls = animate(chartTarget, target, {
+    const controls = animate(chartTarget, safeTarget, {
       duration: 0.72,
       ease: ON_EASE,
     });
 
     return () => controls.stop();
-  }, [chartTarget, target]);
+  }, [chartTarget, safeTarget]);
 
-  useEffect(() => {
-    const controls = animate(initialCapital, capital, {
-      duration: 0.35,
-      ease: ON_EASE,
-    });
+  const getSafeProgress = () => {
+    const progress = onProgress.get();
+    return Number.isFinite(progress) ? progress : 0;
+  };
 
-    return () => controls.stop();
-  }, [capital, initialCapital]);
-
-  useEffect(() => {
-    const controls = animate(projectedCapital, capital * (target / BASE_VALUE), {
-      duration: 0.5,
-      ease: ON_EASE,
-    });
-
-    return () => controls.stop();
-  }, [capital, projectedCapital, target]);
-
-  const currentValue = useTransform(
-    () =>
-      initialCapital.get() +
-      (projectedCapital.get() - initialCapital.get()) * onProgress.get(),
-  );
-
-  const estimatedGain = useTransform(() => currentValue.get() - initialCapital.get());
-
-  const yieldPct = useTransform(() => {
-    if (initialCapital.get() <= 0) {
-      return 0;
-    }
-
-    return (estimatedGain.get() / initialCapital.get()) * 100;
-  });
+  const getSafeChartTarget = () => {
+    const currentTarget = chartTarget.get();
+    return Number.isFinite(currentTarget) ? currentTarget : BASE_VALUE;
+  };
 
   const linePath = useTransform(() => {
-    const points = buildPoints(onProgress.get(), chartTarget.get());
+    const points = buildPoints(getSafeProgress(), getSafeChartTarget());
     return toLinePath(points);
   });
 
   const areaPath = useTransform(() => {
-    const points = buildPoints(onProgress.get(), chartTarget.get());
+    const points = buildPoints(getSafeProgress(), getSafeChartTarget());
     return toAreaPath(points);
   });
 
   const endY = useTransform(() => {
-    const points = buildPoints(onProgress.get(), chartTarget.get());
-    return points[POINTS][1];
+    const points = buildPoints(getSafeProgress(), getSafeChartTarget());
+    const point = points[POINTS];
+
+    if (!point || !Number.isFinite(point[1])) {
+      return 0;
+    }
+
+    return point[1];
   });
-
-  useEffect(() => {
-    const update = () => {
-      const initial = initialCapital.get();
-      const estimated = currentValue.get();
-      const gain = Math.max(0, estimated - initial);
-      const pct = initial > 0 ? (gain / initial) * 100 : 0;
-
-      setSimulated({
-        initialCapital: initial,
-        estimatedValue: estimated,
-        estimatedGain: gain,
-        yieldPct: pct,
-      });
-    };
-
-    update();
-
-    const stopCurrent = currentValue.on('change', update);
-    const stopInitial = initialCapital.on('change', update);
-
-    return () => {
-      stopCurrent();
-      stopInitial();
-    };
-  }, [currentValue, initialCapital]);
 
   return {
     simulated,
     linePath,
     areaPath,
     endY,
-    estimatedGain,
-    yieldPct,
   };
 }

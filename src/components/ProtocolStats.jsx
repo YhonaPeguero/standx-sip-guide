@@ -5,7 +5,7 @@ import { useI18n } from '../i18n';
 function StatCell({ label, value, valueColor }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--sx-muted)]">{label}</p>
+      <p className="mono text-[11px] uppercase tracking-[0.14em] text-[var(--sx-muted)]">{label}</p>
       <motion.p
         animate={{ color: valueColor }}
         transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}

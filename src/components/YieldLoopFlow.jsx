@@ -23,7 +23,7 @@ function FlowConnector({ isOn, vertical = false }) {
         <motion.span
           animate={{ opacity: isOn ? 1 : 0.45 }}
           transition={{ duration: 0.3 }}
-          className="absolute -bottom-1 text-[10px] text-[var(--sx-primary-bright)]"
+          className="absolute -bottom-1 text-[11px] text-[var(--sx-primary-bright)]"
         >
           v
         </motion.span>
@@ -59,7 +59,7 @@ function FlowConnector({ isOn, vertical = false }) {
       <motion.span
         animate={{ opacity: isOn ? 1 : 0.5, x: isOn ? 0 : -2 }}
         transition={{ duration: 0.3 }}
-        className="absolute text-[11px] text-[var(--sx-primary-bright)]"
+        className="absolute text-[12px] text-[var(--sx-primary-bright)]"
       >
         →
       </motion.span>
@@ -86,7 +86,7 @@ function FlowNode({ node, index, isOn, guideId }) {
     >
       <div className="flex items-center justify-between">
         <span
-          className="mono inline-flex items-center px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.18em]"
+          className="mono inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em]"
           style={{
             borderRadius: 3,
             color: isOn ? 'var(--sx-primary-bright)' : 'var(--sx-muted)',
@@ -95,15 +95,15 @@ function FlowNode({ node, index, isOn, guideId }) {
         >
           {node.label}
         </span>
-        <span className="mono text-[10px] tracking-[0.16em] text-[var(--sx-muted-soft)]">
+        <span className="mono text-[11px] tracking-[0.13em] text-[var(--sx-muted-soft)]">
           0{index + 1}
         </span>
       </div>
 
-      <h3 className="text-[16px] font-semibold leading-[1.2] tracking-[-0.015em] text-[var(--sx-text)]">
+      <h3 className="text-[17px] font-semibold leading-[1.26] tracking-[-0.015em] text-[var(--sx-text)]">
         {node.title}
       </h3>
-      <p className="text-[13px] leading-[1.55] text-[var(--sx-text-muted)]">{node.copy}</p>
+      <p className="text-[14px] leading-[1.62] text-[var(--sx-text-muted)]">{node.copy}</p>
     </motion.div>
   );
 }
@@ -126,9 +126,9 @@ export default function YieldLoopFlow({ isOn }) {
       <div className="flex items-center justify-between gap-3">
         <span className="eyebrow">{t('yieldLoop.eyebrow')}</span>
         <motion.span
-          animate={{ opacity: isOn ? 1 : 0.45, color: isOn ? '#FAC6C3' : 'var(--sx-muted)' }}
+          animate={{ opacity: isOn ? 1 : 0.45, color: isOn ? '#00ff2a' : 'var(--sx-muted)' }}
           transition={{ duration: 0.3 }}
-          className="mono text-[10px] uppercase tracking-[0.22em]"
+          className="mono text-[11px] uppercase tracking-[0.16em]"
         >
           {isOn ? t('yieldLoop.live') : t('yieldLoop.paused')}
         </motion.span>
@@ -148,7 +148,7 @@ export default function YieldLoopFlow({ isOn }) {
         ))}
       </div>
 
-      <p className="mt-5 text-[12px] leading-[1.5] text-[var(--sx-muted)]">
+      <p className="mt-5 text-[13px] leading-[1.58] text-[var(--sx-muted)]">
         {t('yieldLoop.summary')}
       </p>
     </article>

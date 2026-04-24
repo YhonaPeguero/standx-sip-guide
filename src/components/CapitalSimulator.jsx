@@ -41,7 +41,7 @@ export default function CapitalSimulator({
                 color: active ? 'var(--sx-text)' : 'var(--sx-text-muted)',
               }}
               transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className="mono border px-3 py-2 text-[11px] font-semibold tracking-[0.16em]"
+              className="mono border px-3 py-2 text-[12px] font-semibold tracking-[0.13em]"
               style={{ borderRadius: 4 }}
             >
               {PRESET_LABELS[preset]}
@@ -53,7 +53,7 @@ export default function CapitalSimulator({
       <div className="mt-4">
         <label
           htmlFor="capital-amount"
-          className="mono block text-[10px] uppercase tracking-[0.18em] text-[var(--sx-muted)]"
+          className="mono block text-[11px] uppercase tracking-[0.14em] text-[var(--sx-muted)]"
         >
           {t('capitalSimulator.customAmount')}
         </label>
@@ -81,11 +81,11 @@ export default function CapitalSimulator({
         </div>
 
         {amountError ? (
-          <p id="capital-input-error" className="mt-1.5 text-[11px] text-[var(--sx-accent)]">
+          <p id="capital-input-error" className="mt-1.5 text-[12px] text-[var(--sx-accent)]">
             {amountError}
           </p>
         ) : (
-          <p className="mt-1.5 text-[11px] text-[var(--sx-muted)]">
+          <p className="mt-1.5 text-[12px] text-[var(--sx-muted)]">
             {t('capitalSimulator.rangeHint', {
               min: formatCurrencyWhole(MIN_CAPITAL),
               max: formatCurrencyWhole(MAX_CAPITAL),
@@ -94,7 +94,7 @@ export default function CapitalSimulator({
         )}
       </div>
 
-      <p className="mt-4 text-[11px] leading-[1.5] text-[var(--sx-muted)]">
+      <p className="mt-4 text-[12px] leading-[1.58] text-[var(--sx-muted)]">
         {t('capitalSimulator.note')}
       </p>
     </div>
