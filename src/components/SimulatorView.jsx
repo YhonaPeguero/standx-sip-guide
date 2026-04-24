@@ -31,7 +31,7 @@ export default function SimulatorView({
   scenario,
 }) {
   return (
-    <div className="space-y-10 sm:space-y-12">
+    <div className="space-y-10 sm:space-y-12" data-guide-id="guide-simulator">
       <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
         <div className="flex flex-col gap-5">
           <StatusChip isOn={isOn} />

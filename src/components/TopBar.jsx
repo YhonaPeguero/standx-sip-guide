@@ -4,7 +4,7 @@ import { useI18n } from '../i18n';
 
 const NAV_IDS = ['overview', 'simulator', 'playbook'];
 
-export default function TopBar({ activeTab, onTabChange }) {
+export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
   const { t, locale, setLocale, localeOptions } = useI18n();
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -62,77 +62,91 @@ export default function TopBar({ activeTab, onTabChange }) {
             </span>
           </div>
 
-          <div className="relative" ref={menuRef}>
+          <div className="flex items-center gap-2">
             <motion.button
               type="button"
               whileHover={{ borderColor: 'var(--sx-border-strong)', y: -1 }}
               whileTap={{ scale: 0.985 }}
               transition={{ duration: 0.18 }}
-              onClick={() => setIsLanguageMenuOpen((value) => !value)}
-              aria-haspopup="listbox"
-              aria-expanded={isLanguageMenuOpen}
-              aria-label={t('topBar.language.buttonAria')}
-              className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
+              onClick={onStartGuide}
+              className="inline-flex h-9 items-center border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
               style={{ borderRadius: 4 }}
             >
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--sx-muted)]">
-                {t('topBar.language.button')}
-              </span>
-              <span className="mono text-[11px] font-semibold tracking-[0.14em] text-[var(--sx-text)]">
-                {activeLocale.label}
-              </span>
-              <motion.span
-                animate={{ rotate: isLanguageMenuOpen ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="text-[10px] text-[var(--sx-muted)]"
-                aria-hidden="true"
-              >
-                ▾
-              </motion.span>
+              {t('guide.button')}
             </motion.button>
 
-            <AnimatePresence>
-              {isLanguageMenuOpen ? (
-                <motion.div
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute right-0 top-[calc(100%+8px)] z-30 w-[188px] border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-1.5 shadow-[var(--sx-shadow-lg)]"
-                  style={{ borderRadius: 6 }}
+            <div className="relative" ref={menuRef}>
+              <motion.button
+                type="button"
+                whileHover={{ borderColor: 'var(--sx-border-strong)', y: -1 }}
+                whileTap={{ scale: 0.985 }}
+                transition={{ duration: 0.18 }}
+                onClick={() => setIsLanguageMenuOpen((value) => !value)}
+                aria-haspopup="listbox"
+                aria-expanded={isLanguageMenuOpen}
+                aria-label={t('topBar.language.buttonAria')}
+                className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
+                style={{ borderRadius: 4 }}
+              >
+                <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--sx-muted)]">
+                  {t('topBar.language.button')}
+                </span>
+                <span className="mono text-[11px] font-semibold tracking-[0.14em] text-[var(--sx-text)]">
+                  {activeLocale.label}
+                </span>
+                <motion.span
+                  animate={{ rotate: isLanguageMenuOpen ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-[10px] text-[var(--sx-muted)]"
+                  aria-hidden="true"
                 >
-                  <ul role="listbox" aria-label={t('topBar.language.menuAria')} className="space-y-1">
-                    {localeOptions.map((option) => {
-                      const active = option.code === locale;
+                  ▾
+                </motion.span>
+              </motion.button>
 
-                      return (
-                        <li key={option.code}>
-                          <button
-                            type="button"
-                            role="option"
-                            aria-selected={active}
-                            onClick={() => {
-                              setLocale(option.code);
-                              setIsLanguageMenuOpen(false);
-                            }}
-                            className="flex w-full items-center justify-between px-2.5 py-2 text-left transition-colors duration-150"
-                            style={{
-                              borderRadius: 4,
-                              backgroundColor: active ? 'rgba(0,102,50,0.18)' : 'transparent',
-                            }}
-                          >
-                            <span className="mono text-[11px] font-semibold tracking-[0.14em] text-[var(--sx-text)]">
-                              {option.label}
-                            </span>
-                            <span className="text-[12px] text-[var(--sx-text-muted)]">{option.name}</span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+              <AnimatePresence>
+                {isLanguageMenuOpen ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute right-0 top-[calc(100%+8px)] z-30 w-[188px] border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-1.5 shadow-[var(--sx-shadow-lg)]"
+                    style={{ borderRadius: 6 }}
+                  >
+                    <ul role="listbox" aria-label={t('topBar.language.menuAria')} className="space-y-1">
+                      {localeOptions.map((option) => {
+                        const active = option.code === locale;
+
+                        return (
+                          <li key={option.code}>
+                            <button
+                              type="button"
+                              role="option"
+                              aria-selected={active}
+                              onClick={() => {
+                                setLocale(option.code);
+                                setIsLanguageMenuOpen(false);
+                              }}
+                              className="flex w-full items-center justify-between px-2.5 py-2 text-left transition-colors duration-150"
+                              style={{
+                                borderRadius: 4,
+                                backgroundColor: active ? 'rgba(0,102,50,0.18)' : 'transparent',
+                              }}
+                            >
+                              <span className="mono text-[11px] font-semibold tracking-[0.14em] text-[var(--sx-text)]">
+                                {option.label}
+                              </span>
+                              <span className="text-[12px] text-[var(--sx-text-muted)]">{option.name}</span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
 
@@ -152,7 +166,7 @@ export default function TopBar({ activeTab, onTabChange }) {
                 {active ? (
                   <motion.span
                     layoutId="topbar-indicator"
-                    className="absolute inset-x-2 bottom-0 h-[2px] bg-[var(--sx-accent)]"
+                    className="absolute inset-x-2 bottom-0 h-[2px] bg-[var(--sx-primary-bright)]"
                     transition={{ type: 'spring', stiffness: 480, damping: 36 }}
                   />
                 ) : null}

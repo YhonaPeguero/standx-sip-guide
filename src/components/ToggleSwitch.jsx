@@ -86,7 +86,7 @@ export default function ToggleSwitch({ isOn, onChange }) {
             exit={{ opacity: 0, y: -3 }}
             transition={{ duration: 0.18 }}
             className="inline-block"
-            style={{ color: isOn ? '#FAC6C3' : '#6f7d74' }}
+            style={{ color: isOn ? '#00ff2a' : '#6f7d74' }}
           >
             {isOn ? t('toggle.active') : t('toggle.idle')}
           </motion.span>

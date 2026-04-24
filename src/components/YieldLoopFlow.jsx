@@ -67,7 +67,7 @@ function FlowConnector({ isOn, vertical = false }) {
   );
 }
 
-function FlowNode({ node, index, isOn }) {
+function FlowNode({ node, index, isOn, guideId }) {
   return (
     <motion.div
       initial={false}
@@ -81,6 +81,7 @@ function FlowNode({ node, index, isOn }) {
       whileHover={{ y: -2, borderColor: 'rgba(0, 102, 50, 0.7)' }}
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       className="relative flex h-full flex-col gap-3 border p-5"
+      data-guide-id={guideId}
       style={{ borderRadius: 6 }}
     >
       <div className="flex items-center justify-between">
@@ -136,7 +137,7 @@ export default function YieldLoopFlow({ isOn }) {
       <div className="mt-5 grid gap-2 md:grid-cols-[1fr_44px_1fr_44px_1fr] md:items-stretch">
         {flowNodes.map((node, index) => (
           <div key={node.id} className="contents">
-            <FlowNode node={node} index={index} isOn={isOn} />
+            <FlowNode node={node} index={index} isOn={isOn} guideId={`guide-${node.id}`} />
             {index < flowNodes.length - 1 ? (
               <>
                 <FlowConnector isOn={isOn} />

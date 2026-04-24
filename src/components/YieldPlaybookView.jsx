@@ -40,7 +40,7 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
   }));
 
   return (
-    <section className="space-y-12">
+    <section className="space-y-12" data-guide-id="guide-playbook">
       <SectionHeader
         eyebrow={t('playbook.eyebrow')}
         title={t('playbook.title')}

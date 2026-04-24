@@ -12,6 +12,44 @@ const ko = {
       menuAria: '언어 옵션',
     },
   },
+  guide: {
+    button: '가이드 모드',
+    prompt: 'StandX SIPs가 처음인가요? 60초 가이드를 시작해 보세요.',
+    start: '가이드 시작',
+    stepLabel: '단계',
+    back: '이전',
+    next: '다음',
+    skip: '건너뛰기',
+    finish: '완료',
+    narrated: '음성 가이드',
+    pause: '일시정지',
+    resume: '계속',
+    mute: '음소거',
+    voiceUnavailable:
+      '브라우저에서 이 언어의 음성을 사용할 수 없습니다. 텍스트 가이드는 계속 이용할 수 있습니다.',
+    steps: {
+      dusd: {
+        title: 'DUSD',
+        text: 'DUSD는 보유만 해도 자동으로 수익이 발생하며, 스테이킹이 필요하지 않습니다.',
+      },
+      sip2: {
+        title: 'SIP #2 포지션 수익',
+        text: '조건을 충족한 오픈 포지션은 활성 상태를 유지하는 동안 계속 수익을 낼 수 있습니다.',
+      },
+      sip3: {
+        title: 'SIP #3 DUSD 네이티브 수익 확장',
+        text: 'StandX의 거래 활동은 시간이 지날수록 DUSD 수익을 강화하는 데 도움을 줄 수 있습니다.',
+      },
+      simulator: {
+        title: '시뮬레이터',
+        text: '자본 금액과 기간을 바꿔가며 수익 레이어가 어떻게 동작할지 미리 확인해 보세요.',
+      },
+      playbook: {
+        title: '수익 플레이북',
+        text: 'StandX SIP를 이해하고 활용하기 위한 커뮤니티 기반의 간단한 흐름을 살펴보세요.',
+      },
+    },
+  },
   app: {
     errors: {
       minAmount: '최소 금액: $100',

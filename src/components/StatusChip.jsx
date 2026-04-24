@@ -17,7 +17,7 @@ export default function StatusChip({ isOn }) {
       >
         <div className="relative h-[8px] w-[8px]">
           <motion.div
-            animate={{ backgroundColor: isOn ? '#FAC6C3' : '#6f7d74' }}
+            animate={{ backgroundColor: isOn ? '#00ff2a' : '#6f7d74' }}
             className="absolute inset-0 rounded-full"
           />
           <AnimatePresence>
@@ -28,7 +28,7 @@ export default function StatusChip({ isOn }) {
                 animate={{ scale: 2.8, opacity: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.6, repeat: Infinity, ease: 'easeOut' }}
-                className="absolute inset-0 rounded-full bg-[#FAC6C3]"
+                className="absolute inset-0 rounded-full bg-[#00ff2a]"
               />
             ) : null}
           </AnimatePresence>
@@ -42,7 +42,7 @@ export default function StatusChip({ isOn }) {
             exit={{ opacity: 0, y: -3 }}
             transition={{ duration: 0.22 }}
             className="mono text-[10px] font-semibold uppercase tracking-[0.24em]"
-            style={{ color: isOn ? '#FAC6C3' : 'var(--sx-muted)' }}
+            style={{ color: isOn ? '#00ff2a' : 'var(--sx-muted)' }}
           >
             {isOn ? t('statusChip.on') : t('statusChip.off')}
           </motion.span>

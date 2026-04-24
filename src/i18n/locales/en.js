@@ -12,6 +12,44 @@ const en = {
       menuAria: 'Language options',
     },
   },
+  guide: {
+    button: 'Guide Mode',
+    prompt: 'New to StandX SIPs? Take the 60-second guide.',
+    start: 'Start Guide',
+    stepLabel: 'Step',
+    back: 'Back',
+    next: 'Next',
+    skip: 'Skip',
+    finish: 'Finish',
+    narrated: 'Narrated guide',
+    pause: 'Pause',
+    resume: 'Resume',
+    mute: 'Mute',
+    voiceUnavailable:
+      'Voice not available for this language on your browser. Text guide is still available.',
+    steps: {
+      dusd: {
+        title: 'DUSD',
+        text: 'DUSD can earn automatically while you hold it — no staking required.',
+      },
+      sip2: {
+        title: 'SIP #2 Position Yield',
+        text: 'Eligible open positions can keep earning while they stay active.',
+      },
+      sip3: {
+        title: 'SIP #3 DUSD Yield Expansion',
+        text: 'StandX trading activity can help strengthen DUSD yield over time.',
+      },
+      simulator: {
+        title: 'Simulator',
+        text: 'Try different capital amounts and timeframes to preview how the yield layers may behave.',
+      },
+      playbook: {
+        title: 'Yield Playbook',
+        text: 'Explore simple community flows for understanding and using StandX SIPs.',
+      },
+    },
+  },
   app: {
     errors: {
       minAmount: 'Min amount: $100',
