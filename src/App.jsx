@@ -625,7 +625,7 @@ export default function App() {
         <footer className="mt-12 flex flex-col gap-2 border-t border-[var(--sx-border)] pt-4 text-[11px] leading-[1.5] text-[var(--sx-muted)] sm:flex-row sm:items-center sm:justify-between">
           <p>{t('app.footer.disclaimer')}</p>
           <a
-            href="https://x.com/RyuuDefi"
+            href="https://x.com/thisnotmeeme"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex w-fit items-center text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
