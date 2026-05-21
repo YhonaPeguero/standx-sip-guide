@@ -10,7 +10,7 @@ const RESOURCE_LINKS = [
 
 const COMMUNITY_LINKS = [
   { key: 'author', href: 'https://x.com/thisnotmeeme' },
-  { key: 'twitter', href: 'https://x.com/StandX_io' },
+  { key: 'twitter', href: 'https://x.com/StandX_Official' },
 ];
 
 function IconX() {
