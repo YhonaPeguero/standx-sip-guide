@@ -5,7 +5,7 @@ const VARIANTS = {
     base: 'bg-[var(--sx-primary)] text-white border border-[rgba(255,255,255,0.06)]',
     hover: {
       backgroundColor: 'var(--sx-primary-hover)',
-      boxShadow: '0 10px 28px rgba(0, 102, 50, 0.42)',
+      boxShadow: '0 12px 32px rgba(0, 102, 50, 0.45)',
       y: -1,
     },
     pressed: { backgroundColor: 'var(--sx-primary-pressed)', y: 0, scale: 0.985 },
@@ -34,10 +34,16 @@ const VARIANTS = {
     },
     pressed: { y: 0, scale: 0.985 },
   },
+  link: {
+    base: 'bg-transparent text-[var(--sx-text-muted)] border border-transparent px-0',
+    hover: { color: 'var(--sx-text)' },
+    pressed: { scale: 0.99 },
+  },
 };
 
 const SIZES = {
-  sm: 'h-8 px-3 text-[12px]',
+  xs: 'h-7 px-2.5 text-[11px] tracking-[0.04em]',
+  sm: 'h-9 px-3 text-[12px]',
   md: 'h-10 px-4 text-[13px]',
   lg: 'h-12 px-6 text-[14px]',
 };

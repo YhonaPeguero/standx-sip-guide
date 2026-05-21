@@ -4,6 +4,7 @@ const ptBR = {
       overview: 'Visão Geral',
       simulator: 'Simulador',
       playbook: 'Playbook de Yield',
+      ariaLabel: 'Seções principais',
     },
     community: 'Comunidade',
     language: {
@@ -51,6 +52,7 @@ const ptBR = {
     },
   },
   app: {
+    skipToContent: 'Pular para o conteúdo principal',
     errors: {
       minAmount: 'Valor mínimo: $100',
       maxAmount: 'Valor máximo: $1,000,000',
@@ -59,6 +61,23 @@ const ptBR = {
     footer: {
       disclaimer: 'Simulação educacional. Os resultados reais podem variar.',
       createdBy: 'Criado por: Thisnotmeme,',
+    },
+  },
+  hero: {
+    tag: 'Feito pela comunidade',
+    title: {
+      line1: 'Entenda os SIPs da StandX,',
+      line2: 'em tempo real',
+    },
+    subtitle:
+      'Um explicador interativo e multilíngue. Simule capital, visualize o loop de yield e entenda como DUSD, Position Yield e SIP #3 funcionam juntos — sem sair da página.',
+    primaryCta: 'Abrir simulador',
+    secondaryCta: 'Conhecer a mecânica',
+    features: {
+      dusd: 'Yield base do DUSD',
+      sip2: 'Yield de posição (SIP #2)',
+      sip3: 'Expansão DUSD (SIP #3)',
+      multilingual: 'Cinco idiomas suportados',
     },
   },
   headline: {
@@ -79,6 +98,11 @@ const ptBR = {
       'Quando ativo, o loop simula como o capital pode continuar circulando entre camadas de yield.',
     previewIdle: 'Ative o SIP para visualizar como o loop de yield pode funcionar ao longo do tempo.',
     storyHint: 'Toda a história acontece em três etapas conectadas mostradas à direita.',
+  },
+  simulator: {
+    tag: 'Simulador de Yield',
+    rangeHint:
+      'Simulação educacional. Ajuste capital e período para visualizar o comportamento.',
   },
   toggle: {
     ariaOn: 'Desativar rendimento',
@@ -114,6 +138,7 @@ const ptBR = {
   },
   education: {
     mechanics: {
+      tag: 'Mecânica',
       eyebrow: 'Entenda a mecânica',
       title: 'Um caminho guiado em quatro etapas',
       description:
@@ -139,6 +164,7 @@ const ptBR = {
       },
     },
     sipOverview: {
+      tag: 'Visão Geral SIP',
       eyebrow: 'Visão Geral SIP',
       title: 'Três SIPs trabalhando juntos',
       description:
@@ -159,15 +185,17 @@ const ptBR = {
       },
     },
     readMore: 'Ler mais',
-    communityNote: 'Construído pela comunidade para ajudar usuários a entender os SIPs da StandX mais rápido.',
+    communityNote:
+      'Construído pela comunidade para ajudar usuários a entender os SIPs da StandX mais rápido.',
   },
   playbook: {
+    tag: 'Playbook da Comunidade',
     eyebrow: 'Playbook de Yield da Comunidade',
     title: 'Caminhos práticos para aprender rápido o comportamento de DUSD e SIP',
     description:
       'Cards curtos e objetivos, baseados em como a comunidade realmente pensa cada fluxo.',
     strategyCard: 'Card de estratégia',
-    benefitLabel: 'Benefício:',
+    benefitLabel: 'Benefício',
     disclaimer: 'Simulação educacional. Os resultados reais podem variar.',
     actions: {
       try: 'Testar este fluxo',
@@ -235,6 +263,28 @@ const ptBR = {
     idle: 'Inativo',
     active: 'Ativo',
     noGainIdle: 'Sem ganho projetado enquanto estiver inativo.',
+  },
+  footer: {
+    brand: 'StandX SIP Guide',
+    tagline:
+      'Um explicador feito pela comunidade para o sistema SIP da StandX. Sem vínculo com a equipe StandX.',
+    disclaimer:
+      'Apenas simulação educacional. Os números são ilustrativos — os resultados reais podem variar.',
+    resourcesTitle: 'Recursos',
+    resources: {
+      docs: 'Docs da StandX',
+      website: 'StandX.com',
+      sip1: 'SIP #1 — Block Trades',
+      sip2: 'SIP #2 — Position Yield',
+      sip3: 'SIP #3 — DUSD Native Yield',
+    },
+    communityTitle: 'Comunidade',
+    community: {
+      author: 'Criado por Thisnotmeme',
+      twitter: 'StandX no X',
+    },
+    copyright: '© 2026 Guia da comunidade',
+    educational: 'Apenas para uso educacional.',
   },
 };
 

@@ -4,6 +4,7 @@ const es = {
       overview: 'Resumen',
       simulator: 'Simulador',
       playbook: 'Playbook de Yield',
+      ariaLabel: 'Secciones principales',
     },
     community: 'Comunidad',
     language: {
@@ -51,6 +52,7 @@ const es = {
     },
   },
   app: {
+    skipToContent: 'Ir al contenido principal',
     errors: {
       minAmount: 'Monto mínimo: $100',
       maxAmount: 'Monto máximo: $1,000,000',
@@ -59,6 +61,23 @@ const es = {
     footer: {
       disclaimer: 'Simulación educativa. Los resultados reales pueden variar.',
       createdBy: 'Creado por: Thisnotmeme,',
+    },
+  },
+  hero: {
+    tag: 'Hecho por la comunidad',
+    title: {
+      line1: 'Entiende los SIP de StandX,',
+      line2: 'en tiempo real',
+    },
+    subtitle:
+      'Un explicador interactivo y multilingüe. Simula capital, visualiza el bucle de rendimiento y descubre cómo DUSD, Position Yield y SIP #3 funcionan juntos — sin salir de la página.',
+    primaryCta: 'Abrir simulador',
+    secondaryCta: 'Aprender la mecánica',
+    features: {
+      dusd: 'Yield base de DUSD',
+      sip2: 'Yield de posición (SIP #2)',
+      sip3: 'Expansión DUSD (SIP #3)',
+      multilingual: 'Cinco idiomas soportados',
     },
   },
   headline: {
@@ -79,6 +98,11 @@ const es = {
       'Cuando está activo, el bucle simula cómo el capital puede seguir moviéndose entre capas de rendimiento.',
     previewIdle: 'Activa SIP para ver cómo puede funcionar el bucle de rendimiento con el tiempo.',
     storyHint: 'Toda la lógica se muestra en tres pasos conectados a la derecha.',
+  },
+  simulator: {
+    tag: 'Simulador de Yield',
+    rangeHint:
+      'Simulación educativa. Ajusta capital y periodo para previsualizar el comportamiento.',
   },
   toggle: {
     ariaOn: 'Desactivar rendimiento',
@@ -114,6 +138,7 @@ const es = {
   },
   education: {
     mechanics: {
+      tag: 'Mecánica',
       eyebrow: 'Aprende la mecánica',
       title: 'Un recorrido guiado en cuatro pasos',
       description:
@@ -139,9 +164,11 @@ const es = {
       },
     },
     sipOverview: {
+      tag: 'Resumen SIP',
       eyebrow: 'Resumen SIP',
       title: 'Tres SIPs trabajando juntos',
-      description: 'Cada SIP cumple un rol específico. Juntos definen cómo se comporta el bucle de StandX.',
+      description:
+        'Cada SIP cumple un rol específico. Juntos definen cómo se comporta el bucle de StandX.',
     },
     sipCards: {
       sip1: {
@@ -158,15 +185,17 @@ const es = {
       },
     },
     readMore: 'Leer más',
-    communityNote: 'Construido por la comunidad para ayudar a entender los SIPs de StandX más rápido.',
+    communityNote:
+      'Construido por la comunidad para ayudar a entender los SIPs de StandX más rápido.',
   },
   playbook: {
+    tag: 'Playbook Comunitario',
     eyebrow: 'Playbook de Yield Comunitario',
     title: 'Rutas prácticas para entender rápido DUSD y el comportamiento SIP',
     description:
       'Tarjetas breves y con enfoque, basadas en cómo la comunidad realmente piensa cada flujo.',
     strategyCard: 'Tarjeta de estrategia',
-    benefitLabel: 'Beneficio:',
+    benefitLabel: 'Beneficio',
     disclaimer: 'Simulación educativa. Los resultados reales pueden variar.',
     actions: {
       try: 'Probar este flujo',
@@ -234,6 +263,28 @@ const es = {
     idle: 'Inactivo',
     active: 'Activo',
     noGainIdle: 'Sin ganancia proyectada mientras está inactivo.',
+  },
+  footer: {
+    brand: 'StandX SIP Guide',
+    tagline:
+      'Un explicador construido por la comunidad para el sistema SIP de StandX. Sin afiliación con el equipo de StandX.',
+    disclaimer:
+      'Solo simulación educativa. Los números son ilustrativos — los resultados reales pueden variar.',
+    resourcesTitle: 'Recursos',
+    resources: {
+      docs: 'Docs de StandX',
+      website: 'StandX.com',
+      sip1: 'SIP #1 — Block Trades',
+      sip2: 'SIP #2 — Position Yield',
+      sip3: 'SIP #3 — DUSD Native Yield',
+    },
+    communityTitle: 'Comunidad',
+    community: {
+      author: 'Creado por Thisnotmeme',
+      twitter: 'StandX en X',
+    },
+    copyright: '© 2026 Guía de la comunidad',
+    educational: 'Solo para uso educativo.',
   },
 };
 

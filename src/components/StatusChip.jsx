@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../i18n';
 
-export default function StatusChip({ isOn }) {
+export default function StatusChip({ isOn, compact = false }) {
   const { t } = useI18n();
 
   return (
@@ -12,7 +12,9 @@ export default function StatusChip({ isOn }) {
           borderColor: isOn ? 'rgba(0, 102, 50, 0.7)' : 'var(--sx-border-strong)',
         }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="inline-flex items-center gap-2.5 border px-3 py-1.5"
+        className={`inline-flex items-center gap-2 border ${
+          compact ? 'px-2 py-1' : 'px-3 py-1.5 gap-2.5'
+        }`}
         style={{ borderRadius: 4 }}
       >
         <div className="relative h-[8px] w-[8px]">
@@ -41,7 +43,9 @@ export default function StatusChip({ isOn }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -3 }}
             transition={{ duration: 0.22 }}
-            className="mono text-[11px] font-semibold uppercase tracking-[0.18em]"
+            className={`mono font-semibold uppercase tracking-[0.18em] ${
+              compact ? 'text-[10px]' : 'text-[11px]'
+            }`}
             style={{ color: isOn ? '#00ff2a' : 'var(--sx-muted)' }}
           >
             {isOn ? t('statusChip.on') : t('statusChip.off')}
