@@ -4,6 +4,7 @@ const ko = {
       overview: '개요',
       simulator: '시뮬레이터',
       playbook: '수익 플레이북',
+      ariaLabel: '주요 섹션',
     },
     community: '커뮤니티',
     language: {
@@ -51,6 +52,7 @@ const ko = {
     },
   },
   app: {
+    skipToContent: '본문 바로 가기',
     errors: {
       minAmount: '최소 금액: $100',
       maxAmount: '최대 금액: $1,000,000',
@@ -59,6 +61,23 @@ const ko = {
     footer: {
       disclaimer: '교육용 시뮬레이션입니다. 실제 결과는 달라질 수 있습니다.',
       createdBy: '제작: Thisnotmeme,',
+    },
+  },
+  hero: {
+    tag: '커뮤니티 제작',
+    title: {
+      line1: 'StandX SIP,',
+      line2: '실시간으로 이해',
+    },
+    subtitle:
+      '인터랙티브한 다국어 설명서입니다. 자본을 시뮬레이션하고 수익 루프를 시각화하며, DUSD, Position Yield, SIP #3이 어떻게 함께 작동하는지 페이지 안에서 배워보세요.',
+    primaryCta: '시뮬레이터 열기',
+    secondaryCta: '작동 원리 배우기',
+    features: {
+      dusd: 'DUSD 기본 수익',
+      sip2: '포지션 수익 (SIP #2)',
+      sip3: 'DUSD 확장 (SIP #3)',
+      multilingual: '5개 언어 지원',
     },
   },
   headline: {
@@ -78,6 +97,10 @@ const ko = {
     previewActive: '활성 상태에서는 자본이 수익 레이어 사이를 계속 순환하는 모습을 시뮬레이션합니다.',
     previewIdle: '시간에 따른 수익 루프를 보려면 SIP를 켜세요.',
     storyHint: '전체 흐름은 오른쪽의 3단계 연결 구조로 표시됩니다.',
+  },
+  simulator: {
+    tag: '수익 시뮬레이터',
+    rangeHint: '교육용 시뮬레이션입니다. 자본과 기간을 조정해 동작을 미리 보세요.',
   },
   toggle: {
     ariaOn: '수익 끄기',
@@ -112,6 +135,7 @@ const ko = {
   },
   education: {
     mechanics: {
+      tag: '메커니즘',
       eyebrow: '작동 원리 학습',
       title: '4단계 가이드 경로',
       description: '1분 이내에 SIP가 실제로 어떻게 작동하는지 이해할 수 있는 간단한 루프입니다.',
@@ -136,6 +160,7 @@ const ko = {
       },
     },
     sipOverview: {
+      tag: 'SIP 개요',
       eyebrow: 'SIP 개요',
       title: '함께 작동하는 3개의 SIP',
       description: '각 SIP는 역할이 다르며, 함께 StandX 수익 루프의 동작을 형성합니다.',
@@ -158,11 +183,12 @@ const ko = {
     communityNote: '사용자가 StandX SIP를 더 빠르게 이해할 수 있도록 커뮤니티가 만들었습니다.',
   },
   playbook: {
+    tag: '커뮤니티 플레이북',
     eyebrow: '커뮤니티 수익 플레이북',
     title: 'DUSD와 SIP 동작을 빠르게 익히는 실전 경로',
     description: '커뮤니티가 실제로 생각하는 흐름을 바탕으로 만든 짧고 명확한 카드입니다.',
     strategyCard: '전략 카드',
-    benefitLabel: '효과:',
+    benefitLabel: '효과',
     disclaimer: '교육용 시뮬레이션입니다. 실제 결과는 달라질 수 있습니다.',
     actions: {
       try: '이 흐름 시도하기',
@@ -230,6 +256,28 @@ const ko = {
     idle: '유휴',
     active: '활성',
     noGainIdle: '유휴 상태에서는 예상 이익이 없습니다.',
+  },
+  footer: {
+    brand: 'StandX SIP 가이드',
+    tagline:
+      'StandX의 SIP 시스템을 위한 커뮤니티 기반 설명서입니다. StandX 팀과 공식적인 연관은 없습니다.',
+    disclaimer:
+      '교육 목적의 시뮬레이션입니다. 표시되는 수치는 예시이며, 실제 결과는 다를 수 있습니다.',
+    resourcesTitle: '리소스',
+    resources: {
+      docs: 'StandX 문서',
+      website: 'StandX.com',
+      sip1: 'SIP #1 — Block Trades',
+      sip2: 'SIP #2 — Position Yield',
+      sip3: 'SIP #3 — DUSD Native Yield',
+    },
+    communityTitle: '커뮤니티',
+    community: {
+      author: '제작: Thisnotmeme',
+      twitter: 'X의 StandX',
+    },
+    copyright: '© 2026 커뮤니티 가이드',
+    educational: '교육 용도로만 사용하세요.',
   },
 };
 

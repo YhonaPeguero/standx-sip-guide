@@ -8,6 +8,7 @@ const NAV_IDS = ['overview', 'simulator', 'playbook'];
 export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
   const { t, locale, setLocale, localeOptions } = useI18n();
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef(null);
 
   const navItems = useMemo(
@@ -20,6 +21,15 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
   );
 
   const activeLocale = localeOptions.find((option) => option.code === locale) ?? localeOptions[0];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 8);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!isLanguageMenuOpen) {
@@ -48,9 +58,17 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
   }, [isLanguageMenuOpen]);
 
   return (
-    <header className="relative z-20 w-full border-b border-[var(--sx-border)] bg-[rgba(6,11,9,0.85)] backdrop-blur-md">
+    <header
+      className="sticky top-0 z-30 w-full transition-colors duration-300"
+      style={{
+        backgroundColor: isScrolled ? 'rgba(4, 8, 10, 0.82)' : 'rgba(4, 8, 10, 0.55)',
+        backdropFilter: 'blur(14px) saturate(140%)',
+        WebkitBackdropFilter: 'blur(14px) saturate(140%)',
+        borderBottom: `1px solid ${isScrolled ? 'var(--sx-border)' : 'transparent'}`,
+      }}
+    >
       <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-4 sm:py-5">
+        <div className="flex items-center justify-between py-3.5 sm:py-4">
           <div className="flex items-center gap-3">
             <StandXBrand />
             <span
@@ -68,10 +86,23 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
               whileTap={{ scale: 0.985 }}
               transition={{ duration: 0.18 }}
               onClick={onStartGuide}
-              className="inline-flex h-9 items-center border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
+              className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
               style={{ borderRadius: 4 }}
             >
-              {t('guide.button')}
+              <svg
+                viewBox="0 0 16 16"
+                className="h-3.5 w-3.5"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M8 1.5L9.85 5.6L14.25 6.25L11.1 9.4L11.85 13.75L8 11.7L4.15 13.75L4.9 9.4L1.75 6.25L6.15 5.6L8 1.5Z"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span>{t('guide.button')}</span>
             </motion.button>
 
             <div className="relative" ref={menuRef}>
@@ -87,16 +118,17 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                 className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
                 style={{ borderRadius: 4 }}
               >
-                <span className="mono text-[11px] uppercase tracking-[0.15em] text-[var(--sx-muted)]">
-                  {t('topBar.language.button')}
-                </span>
+                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-[var(--sx-muted)]" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="8" r="6.25" stroke="currentColor" strokeWidth="1.1" />
+                  <path d="M1.75 8H14.25M8 1.75C9.7 4 9.7 12 8 14.25M8 1.75C6.3 4 6.3 12 8 14.25" stroke="currentColor" strokeWidth="1.1" />
+                </svg>
                 <span className="mono text-[12px] font-semibold tracking-[0.11em] text-[var(--sx-text)]">
                   {activeLocale.label}
                 </span>
                 <motion.span
                   animate={{ rotate: isLanguageMenuOpen ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
-                  className="text-[11px] text-[var(--sx-muted)]"
+                  className="text-[10px] text-[var(--sx-muted)]"
                   aria-hidden="true"
                 >
                   ▾
@@ -110,7 +142,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute right-0 top-[calc(100%+8px)] z-30 w-[210px] border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-1.5 shadow-[var(--sx-shadow-lg)]"
+                    className="absolute right-0 top-[calc(100%+8px)] z-30 w-[220px] border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-1.5 shadow-[var(--sx-shadow-lg)]"
                     style={{ borderRadius: 6 }}
                   >
                     <ul role="listbox" aria-label={t('topBar.language.menuAria')} className="space-y-1">
@@ -149,7 +181,10 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
           </div>
         </div>
 
-        <nav className="no-scrollbar -mb-px flex items-center gap-1 overflow-x-auto md:gap-2">
+        <nav
+          className="no-scrollbar -mb-px flex items-center gap-0.5 overflow-x-auto"
+          aria-label={t('topBar.nav.ariaLabel')}
+        >
           {navItems.map((item) => {
             const active = item.id === activeTab;
 
@@ -158,10 +193,11 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                 key={item.id}
                 type="button"
                 onClick={() => onTabChange(item.id)}
-                className="relative shrink-0 px-3 py-3 text-[14px] font-medium leading-[1.2] tracking-[-0.004em] outline-none transition-colors duration-200 focus-visible:text-[var(--sx-text)] sm:px-4 sm:text-[15px]"
+                aria-current={active ? 'page' : undefined}
+                className="relative shrink-0 px-3 py-3 text-[13px] font-medium leading-[1.2] tracking-[-0.004em] outline-none transition-colors duration-200 focus-visible:text-[var(--sx-text)] sm:px-4 sm:text-[14px]"
                 style={{ color: active ? 'var(--sx-text)' : 'var(--sx-muted)' }}
               >
-                <span className="relative z-10">{item.label}</span>
+                <span className="relative z-10 uppercase tracking-[0.04em]">{item.label}</span>
                 {active ? (
                   <motion.span
                     layoutId="topbar-indicator"

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import BackgroundFX from './components/BackgroundFX';
+import Footer from './components/Footer';
 import GuideOverlay from './components/GuideOverlay';
 import OverviewView from './components/OverviewView';
 import SimulatorView from './components/SimulatorView';
@@ -549,6 +550,9 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--sx-bg)] text-[var(--sx-text)]">
+      <a href="#main-content" className="skip-link">
+        {t('app.skipToContent')}
+      </a>
       <BackgroundFX isOn={isOn} />
       <TopBar activeTab={safeActiveTab} onTabChange={handleTabChange} onStartGuide={handleStartGuide} />
       {showGuidePrompt || isGuideOpen ? (
@@ -574,7 +578,10 @@ export default function App() {
         />
       ) : null}
 
-      <main className="relative z-10 mx-auto w-full max-w-[1240px] px-4 pb-20 pt-10 sm:px-6 sm:pt-12 lg:px-8 lg:pt-16">
+      <main
+        id="main-content"
+        className="relative z-10 mx-auto w-full max-w-[1240px] px-4 pb-16 pt-10 sm:px-6 sm:pt-14 lg:px-8 lg:pt-20"
+      >
         <motion.div
           key={safeActiveTab}
           initial={{ opacity: 0, y: 8 }}
@@ -622,17 +629,7 @@ export default function App() {
           ) : null}
         </motion.div>
 
-        <footer className="mt-12 flex flex-col gap-2 border-t border-[var(--sx-border)] pt-4 text-[11px] leading-[1.5] text-[var(--sx-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <p>{t('app.footer.disclaimer')}</p>
-          <a
-            href="https://x.com/thisnotmeeme"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-fit items-center text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
-          >
-            {t('app.footer.createdBy')}
-          </a>
-        </footer>
+        <Footer />
       </main>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n';
 import Chart from './Chart';
 import ControlPanel from './ControlPanel';
 import Headline from './Headline';
@@ -30,21 +31,29 @@ export default function SimulatorView({
   onLearnHowItWorks,
   scenario,
 }) {
+  const { t } = useI18n();
+
   return (
-    <div className="space-y-10 sm:space-y-12" data-guide-id="guide-simulator">
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        <div className="flex flex-col gap-5">
-          <StatusChip isOn={isOn} />
+    <div className="space-y-10 sm:space-y-14" data-guide-id="guide-simulator">
+      <section className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="tag-pill">{t('simulator.tag')}</span>
+            <StatusChip isOn={isOn} compact />
+          </div>
           <Headline />
           <MicroCopy isOn={isOn} />
         </div>
 
-        <div className="self-start lg:self-end">
+        <div className="flex flex-col items-start justify-between gap-3 border-y border-[var(--sx-border)] py-4 sm:flex-row sm:items-center">
+          <p className="text-[13px] leading-[1.5] text-[var(--sx-muted)]">
+            {t('simulator.rangeHint')}
+          </p>
           <RangeSelector value={rangeId} onChange={onRangeChange} />
         </div>
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="space-y-5">
           <article
             className="border border-[var(--sx-border)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)] sm:p-8"
