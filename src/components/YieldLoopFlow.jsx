@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import { useI18n } from '../i18n';
 
 const FLOW_NODE_IDS = [
-  { id: 'dusd', key: 'dusd' },
-  { id: 'sip-2', key: 'sip2' },
-  { id: 'sip-3', key: 'sip3' },
+  { id: 'dusd', key: 'dusd', alwaysActive: true },
+  { id: 'sip-2', key: 'sip2', alwaysActive: false },
+  { id: 'sip-3', key: 'sip3', alwaysActive: true },
 ];
 
 function FlowConnector({ isOn, vertical = false }) {
@@ -67,14 +67,14 @@ function FlowConnector({ isOn, vertical = false }) {
   );
 }
 
-function FlowNode({ node, index, isOn, guideId }) {
+function FlowNode({ node, index, isActive, statusLabel, guideId }) {
   return (
     <motion.div
       initial={false}
       animate={{
-        borderColor: isOn ? 'rgba(0, 102, 50, 0.55)' : 'var(--sx-border)',
-        backgroundColor: isOn ? 'rgba(11, 24, 18, 0.96)' : 'var(--sx-surface)',
-        boxShadow: isOn
+        borderColor: isActive ? 'rgba(0, 102, 50, 0.55)' : 'var(--sx-border)',
+        backgroundColor: isActive ? 'rgba(11, 24, 18, 0.96)' : 'var(--sx-surface)',
+        boxShadow: isActive
           ? '0 0 0 1px rgba(0,102,50,0.18), 0 14px 32px rgba(0, 102, 50, 0.18)'
           : '0 8px 22px rgba(0, 0, 0, 0.32)',
       }}
@@ -89,8 +89,8 @@ function FlowNode({ node, index, isOn, guideId }) {
           className="mono inline-flex items-center px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em]"
           style={{
             borderRadius: 3,
-            color: isOn ? 'var(--sx-primary-bright)' : 'var(--sx-muted)',
-            backgroundColor: isOn ? 'rgba(0, 102, 50, 0.18)' : 'var(--sx-surface-2)',
+            color: isActive ? 'var(--sx-primary-bright)' : 'var(--sx-muted)',
+            backgroundColor: isActive ? 'rgba(0, 102, 50, 0.18)' : 'var(--sx-surface-2)',
           }}
         >
           {node.label}
@@ -104,6 +104,18 @@ function FlowNode({ node, index, isOn, guideId }) {
         {node.title}
       </h3>
       <p className="text-[14px] leading-[1.62] text-[var(--sx-text-muted)]">{node.copy}</p>
+
+      <span
+        className="mono mt-auto inline-flex w-fit items-center px-1.5 py-0.5 text-[10px] uppercase tracking-[0.14em]"
+        style={{
+          borderRadius: 3,
+          color: isActive ? 'var(--sx-primary-bright)' : 'var(--sx-muted)',
+          backgroundColor: isActive ? 'rgba(0, 102, 50, 0.12)' : 'var(--sx-surface-2)',
+          border: `1px solid ${isActive ? 'rgba(0, 102, 50, 0.35)' : 'var(--sx-border)'}`,
+        }}
+      >
+        {statusLabel}
+      </span>
     </motion.div>
   );
 }
@@ -113,10 +125,15 @@ export default function YieldLoopFlow({ isOn }) {
 
   const flowNodes = FLOW_NODE_IDS.map((node) => ({
     id: node.id,
+    alwaysActive: node.alwaysActive,
     label: t(`yieldLoop.nodes.${node.key}.label`),
     title: t(`yieldLoop.nodes.${node.key}.title`),
     copy: t(`yieldLoop.nodes.${node.key}.copy`),
   }));
+
+  const alwaysActiveLabel = t('yieldLoop.statusAlwaysActive');
+  const sip2OnLabel = t('yieldLoop.statusSip2On');
+  const sip2OffLabel = t('yieldLoop.statusSip2Off');
 
   return (
     <article
@@ -135,17 +152,31 @@ export default function YieldLoopFlow({ isOn }) {
       </div>
 
       <div className="mt-5 grid gap-2 md:grid-cols-[1fr_44px_1fr_44px_1fr] md:items-stretch">
-        {flowNodes.map((node, index) => (
-          <div key={node.id} className="contents">
-            <FlowNode node={node} index={index} isOn={isOn} guideId={`guide-${node.id}`} />
-            {index < flowNodes.length - 1 ? (
-              <>
-                <FlowConnector isOn={isOn} />
-                <FlowConnector isOn={isOn} vertical />
-              </>
-            ) : null}
-          </div>
-        ))}
+        {flowNodes.map((node, index) => {
+          const nodeIsActive = node.alwaysActive || isOn;
+          const statusLabel = node.alwaysActive
+            ? alwaysActiveLabel
+            : isOn
+              ? sip2OnLabel
+              : sip2OffLabel;
+          return (
+            <div key={node.id} className="contents">
+              <FlowNode
+                node={node}
+                index={index}
+                isActive={nodeIsActive}
+                statusLabel={statusLabel}
+                guideId={`guide-${node.id}`}
+              />
+              {index < flowNodes.length - 1 ? (
+                <>
+                  <FlowConnector isOn={isOn} />
+                  <FlowConnector isOn={isOn} vertical />
+                </>
+              ) : null}
+            </div>
+          );
+        })}
       </div>
 
       <p className="mt-5 text-[13px] leading-[1.58] text-[var(--sx-muted)]">

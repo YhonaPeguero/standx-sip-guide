@@ -31,19 +31,23 @@ const ko = {
     steps: {
       dusd: {
         title: 'DUSD',
-        text: 'DUSD는 보유만 해도 자동으로 수익이 발생하며, 스테이킹이 필요하지 않습니다.',
+        text: 'DUSD는 보유만 해도 자동으로 수익이 발생합니다. 항상 켜져 있으며, 스테이킹이나 전환 스위치가 필요 없습니다.',
       },
       sip2: {
         title: 'SIP #2 포지션 수익',
-        text: '조건을 충족한 오픈 포지션은 활성 상태를 유지하는 동안 계속 수익을 낼 수 있습니다.',
+        text: '이것은 사용자가 직접 제어하는 선택 레이어입니다. SIP #2를 켜면 기준 위에 적격 오픈 포지션의 수익이 더해집니다.',
       },
       sip3: {
         title: 'SIP #3 DUSD 네이티브 수익 확장',
-        text: 'StandX의 거래 활동은 시간이 지날수록 DUSD 수익을 강화하는 데 도움을 줄 수 있습니다.',
+        text: 'DUSD 기본 수익처럼 SIP #3도 항상 활성 상태입니다 — StandX의 거래 활동이 백그라운드에서 DUSD 수익으로 연결됩니다.',
+      },
+      protocolLayers: {
+        title: '레이어가 쌓이는 방식',
+        text: 'DUSD와 SIP #3은 스스로 작동합니다. SIP #2는 사용자가 켜는 레이어입니다. 컨트롤 패널이 무엇이 자동이고 무엇을 사용자가 켜는지 보여줍니다.',
       },
       simulator: {
         title: '시뮬레이터',
-        text: '자본 금액과 기간을 바꿔가며 수익 레이어가 어떻게 동작할지 미리 확인해 보세요.',
+        text: '자본 금액, 기간, 참고 시나리오를 바꿔가며 각 레이어가 어떻게 동작할지 미리 확인해 보세요.',
       },
       playbook: {
         title: '수익 플레이북',
@@ -84,18 +88,18 @@ const ko = {
     title: '실시간 수익',
   },
   microCopy: {
-    on: '당신의 자본, 수익 창출 중.',
-    off: '당신의 자본, 유휴 상태.',
+    on: '모든 수익 레이어 활성: DUSD 기본 + SIP #3 + SIP #2.',
+    off: 'DUSD 기본 + SIP #3은 이미 수익을 만들고 있습니다. SIP #2를 켜서 포지션 수익을 더하세요.',
   },
   statusChip: {
-    on: '프로토콜 활성',
-    off: '프로토콜 유휴',
+    on: 'SIP #2 활성',
+    off: 'SIP #2 꺼짐',
   },
   overview: {
     openSimulator: '시뮬레이터 열기',
     interactivePreview: '인터랙티브 미리보기',
-    previewActive: '활성 상태에서는 자본이 수익 레이어 사이를 계속 순환하는 모습을 시뮬레이션합니다.',
-    previewIdle: '시간에 따른 수익 루프를 보려면 SIP를 켜세요.',
+    previewActive: '모든 레이어가 활성 상태입니다. SIP #2가 기준 위에 포지션 수익을 더하고 있습니다.',
+    previewIdle: 'DUSD + SIP #3 기준 수익이 이미 실행 중입니다. SIP #2를 켜서 포지션 수익을 더하세요.',
     storyHint: '전체 흐름은 오른쪽의 3단계 연결 구조로 표시됩니다.',
   },
   simulator: {
@@ -114,7 +118,10 @@ const ko = {
     eyebrow: 'StandX 수익 루프',
     live: '루프 활성',
     paused: '루프 일시정지',
-    summary: '자본은 DUSD를 거쳐 SIP #2로 활성화되고 SIP #3로 강화되어 루프를 지속합니다.',
+    statusAlwaysActive: '항상 활성',
+    statusSip2On: 'SIP #2 켜짐',
+    statusSip2Off: 'SIP #2 꺼짐',
+    summary: 'DUSD 기본 수익과 SIP #3은 스스로 작동합니다. SIP #2는 사용자가 켜서 포지션 수익을 더하는 레이어입니다.',
     nodes: {
       dusd: {
         label: '자본',
@@ -227,9 +234,29 @@ const ko = {
   },
   controlPanel: {
     eyebrow: '컨트롤 패널',
-    title: 'SIP Switch',
-    description: '활성 자본이 시간에 따라 어떻게 수익을 만들 수 있는지 시각화합니다.',
+    title: 'SIP #2 스위치',
+    description:
+      'DUSD 기본 수익과 SIP #3은 항상 활성 상태입니다. SIP #2를 켜서 포지션 수익을 더해보세요.',
+    sip2Label: 'SIP #2 — 포지션 수익',
+    sip2Hint: '선택 레이어. 적격 오픈 포지션에 대해 수익을 활성화합니다.',
     learnHowItWorks: '작동 방식 보기',
+  },
+  protocolStatus: {
+    alwaysActive: '항상 활성',
+    rows: {
+      dusd: {
+        title: 'DUSD 기본 수익',
+        copy: 'DUSD를 보유하는 동안 자동으로 수익이 발생합니다.',
+      },
+      sip3: {
+        title: 'SIP #3 — DUSD 확장',
+        copy: '거래 활동을 시간이 지나며 DUSD 수익으로 연결합니다.',
+      },
+      sip2: {
+        title: 'SIP #2 — 포지션 수익',
+        copy: '적격 오픈 포지션을 위한 선택 레이어입니다.',
+      },
+    },
   },
   capitalSimulator: {
     eyebrow: '자본 시뮬레이터',
@@ -249,13 +276,22 @@ const ko = {
     estimatedGain: '예상 이익',
     yieldPct: '수익률 %',
   },
+  scenarioSelector: {
+    label: 'SIP #2 참고 시나리오',
+    illustrative: '예시일 뿐입니다. 실제 비율은 프로토콜이 결정합니다.',
+    hint: '시나리오는 교육 목적으로 SIP #2의 동작 범위를 예시로 보여줍니다. 실제 SIP #2 수익률은 사용자가 아닌 프로토콜에 의해 결정됩니다. DUSD 기본과 SIP #3은 영향을 받지 않습니다.',
+    disabledHint: '선택한 시나리오를 적용하려면 SIP #2를 켜세요.',
+    conservative: '보수적',
+    base: '기본',
+    optimistic: '낙관적',
+  },
   scenario: {
     eyebrow: '시나리오 비교',
-    sipOff: 'SIP 꺼짐',
-    sipOn: 'SIP 켜짐',
-    idle: '유휴',
+    sipOff: 'SIP #2 꺼짐',
+    sipOn: 'SIP #2 켜짐',
+    idle: '기준',
     active: '활성',
-    noGainIdle: '유휴 상태에서는 예상 이익이 없습니다.',
+    noGainIdle: 'DUSD + SIP #3의 기준 수익은 백그라운드에서 계속 발생합니다.',
   },
   footer: {
     brand: 'StandX SIP 가이드',

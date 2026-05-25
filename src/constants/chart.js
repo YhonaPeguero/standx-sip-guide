@@ -1,5 +1,16 @@
 export const BASE_VALUE = 1000;
 
+export const SIP2_OFF_BASELINE_RATIO = 0.3;
+export const SIP2_OFF_PROGRESS = 0.3;
+
+export const SIP2_SCENARIOS = [
+  { id: 'conservative', labelKey: 'scenarioSelector.conservative', multiplier: 0.5 },
+  { id: 'base', labelKey: 'scenarioSelector.base', multiplier: 1.0 },
+  { id: 'optimistic', labelKey: 'scenarioSelector.optimistic', multiplier: 1.5 },
+];
+
+export const DEFAULT_SCENARIO_ID = 'base';
+
 export const DEFAULT_CAPITAL = 10000;
 export const MIN_CAPITAL = 100;
 export const MAX_CAPITAL = 1000000;

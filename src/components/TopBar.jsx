@@ -86,7 +86,9 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
               whileTap={{ scale: 0.985 }}
               transition={{ duration: 0.18 }}
               onClick={onStartGuide}
-              className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
+              aria-label={t('guide.button')}
+              title={t('guide.button')}
+              className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70 sm:px-3"
               style={{ borderRadius: 4 }}
             >
               <svg
@@ -102,7 +104,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>{t('guide.button')}</span>
+              <span className="hidden sm:inline">{t('guide.button')}</span>
             </motion.button>
 
             <div className="relative" ref={menuRef}>

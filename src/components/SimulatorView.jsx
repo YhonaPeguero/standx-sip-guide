@@ -13,8 +13,10 @@ import ValueDisplay from './ValueDisplay';
 export default function SimulatorView({
   rangeId,
   onRangeChange,
-  isOn,
-  onToggle,
+  isSip2On,
+  onToggleSip2,
+  sip2ScenarioId,
+  onSip2ScenarioChange,
   linePath,
   areaPath,
   endY,
@@ -39,10 +41,10 @@ export default function SimulatorView({
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-center gap-3">
             <span className="tag-pill">{t('simulator.tag')}</span>
-            <StatusChip isOn={isOn} compact />
+            <StatusChip isOn={isSip2On} compact />
           </div>
           <Headline />
-          <MicroCopy isOn={isOn} />
+          <MicroCopy isOn={isSip2On} />
         </div>
 
         <div className="flex flex-col items-start justify-between gap-3 border-y border-[var(--sx-border)] py-4 sm:flex-row sm:items-center">
@@ -63,34 +65,39 @@ export default function SimulatorView({
               <ValueDisplay
                 estimatedValueLabel={estimatedValueLabel}
                 yieldPctLabel={yieldPctLabel}
-                isOn={isOn}
+                isOn={isSip2On}
               />
-              <TrendSignal isOn={isOn} />
+              <TrendSignal isOn={isSip2On} />
             </div>
 
-            <Chart linePath={linePath} areaPath={areaPath} endY={endY} isOn={isOn} markers={markers} />
+            <Chart linePath={linePath} areaPath={areaPath} endY={endY} isOn={isSip2On} markers={markers} />
 
             <ProtocolStats
               initialCapital={simulated.initialCapital}
               estimatedValue={simulated.estimatedValue}
               estimatedGain={simulated.estimatedGain}
               yieldPct={simulated.yieldPct}
-              isOn={isOn}
+              isOn={isSip2On}
             />
 
             <ScenarioComparison
               initialCapital={scenario.initialCapital}
+              offEstimatedValue={scenario.offEstimatedValue}
+              offEstimatedGain={scenario.offEstimatedGain}
+              offYieldPct={scenario.offYieldPct}
               onEstimatedValue={scenario.onEstimatedValue}
               onEstimatedGain={scenario.onEstimatedGain}
               onYieldPct={scenario.onYieldPct}
-              isOn={isOn}
+              isSip2On={isSip2On}
             />
           </article>
         </div>
 
         <ControlPanel
-          isOn={isOn}
-          onToggle={onToggle}
+          isSip2On={isSip2On}
+          onToggleSip2={onToggleSip2}
+          sip2ScenarioId={sip2ScenarioId}
+          onSip2ScenarioChange={onSip2ScenarioChange}
           onLearnHowItWorks={onLearnHowItWorks}
           capitalInput={capitalInput}
           capitalError={capitalError}

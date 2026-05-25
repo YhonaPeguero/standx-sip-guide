@@ -10,11 +10,11 @@ export default function ValueDisplay({ estimatedValueLabel, yieldPctLabel, isOn 
         {t('valueDisplay.label')}
       </p>
 
-      <div className="mt-2 flex items-end gap-3">
+      <div className="mt-2 flex flex-wrap items-end gap-x-3 gap-y-1">
         <motion.span
           animate={{ color: isOn ? 'var(--sx-primary-bright)' : 'var(--sx-text)' }}
           transition={{ duration: 0.4 }}
-          className="mono text-[42px] font-semibold leading-none tracking-[-0.025em] sm:text-[58px]"
+          className="mono text-[34px] font-semibold leading-none tracking-[-0.025em] sm:text-[48px] lg:text-[58px]"
         >
           {estimatedValueLabel}
         </motion.span>
@@ -25,7 +25,7 @@ export default function ValueDisplay({ estimatedValueLabel, yieldPctLabel, isOn 
             color: isOn ? 'var(--sx-primary-bright)' : 'var(--sx-muted)',
           }}
           transition={{ duration: 0.3 }}
-          className="mono mb-1 text-[18px] font-medium tracking-[-0.02em]"
+          className="mono mb-1 text-[16px] font-medium tracking-[-0.02em] sm:text-[18px]"
         >
           +{yieldPctLabel}
         </motion.span>

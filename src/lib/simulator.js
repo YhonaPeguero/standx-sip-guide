@@ -1,4 +1,4 @@
-import { BASE_VALUE } from '../constants/chart.js';
+import { BASE_VALUE, SIP2_OFF_BASELINE_RATIO } from '../constants/chart.js';
 
 function toSafeNumber(value, fallback = 0) {
   return Number.isFinite(value) ? value : fallback;
@@ -23,20 +23,33 @@ export function calculateProjectedValue(capital, target) {
   return safeCapital * (safeTarget / BASE_VALUE);
 }
 
-export function calculateSimulationSnapshot({ capital, target, isOn }) {
-  const initialCapital = toSafeCapital(capital);
-
-  if (!isOn) {
-    return {
-      initialCapital,
-      estimatedValue: initialCapital,
-      estimatedGain: 0,
-      yieldPct: 0,
-    };
+function resolveSip2Multiplier(value) {
+  if (!Number.isFinite(value) || value < 0) {
+    return 1;
   }
 
-  const projectedValue = calculateProjectedValue(initialCapital, target);
-  const estimatedValue = Math.max(0, toSafeNumber(projectedValue, initialCapital));
+  return value;
+}
+
+export function computeEffectiveTarget({ target, isSip2On, sip2Multiplier = 1 }) {
+  const safeTarget = toSafeTarget(target);
+  const baselineTarget = BASE_VALUE + (safeTarget - BASE_VALUE) * SIP2_OFF_BASELINE_RATIO;
+
+  if (!isSip2On) {
+    return baselineTarget;
+  }
+
+  const safeMultiplier = resolveSip2Multiplier(sip2Multiplier);
+  const sip2Delta = safeTarget - baselineTarget;
+  return baselineTarget + sip2Delta * safeMultiplier;
+}
+
+export function calculateSimulationSnapshot({ capital, target, isSip2On, sip2Multiplier = 1 }) {
+  const initialCapital = toSafeCapital(capital);
+  const effectiveTarget = computeEffectiveTarget({ target, isSip2On, sip2Multiplier });
+
+  const projectedValue = calculateProjectedValue(initialCapital, effectiveTarget);
+  const estimatedValue = Math.max(initialCapital, toSafeNumber(projectedValue, initialCapital));
   const estimatedGain = Math.max(0, estimatedValue - initialCapital);
   const yieldPct = initialCapital > 0 ? (estimatedGain / initialCapital) * 100 : 0;
 
@@ -48,16 +61,27 @@ export function calculateSimulationSnapshot({ capital, target, isOn }) {
   };
 }
 
-export function calculateScenarioSnapshot({ capital, target }) {
+export function calculateScenarioSnapshot({ capital, target, sip2Multiplier = 1 }) {
   const initialCapital = toSafeCapital(capital);
-  const estimatedValue = Math.max(0, calculateProjectedValue(initialCapital, target));
-  const estimatedGain = Math.max(0, estimatedValue - initialCapital);
-  const yieldPct = initialCapital > 0 ? (estimatedGain / initialCapital) * 100 : 0;
+  const safeTarget = toSafeTarget(target);
+
+  const baselineTarget = BASE_VALUE + (safeTarget - BASE_VALUE) * SIP2_OFF_BASELINE_RATIO;
+  const offEstimatedValue = Math.max(0, calculateProjectedValue(initialCapital, baselineTarget));
+  const offEstimatedGain = Math.max(0, offEstimatedValue - initialCapital);
+  const offYieldPct = initialCapital > 0 ? (offEstimatedGain / initialCapital) * 100 : 0;
+
+  const onTarget = computeEffectiveTarget({ target, isSip2On: true, sip2Multiplier });
+  const onEstimatedValue = Math.max(0, calculateProjectedValue(initialCapital, onTarget));
+  const onEstimatedGain = Math.max(0, onEstimatedValue - initialCapital);
+  const onYieldPct = initialCapital > 0 ? (onEstimatedGain / initialCapital) * 100 : 0;
 
   return {
     initialCapital,
-    onEstimatedValue: estimatedValue,
-    onEstimatedGain: estimatedGain,
-    onYieldPct: yieldPct,
+    offEstimatedValue,
+    offEstimatedGain,
+    offYieldPct,
+    onEstimatedValue,
+    onEstimatedGain,
+    onYieldPct,
   };
 }

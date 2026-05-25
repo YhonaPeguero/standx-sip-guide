@@ -1,56 +1,52 @@
 import { useEffect, useMemo } from 'react';
 import { animate, useMotionValue, useTransform } from 'framer-motion';
-import { BASE_VALUE, POINTS } from '../constants/chart';
+import { BASE_VALUE, POINTS, SIP2_OFF_PROGRESS } from '../constants/chart';
 import { buildPoints, toAreaPath, toLinePath } from '../lib/chartPaths';
-import { calculateSimulationSnapshot } from '../lib/simulator';
+import { calculateSimulationSnapshot, computeEffectiveTarget } from '../lib/simulator';
 
 const ON_EASE = [0.16, 1, 0.3, 1];
 const OFF_EASE = [0.4, 0, 0.75, 0];
-const ON_PROGRESS_FLOOR = 0.14;
-const OFF_PROGRESS_CEILING = 0.86;
 
-export function useSipMotion({ isOn, target, capital }) {
+export function useSipMotion({ isSip2On, target, capital, sip2Multiplier = 1 }) {
   const safeTarget = Number.isFinite(target) ? target : BASE_VALUE;
-  const onProgress = useMotionValue(0);
-  const chartTarget = useMotionValue(safeTarget);
+  const effectiveTarget = isSip2On
+    ? computeEffectiveTarget({ target: safeTarget, isSip2On: true, sip2Multiplier })
+    : safeTarget;
+  const onProgress = useMotionValue(SIP2_OFF_PROGRESS);
+  const chartTarget = useMotionValue(effectiveTarget);
 
   const simulated = useMemo(
-    () => calculateSimulationSnapshot({ capital, target, isOn }),
-    [capital, isOn, target],
+    () => calculateSimulationSnapshot({ capital, target, isSip2On, sip2Multiplier }),
+    [capital, isSip2On, sip2Multiplier, target],
   );
 
   useEffect(() => {
+    const targetProgress = isSip2On ? 1 : SIP2_OFF_PROGRESS;
     const currentRawProgress = onProgress.get();
-    const currentProgress = Number.isFinite(currentRawProgress) ? currentRawProgress : 0;
+    const currentProgress = Number.isFinite(currentRawProgress) ? currentRawProgress : SIP2_OFF_PROGRESS;
 
     if (!Number.isFinite(currentRawProgress)) {
-      onProgress.set(0);
+      onProgress.set(SIP2_OFF_PROGRESS);
     }
 
-    if (isOn && currentProgress < ON_PROGRESS_FLOOR) {
-      onProgress.set(ON_PROGRESS_FLOOR);
-    }
+    const goingUp = targetProgress > currentProgress;
 
-    if (!isOn && currentProgress > OFF_PROGRESS_CEILING) {
-      onProgress.set(OFF_PROGRESS_CEILING);
-    }
-
-    const controls = animate(onProgress, isOn ? 1 : 0, {
-      duration: isOn ? 0.72 : 0.42,
-      ease: isOn ? ON_EASE : OFF_EASE,
+    const controls = animate(onProgress, targetProgress, {
+      duration: goingUp ? 0.72 : 0.42,
+      ease: goingUp ? ON_EASE : OFF_EASE,
     });
 
     return () => controls.stop();
-  }, [isOn, onProgress]);
+  }, [isSip2On, onProgress]);
 
   useEffect(() => {
-    const controls = animate(chartTarget, safeTarget, {
+    const controls = animate(chartTarget, effectiveTarget, {
       duration: 0.72,
       ease: ON_EASE,
     });
 
     return () => controls.stop();
-  }, [chartTarget, safeTarget]);
+  }, [chartTarget, effectiveTarget]);
 
   const getSafeProgress = () => {
     const progress = onProgress.get();

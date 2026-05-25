@@ -1,11 +1,11 @@
 import EducationSection from './EducationSection';
 import Hero from './Hero';
+import ProtocolStatusList from './ProtocolStatusList';
 import StatusChip from './StatusChip';
-import ToggleSwitch from './ToggleSwitch';
 import YieldLoopFlow from './YieldLoopFlow';
 import { useI18n } from '../i18n';
 
-export default function OverviewView({ isOn, onToggle, onOpenSimulator, educationSectionId }) {
+export default function OverviewView({ isSip2On, onToggleSip2, onOpenSimulator, educationSectionId }) {
   const { t } = useI18n();
 
   const scrollToLearn = () => {
@@ -26,20 +26,25 @@ export default function OverviewView({ isOn, onToggle, onOpenSimulator, educatio
         <article
           className="relative flex flex-col border border-[var(--sx-border)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)]"
           style={{ borderRadius: 6 }}
+          data-guide-id="guide-protocol-layers"
         >
           <div className="flex items-center justify-between gap-2">
             <span className="eyebrow" id="interactive-preview-heading">
               {t('overview.interactivePreview')}
             </span>
-            <StatusChip isOn={isOn} compact />
+            <StatusChip isOn={isSip2On} compact />
           </div>
 
-          <div className="mt-6 flex justify-center">
-            <ToggleSwitch isOn={isOn} onChange={onToggle} />
-          </div>
+          <ProtocolStatusList
+            isSip2On={isSip2On}
+            onToggleSip2={onToggleSip2}
+            showSip2Row
+            compact
+            className="mt-6"
+          />
 
           <p className="mt-6 text-[14px] leading-[1.62] text-[var(--sx-text-muted)]">
-            {isOn ? t('overview.previewActive') : t('overview.previewIdle')}
+            {isSip2On ? t('overview.previewActive') : t('overview.previewIdle')}
           </p>
 
           <div className="mt-auto pt-6">
@@ -51,7 +56,7 @@ export default function OverviewView({ isOn, onToggle, onOpenSimulator, educatio
           </div>
         </article>
 
-        <YieldLoopFlow isOn={isOn} />
+        <YieldLoopFlow isOn={isSip2On} />
       </section>
 
       <EducationSection sectionId={educationSectionId} />

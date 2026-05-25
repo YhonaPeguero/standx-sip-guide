@@ -11,8 +11,10 @@ import {
   BASE_VALUE,
   DEFAULT_CAPITAL,
   DEFAULT_RANGE_ID,
+  DEFAULT_SCENARIO_ID,
   MAX_CAPITAL,
   MIN_CAPITAL,
+  SIP2_SCENARIOS,
   TIME_RANGES,
 } from './constants/chart';
 import { useSipMotion } from './hooks/useSipMotion';
@@ -50,6 +52,13 @@ const GUIDE_STEPS = [
     targetId: 'guide-sip-3',
     titleKey: 'guide.steps.sip3.title',
     textKey: 'guide.steps.sip3.text',
+  },
+  {
+    id: 'protocolLayers',
+    tabId: 'overview',
+    targetId: 'guide-protocol-layers',
+    titleKey: 'guide.steps.protocolLayers.title',
+    textKey: 'guide.steps.protocolLayers.text',
   },
   {
     id: 'simulator',
@@ -127,7 +136,8 @@ const buildSpotlightRect = (rect) => {
 export default function App() {
   const { t, locale } = useI18n();
   const [activeTab, setActiveTab] = useState('overview');
-  const [isOn, setIsOn] = useState(false);
+  const [isSip2On, setIsSip2On] = useState(false);
+  const [sip2ScenarioId, setSip2ScenarioId] = useState(DEFAULT_SCENARIO_ID);
   const [rangeId, setRangeId] = useState(DEFAULT_RANGE_ID);
   const [capitalAmount, setCapitalAmount] = useState(DEFAULT_CAPITAL);
   const [capitalInput, setCapitalInput] = useState(String(DEFAULT_CAPITAL));
@@ -164,13 +174,23 @@ export default function App() {
     [rangeId],
   );
 
+  const selectedScenario = useMemo(
+    () =>
+      SIP2_SCENARIOS.find((scenario) => scenario.id === sip2ScenarioId) ??
+      SIP2_SCENARIOS.find((scenario) => scenario.id === DEFAULT_SCENARIO_ID) ??
+      SIP2_SCENARIOS[0],
+    [sip2ScenarioId],
+  );
+
+  const sip2Multiplier = selectedScenario?.multiplier ?? 1;
   const safeTarget = Number.isFinite(selectedRange?.target) ? selectedRange.target : BASE_VALUE;
   const isSimulatorTabActive = safeActiveTab === 'simulator';
 
   const { simulated, linePath, areaPath, endY } = useSipMotion({
-    isOn: isSimulatorTabActive ? isOn : false,
+    isSip2On: isSimulatorTabActive ? isSip2On : false,
     target: isSimulatorTabActive ? safeTarget : BASE_VALUE,
     capital: capitalAmount,
+    sip2Multiplier,
   });
 
   const handleCapitalPreset = useCallback((amount) => {
@@ -265,8 +285,13 @@ export default function App() {
   const yieldPctLabel = useMemo(() => formatPercentValue(simulated.yieldPct), [simulated.yieldPct]);
 
   const scenario = useMemo(
-    () => calculateScenarioSnapshot({ capital: capitalAmount, target: safeTarget }),
-    [capitalAmount, safeTarget],
+    () =>
+      calculateScenarioSnapshot({
+        capital: capitalAmount,
+        target: safeTarget,
+        sip2Multiplier,
+      }),
+    [capitalAmount, safeTarget, sip2Multiplier],
   );
 
   const handleTabChange = useCallback((tabId) => {
@@ -553,7 +578,7 @@ export default function App() {
       <a href="#main-content" className="skip-link">
         {t('app.skipToContent')}
       </a>
-      <BackgroundFX isOn={isOn} />
+      <BackgroundFX isOn={isSip2On} />
       <TopBar activeTab={safeActiveTab} onTabChange={handleTabChange} onStartGuide={handleStartGuide} />
       {showGuidePrompt || isGuideOpen ? (
         <GuideOverlay
@@ -590,8 +615,8 @@ export default function App() {
         >
           {safeActiveTab === 'overview' ? (
             <OverviewView
-              isOn={isOn}
-              onToggle={() => setIsOn((value) => !value)}
+              isSip2On={isSip2On}
+              onToggleSip2={() => setIsSip2On((value) => !value)}
               onOpenSimulator={handleOpenSimulator}
               educationSectionId={EDUCATION_SECTION_ID}
             />
@@ -601,8 +626,10 @@ export default function App() {
             <SimulatorView
               rangeId={rangeId}
               onRangeChange={setRangeId}
-              isOn={isOn}
-              onToggle={() => setIsOn((value) => !value)}
+              isSip2On={isSip2On}
+              onToggleSip2={() => setIsSip2On((value) => !value)}
+              sip2ScenarioId={sip2ScenarioId}
+              onSip2ScenarioChange={setSip2ScenarioId}
               linePath={linePath}
               areaPath={areaPath}
               endY={endY}

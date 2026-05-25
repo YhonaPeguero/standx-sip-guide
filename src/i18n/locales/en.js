@@ -31,19 +31,23 @@ const en = {
     steps: {
       dusd: {
         title: 'DUSD',
-        text: 'DUSD can earn automatically while you hold it — no staking required.',
+        text: 'DUSD earns automatically while you hold it. This is always on — no staking, no toggle.',
       },
       sip2: {
         title: 'SIP #2 Position Yield',
-        text: 'Eligible open positions can keep earning while they stay active.',
+        text: 'This is the optional layer you control. Toggling SIP #2 adds yield on eligible open positions on top of the baseline.',
       },
       sip3: {
         title: 'SIP #3 DUSD Yield Expansion',
-        text: 'StandX trading activity can help strengthen DUSD yield over time.',
+        text: 'Like DUSD base yield, SIP #3 is always active — StandX trading activity routes into DUSD yield in the background.',
+      },
+      protocolLayers: {
+        title: 'How the layers stack',
+        text: 'DUSD and SIP #3 run on their own. SIP #2 is the layer you choose to turn on. The control panel shows what is passive and what you toggle.',
       },
       simulator: {
         title: 'Simulator',
-        text: 'Try different capital amounts and timeframes to preview how the yield layers may behave.',
+        text: 'Try different capital amounts, timeframes, and reference scenarios to preview how each layer may behave.',
       },
       playbook: {
         title: 'Yield Playbook',
@@ -84,19 +88,20 @@ const en = {
     title: 'Earning in real-time',
   },
   microCopy: {
-    on: 'Your capital, earning.',
-    off: 'Your capital, idle.',
+    on: 'All yield layers active — DUSD base + SIP #3 + SIP #2.',
+    off: 'DUSD base + SIP #3 already earning. Turn on SIP #2 to layer position yield on top.',
   },
   statusChip: {
-    on: 'Active Protocol',
-    off: 'Protocol Idle',
+    on: 'SIP #2 Active',
+    off: 'SIP #2 Off',
   },
   overview: {
     openSimulator: 'Open simulator',
     interactivePreview: 'Interactive Preview',
     previewActive:
-      'When active, the loop simulates how capital can keep moving through yield layers.',
-    previewIdle: 'Turn SIP on to preview how the yield loop can work over time.',
+      'All layers active. SIP #2 is now adding position yield on top of the baseline.',
+    previewIdle:
+      'Baseline yield is running from DUSD + SIP #3. Turn on SIP #2 to add position yield.',
     storyHint: 'The whole story plays out in three connected steps shown on the right.',
   },
   simulator: {
@@ -115,8 +120,11 @@ const en = {
     eyebrow: 'StandX Yield Loop',
     live: 'Loop Live',
     paused: 'Loop Paused',
+    statusAlwaysActive: 'Always active',
+    statusSip2On: 'SIP #2 on',
+    statusSip2Off: 'SIP #2 off',
     summary:
-      'Capital flows through DUSD, gets activated by SIP #2, and is reinforced by SIP #3 to keep the loop running.',
+      'DUSD base yield and SIP #3 run on their own. SIP #2 is the layer you toggle to add position yield on top.',
     nodes: {
       dusd: {
         label: 'Capital',
@@ -232,9 +240,29 @@ const en = {
   },
   controlPanel: {
     eyebrow: 'Control Panel',
-    title: 'SIP Switch',
-    description: 'Visualize how active capital can earn over time.',
+    title: 'SIP #2 Switch',
+    description:
+      'DUSD base yield and SIP #3 are always on. Toggle SIP #2 to layer position yield on top.',
+    sip2Label: 'SIP #2 — Position Yield',
+    sip2Hint: 'Optional layer. Activates yield on eligible open positions.',
     learnHowItWorks: 'Learn how it works',
+  },
+  protocolStatus: {
+    alwaysActive: 'Always active',
+    rows: {
+      dusd: {
+        title: 'DUSD base yield',
+        copy: 'Earns automatically while you hold DUSD.',
+      },
+      sip3: {
+        title: 'SIP #3 — DUSD expansion',
+        copy: 'Routes trading activity into DUSD yield over time.',
+      },
+      sip2: {
+        title: 'SIP #2 — Position Yield',
+        copy: 'Optional layer for eligible open positions.',
+      },
+    },
   },
   capitalSimulator: {
     eyebrow: 'Capital Simulator',
@@ -254,13 +282,22 @@ const en = {
     estimatedGain: 'Estimated Gain',
     yieldPct: 'Yield %',
   },
+  scenarioSelector: {
+    label: 'SIP #2 reference scenario',
+    illustrative: 'Illustrative only — the protocol sets the actual rate.',
+    hint: 'Scenarios show example ranges of SIP #2 behavior for educational purposes. The actual SIP #2 yield rate is determined by the protocol, not by the user. DUSD base and SIP #3 are unaffected.',
+    disabledHint: 'Turn on SIP #2 to apply the selected scenario.',
+    conservative: 'Conservative',
+    base: 'Base',
+    optimistic: 'Optimistic',
+  },
   scenario: {
     eyebrow: 'Scenario Comparison',
-    sipOff: 'SIP Off',
-    sipOn: 'SIP On',
-    idle: 'Idle',
+    sipOff: 'SIP #2 Off',
+    sipOn: 'SIP #2 On',
+    idle: 'Baseline',
     active: 'Active',
-    noGainIdle: 'No projected gain while idle.',
+    noGainIdle: 'Baseline yield from DUSD + SIP #3 keeps running in the background.',
   },
   footer: {
     brand: 'StandX SIP Guide',

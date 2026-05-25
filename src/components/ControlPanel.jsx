@@ -1,11 +1,15 @@
 import CapitalSimulator from './CapitalSimulator';
+import ProtocolStatusList from './ProtocolStatusList';
+import ScenarioSelector from './ScenarioSelector';
 import ToggleSwitch from './ToggleSwitch';
 import Button from './ui/Button';
 import { useI18n } from '../i18n';
 
 export default function ControlPanel({
-  isOn,
-  onToggle,
+  isSip2On,
+  onToggleSip2,
+  sip2ScenarioId,
+  onSip2ScenarioChange,
   onLearnHowItWorks,
   capitalInput,
   capitalError,
@@ -31,9 +35,24 @@ export default function ControlPanel({
         </p>
       </div>
 
-      <div className="mt-7 flex justify-center">
-        <ToggleSwitch isOn={isOn} onChange={onToggle} />
+      <ProtocolStatusList className="mt-6" />
+
+      <div className="mt-6 flex flex-col items-center gap-2">
+        <span className="mono text-[11px] uppercase tracking-[0.16em] text-[var(--sx-muted)]">
+          {t('controlPanel.sip2Label')}
+        </span>
+        <ToggleSwitch isOn={isSip2On} onChange={onToggleSip2} />
+        <p className="mt-1 text-center text-[12px] leading-[1.55] text-[var(--sx-muted)]">
+          {t('controlPanel.sip2Hint')}
+        </p>
       </div>
+
+      <ScenarioSelector
+        value={sip2ScenarioId}
+        onChange={onSip2ScenarioChange}
+        disabled={!isSip2On}
+        className="mt-6"
+      />
 
       <CapitalSimulator
         amountInput={capitalInput}

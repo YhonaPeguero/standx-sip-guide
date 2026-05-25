@@ -31,19 +31,23 @@ const es = {
     steps: {
       dusd: {
         title: 'DUSD',
-        text: 'DUSD puede generar rendimiento automáticamente mientras lo mantienes, sin staking.',
+        text: 'DUSD genera rendimiento automáticamente mientras lo mantienes. Siempre está activo: sin staking, sin interruptor.',
       },
       sip2: {
         title: 'SIP #2 Rendimiento de Posición',
-        text: 'Las posiciones abiertas elegibles pueden seguir generando rendimiento mientras estén activas.',
+        text: 'Esta es la capa opcional que tú controlas. Activar SIP #2 suma rendimiento sobre posiciones abiertas elegibles por encima del baseline.',
       },
       sip3: {
         title: 'SIP #3 Expansión de Yield Nativo DUSD',
-        text: 'La actividad de trading en StandX puede ayudar a fortalecer el yield de DUSD con el tiempo.',
+        text: 'Como el yield base de DUSD, SIP #3 siempre está activo: la actividad de trading en StandX se canaliza al yield de DUSD en segundo plano.',
+      },
+      protocolLayers: {
+        title: 'Cómo se apilan las capas',
+        text: 'DUSD y SIP #3 corren solos. SIP #2 es la capa que tú decides encender. El panel de control muestra qué es pasivo y qué activas tú.',
       },
       simulator: {
         title: 'Simulador',
-        text: 'Prueba distintos montos de capital y periodos para previsualizar cómo pueden comportarse las capas de yield.',
+        text: 'Prueba distintos montos, periodos y escenarios de referencia para previsualizar cómo puede comportarse cada capa.',
       },
       playbook: {
         title: 'Playbook de Yield',
@@ -84,19 +88,20 @@ const es = {
     title: 'Rendimiento en tiempo real',
   },
   microCopy: {
-    on: 'Tu capital, generando rendimiento.',
-    off: 'Tu capital, inactivo.',
+    on: 'Todas las capas activas: DUSD base + SIP #3 + SIP #2.',
+    off: 'DUSD base + SIP #3 ya están generando. Activa SIP #2 para sumar rendimiento de posiciones.',
   },
   statusChip: {
-    on: 'Protocolo Activo',
-    off: 'Protocolo Inactivo',
+    on: 'SIP #2 Activo',
+    off: 'SIP #2 Apagado',
   },
   overview: {
     openSimulator: 'Abrir simulador',
     interactivePreview: 'Vista previa interactiva',
     previewActive:
-      'Cuando está activo, el bucle simula cómo el capital puede seguir moviéndose entre capas de rendimiento.',
-    previewIdle: 'Activa SIP para ver cómo puede funcionar el bucle de rendimiento con el tiempo.',
+      'Todas las capas activas. SIP #2 ahora suma rendimiento de posiciones sobre la base.',
+    previewIdle:
+      'El rendimiento base de DUSD + SIP #3 ya está corriendo. Activa SIP #2 para sumar rendimiento de posiciones.',
     storyHint: 'Toda la lógica se muestra en tres pasos conectados a la derecha.',
   },
   simulator: {
@@ -116,8 +121,11 @@ const es = {
     eyebrow: 'Bucle de Yield StandX',
     live: 'Bucle Activo',
     paused: 'Bucle en Pausa',
+    statusAlwaysActive: 'Siempre activo',
+    statusSip2On: 'SIP #2 activo',
+    statusSip2Off: 'SIP #2 apagado',
     summary:
-      'El capital fluye por DUSD, se activa con SIP #2 y se refuerza con SIP #3 para mantener el bucle en marcha.',
+      'El rendimiento base de DUSD y SIP #3 funcionan por sí solos. SIP #2 es la capa que tú activas para sumar rendimiento de posiciones.',
     nodes: {
       dusd: {
         label: 'Capital',
@@ -234,9 +242,29 @@ const es = {
   },
   controlPanel: {
     eyebrow: 'Panel de control',
-    title: 'SIP Switch',
-    description: 'Visualiza cómo el capital activo puede generar rendimiento con el tiempo.',
+    title: 'Interruptor SIP #2',
+    description:
+      'El rendimiento base de DUSD y SIP #3 están siempre activos. Activa SIP #2 para sumar rendimiento de posiciones por encima.',
+    sip2Label: 'SIP #2 — Rendimiento de posición',
+    sip2Hint: 'Capa opcional. Activa el rendimiento en posiciones abiertas elegibles.',
     learnHowItWorks: 'Aprender cómo funciona',
+  },
+  protocolStatus: {
+    alwaysActive: 'Siempre activo',
+    rows: {
+      dusd: {
+        title: 'Rendimiento base DUSD',
+        copy: 'Genera automáticamente mientras mantienes DUSD.',
+      },
+      sip3: {
+        title: 'SIP #3 — Expansión DUSD',
+        copy: 'Canaliza la actividad de trading hacia el rendimiento de DUSD con el tiempo.',
+      },
+      sip2: {
+        title: 'SIP #2 — Rendimiento de posición',
+        copy: 'Capa opcional para posiciones abiertas elegibles.',
+      },
+    },
   },
   capitalSimulator: {
     eyebrow: 'Simulador de capital',
@@ -256,13 +284,22 @@ const es = {
     estimatedGain: 'Ganancia estimada',
     yieldPct: 'Yield %',
   },
+  scenarioSelector: {
+    label: 'Escenario de referencia SIP #2',
+    illustrative: 'Solo ilustrativo — la tasa real la define el protocolo.',
+    hint: 'Los escenarios muestran rangos de comportamiento de SIP #2 con fines educativos. La tasa real de SIP #2 la determina el protocolo, no el usuario. DUSD base y SIP #3 no se ven afectados.',
+    disabledHint: 'Activa SIP #2 para aplicar el escenario seleccionado.',
+    conservative: 'Conservador',
+    base: 'Base',
+    optimistic: 'Optimista',
+  },
   scenario: {
     eyebrow: 'Comparación de escenarios',
-    sipOff: 'SIP Apagado',
-    sipOn: 'SIP Encendido',
-    idle: 'Inactivo',
+    sipOff: 'SIP #2 Apagado',
+    sipOn: 'SIP #2 Encendido',
+    idle: 'Base',
     active: 'Activo',
-    noGainIdle: 'Sin ganancia proyectada mientras está inactivo.',
+    noGainIdle: 'El rendimiento base de DUSD + SIP #3 sigue activo de fondo.',
   },
   footer: {
     brand: 'StandX SIP Guide',

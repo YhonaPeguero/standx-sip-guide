@@ -3,13 +3,18 @@ import { useI18n } from '../i18n';
 
 export default function ScenarioComparison({
   initialCapital,
+  offEstimatedValue,
+  offEstimatedGain,
+  offYieldPct,
   onEstimatedValue,
   onEstimatedGain,
   onYieldPct,
-  isOn = false,
+  isSip2On = false,
 }) {
   const { t } = useI18n();
-  const offValueLabel = formatCurrencyAdaptive(initialCapital, { threshold: 100000 });
+  const offValueLabel = formatCurrencyAdaptive(offEstimatedValue ?? initialCapital, { threshold: 100000 });
+  const offGainLabel = formatCurrencyAdaptive(offEstimatedGain ?? 0, { threshold: 100000 });
+  const offYieldLabel = formatPercentValue(offYieldPct ?? 0);
   const onValueLabel = formatCurrencyAdaptive(onEstimatedValue, { threshold: 100000 });
   const onGainLabel = formatCurrencyAdaptive(onEstimatedGain, { threshold: 100000 });
   const onYieldLabel = formatPercentValue(onYieldPct);
@@ -18,7 +23,7 @@ export default function ScenarioComparison({
     <div className="mt-7 border-t border-[var(--sx-border)] pt-6">
       <span className="eyebrow">{t('scenario.eyebrow')}</span>
 
-      <div className={`mt-4 grid gap-3 ${isOn ? 'sm:grid-cols-2' : ''}`}>
+      <div className={`mt-4 grid gap-3 ${isSip2On ? 'sm:grid-cols-2' : ''}`}>
         <article
           className="border border-[var(--sx-border)] bg-[var(--sx-surface-2)] p-4"
           style={{ borderRadius: 6 }}
@@ -35,11 +40,14 @@ export default function ScenarioComparison({
             {offValueLabel}
           </p>
           <p className="mt-2 text-[13px] leading-[1.6] text-[var(--sx-muted)]">
+            +{offGainLabel} <span className="text-[var(--sx-muted-soft)]">({offYieldLabel})</span>
+          </p>
+          <p className="mt-1 text-[12px] leading-[1.5] text-[var(--sx-muted-soft)]">
             {t('scenario.noGainIdle')}
           </p>
         </article>
 
-        {isOn ? (
+        {isSip2On ? (
           <article
             className="relative border border-[rgba(0,102,50,0.55)] bg-[rgba(11,22,18,0.95)] p-4"
             style={{
