@@ -28,11 +28,13 @@ export default function OverviewView({ isSip2On, onToggleSip2, onOpenSimulator, 
           style={{ borderRadius: 6 }}
           data-guide-id="guide-protocol-layers"
         >
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex flex-col gap-3">
             <span className="eyebrow" id="interactive-preview-heading">
               {t('overview.interactivePreview')}
             </span>
-            <StatusChip isOn={isSip2On} compact />
+            <div className="self-start">
+              <StatusChip isOn={isSip2On} compact />
+            </div>
           </div>
 
           <ProtocolStatusList

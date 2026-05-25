@@ -68,18 +68,18 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
       }}
     >
       <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-3.5 sm:py-4">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3 py-3.5 sm:py-4">
+          <div className="flex min-w-0 items-center gap-3">
             <StandXBrand />
             <span
-              className="hidden h-5 items-center border border-[rgba(139,210,178,0.3)] bg-[rgba(0,102,50,0.16)] px-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--sx-primary-soft-text)] md:inline-flex"
+              className="hidden h-5 items-center border border-[rgba(139,210,178,0.3)] bg-[rgba(0,102,50,0.16)] px-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--sx-primary-soft-text)] lg:inline-flex"
               style={{ borderRadius: 3 }}
             >
               {t('topBar.community')}
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <motion.button
               type="button"
               whileHover={{ borderColor: 'var(--sx-border-strong)', y: -1 }}
@@ -88,12 +88,12 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
               onClick={onStartGuide}
               aria-label={t('guide.button')}
               title={t('guide.button')}
-              className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70 sm:px-3"
+              className="inline-flex h-9 shrink-0 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 text-[12px] font-medium uppercase tracking-[0.1em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70 lg:px-3 lg:tracking-[0.12em]"
               style={{ borderRadius: 4 }}
             >
               <svg
                 viewBox="0 0 16 16"
-                className="h-3.5 w-3.5"
+                className="h-3.5 w-3.5 shrink-0"
                 fill="none"
                 aria-hidden="true"
               >
@@ -104,7 +104,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="hidden sm:inline">{t('guide.button')}</span>
+              <span className="hidden whitespace-nowrap lg:inline">{t('guide.button')}</span>
             </motion.button>
 
             <div className="relative" ref={menuRef}>
@@ -117,10 +117,10 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                 aria-haspopup="listbox"
                 aria-expanded={isLanguageMenuOpen}
                 aria-label={t('topBar.language.buttonAria')}
-                className="inline-flex h-9 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-3 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
+                className="inline-flex h-9 shrink-0 items-center gap-1.5 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70 sm:gap-2 sm:px-3"
                 style={{ borderRadius: 4 }}
               >
-                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-[var(--sx-muted)]" fill="none" aria-hidden="true">
+                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0 text-[var(--sx-muted)]" fill="none" aria-hidden="true">
                   <circle cx="8" cy="8" r="6.25" stroke="currentColor" strokeWidth="1.1" />
                   <path d="M1.75 8H14.25M8 1.75C9.7 4 9.7 12 8 14.25M8 1.75C6.3 4 6.3 12 8 14.25" stroke="currentColor" strokeWidth="1.1" />
                 </svg>

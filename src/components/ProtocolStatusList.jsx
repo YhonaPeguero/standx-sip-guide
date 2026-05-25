@@ -39,7 +39,7 @@ function InlineSwitch({ isOn, onChange, ariaLabel }) {
       aria-checked={isOn}
       aria-label={ariaLabel}
       onClick={onChange}
-      className="relative h-[24px] w-[42px] shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--sx-bg)]"
+      className="relative block h-[24px] w-[44px] shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--sx-bg)]"
       style={{
         borderRadius: 999,
         backgroundColor: isOn ? 'rgba(0, 102, 50, 0.85)' : 'var(--sx-surface-2)',
@@ -48,10 +48,14 @@ function InlineSwitch({ isOn, onChange, ariaLabel }) {
       }}
     >
       <motion.span
-        animate={{ x: isOn ? 18 : 2 }}
+        animate={{ x: isOn ? 22 : 2 }}
         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute top-1/2 -translate-y-1/2 h-[16px] w-[16px]"
         style={{
+          position: 'absolute',
+          top: 3,
+          left: 0,
+          height: 16,
+          width: 16,
           borderRadius: 999,
           backgroundColor: isOn ? '#00ff2a' : '#6f7d74',
         }}
@@ -75,6 +79,32 @@ function AlwaysActivePill({ label }) {
   );
 }
 
+function AlwaysActiveIcon({ label }) {
+  return (
+    <span
+      role="img"
+      aria-label={label}
+      title={label}
+      className="grid h-[18px] w-[18px] shrink-0 place-items-center"
+      style={{
+        borderRadius: 4,
+        color: 'var(--sx-primary-bright)',
+        backgroundColor: 'rgba(0, 102, 50, 0.18)',
+      }}
+    >
+      <svg viewBox="0 0 12 12" className="h-[10px] w-[10px]" fill="none" aria-hidden="true">
+        <path
+          d="M2.5 6.25L4.85 8.5L9.5 3.75"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
 export default function ProtocolStatusList({
   compact = false,
   className = '',
@@ -94,32 +124,53 @@ export default function ProtocolStatusList({
       style={{ borderRadius: 6 }}
     >
       {ALWAYS_ACTIVE_ROWS.map((row) => (
-        <li key={row.id} className={`flex flex-col gap-1.5 ${padding}`}>
-          <div className="flex items-center gap-2.5">
-            <StatusDot />
+        <li key={row.id} className={`flex flex-col ${compact ? 'gap-1.5' : 'gap-2'} ${padding}`}>
+          <div className="flex items-start gap-2.5">
+            <span className={`inline-flex shrink-0 items-center ${compact ? 'h-[17px]' : 'h-[18px]'}`}>
+              <StatusDot />
+            </span>
             <span
               className={`min-w-0 flex-1 font-semibold leading-[1.3] tracking-[-0.01em] text-[var(--sx-text)] ${compact ? 'text-[13px]' : 'text-[14px]'}`}
             >
               {t(row.titleKey)}
             </span>
-            <AlwaysActivePill label={alwaysActiveLabel} />
+            {compact ? (
+              <span className="inline-flex h-[17px] shrink-0 items-center">
+                <AlwaysActiveIcon label={alwaysActiveLabel} />
+              </span>
+            ) : null}
           </div>
           {!compact ? (
-            <p className="pl-[18px] text-[12px] leading-[1.5] text-[var(--sx-muted)]">
-              {t(row.copyKey)}
-            </p>
+            <>
+              <p className="pl-[18px] text-[12px] leading-[1.5] text-[var(--sx-muted)]">
+                {t(row.copyKey)}
+              </p>
+              <div className="pl-[18px]">
+                <AlwaysActivePill label={alwaysActiveLabel} />
+              </div>
+            </>
           ) : null}
         </li>
       ))}
 
       {showSip2Row ? (
-        <li className={`flex flex-col gap-1.5 ${padding}`}>
-          <div className="flex items-center gap-2.5">
-            <StatusDot active={isSip2On} />
+        <li className={`flex flex-col gap-2 ${padding}`}>
+          <div className="flex items-start gap-2.5">
+            <span className={`inline-flex shrink-0 items-center ${compact ? 'h-[17px]' : 'h-[18px]'}`}>
+              <StatusDot active={isSip2On} />
+            </span>
             <span
               className={`min-w-0 flex-1 font-semibold leading-[1.3] tracking-[-0.01em] text-[var(--sx-text)] ${compact ? 'text-[13px]' : 'text-[14px]'}`}
             >
               {t('protocolStatus.rows.sip2.title')}
+            </span>
+          </div>
+          <div className="flex items-center justify-between gap-3 pl-[18px]">
+            <span
+              className="mono text-[10px] uppercase tracking-[0.12em]"
+              style={{ color: isSip2On ? 'var(--sx-primary-bright)' : 'var(--sx-muted)' }}
+            >
+              {isSip2On ? t('toggle.on') : t('toggle.off')}
             </span>
             <InlineSwitch
               isOn={isSip2On}
