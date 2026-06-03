@@ -6,6 +6,8 @@ const RESOURCE_LINKS = [
   { key: 'sip1', href: 'https://docs.standx.com/sip/sip-1-block-trade' },
   { key: 'sip2', href: 'https://docs.standx.com/sip/sip-2-position-yield' },
   { key: 'sip3', href: 'https://docs.standx.com/sip/sip-3-dusd-native-yield' },
+  { key: 'sip4', href: 'https://docs.standx.com/sip/sip-4-block-options' },
+  { key: 'sip5', href: 'https://docs.standx.com/sip/sip-5-universal-markets-listing' },
 ];
 
 const COMMUNITY_LINKS = [

@@ -173,9 +173,14 @@ const en = {
     sipOverview: {
       tag: 'SIP Overview',
       eyebrow: 'SIP Overview',
-      title: 'Three SIPs working together',
+      title: 'The StandX SIPs',
       description:
-        'Each SIP plays a focused role. Together they shape how the StandX yield loop behaves.',
+        'Each SIP plays a focused role — from the live yield system (SIP #1–#3) to newer proposals shaping what comes next (SIP #4–#5).',
+    },
+    sipStatus: {
+      live: 'Live',
+      review: 'In Review',
+      draft: 'Draft',
     },
     sipCards: {
       sip1: {
@@ -189,6 +194,14 @@ const en = {
       sip3: {
         title: 'DUSD Native Yield Expansion',
         copy: 'Improves how capital can circulate so trading activity can reinforce DUSD yield pathways.',
+      },
+      sip4: {
+        title: 'Block Options',
+        copy: 'Option-like Take Profit & Stop Loss on top of Block Trade. Pay a small Reservation Fee for the right to exit — or enter — at a preset price any time before expiry.',
+      },
+      sip5: {
+        title: 'Universal Markets',
+        copy: 'A proposed framework for permissionless perp listing: anyone can sponsor a market by staking DUSD, funding community market-makers, and earning a share of fees.',
       },
     },
     readMore: 'Read more',
@@ -312,6 +325,8 @@ const en = {
       sip1: 'SIP #1 — Block Trades',
       sip2: 'SIP #2 — Position Yield',
       sip3: 'SIP #3 — DUSD Native Yield',
+      sip4: 'SIP #4 — Block Options',
+      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: 'Community',
     community: {

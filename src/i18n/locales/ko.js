@@ -169,8 +169,13 @@ const ko = {
     sipOverview: {
       tag: 'SIP 개요',
       eyebrow: 'SIP 개요',
-      title: '함께 작동하는 3개의 SIP',
-      description: '각 SIP는 역할이 다르며, 함께 StandX 수익 루프의 동작을 형성합니다.',
+      title: 'StandX의 SIP들',
+      description: '각 SIP는 고유한 역할을 합니다 — 현재 운영 중인 수익 시스템(SIP #1–#3)부터 다음 단계를 그리는 새로운 제안(SIP #4–#5)까지.',
+    },
+    sipStatus: {
+      live: '운영 중',
+      review: '검토 중',
+      draft: '초안',
     },
     sipCards: {
       sip1: {
@@ -184,6 +189,14 @@ const ko = {
       sip3: {
         title: 'DUSD Native Yield Expansion',
         copy: '자본 순환을 개선하여 DUSD 수익 경로가 강화되도록 합니다.',
+      },
+      sip4: {
+        title: 'Block Options',
+        copy: 'Block Trade 위에 얹는 옵션형 Take Profit·Stop Loss입니다. 소액의 Reservation Fee를 내면 만기 전 언제든 정해진 가격에 청산하거나 진입할 권리를 얻습니다.',
+      },
+      sip5: {
+        title: 'Universal Markets',
+        copy: '무허가 퍼프(perp) 상장 제안입니다. 누구나 DUSD를 스테이킹해 마켓을 후원(Sponsor)하고, 커뮤니티 마켓메이커에 자금을 지원하며 수수료의 일부를 받을 수 있습니다.',
       },
     },
     readMore: '자세히 보기',
@@ -306,6 +319,8 @@ const ko = {
       sip1: 'SIP #1 — Block Trades',
       sip2: 'SIP #2 — Position Yield',
       sip3: 'SIP #3 — DUSD Native Yield',
+      sip4: 'SIP #4 — Block Options',
+      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: '커뮤니티',
     community: {

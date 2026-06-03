@@ -174,9 +174,14 @@ const uk = {
     sipOverview: {
       tag: 'Огляд SIP',
       eyebrow: 'Огляд SIP',
-      title: 'Три SIP, що працюють разом',
+      title: 'SIP-и StandX',
       description:
-        'Кожен SIP має свою роль. Разом вони формують поведінку циклу прибутковості StandX.',
+        'Кожен SIP має свою роль — від активної системи прибутковості (SIP #1–#3) до новіших пропозицій, що формують наступний етап (SIP #4–#5).',
+    },
+    sipStatus: {
+      live: 'Активний',
+      review: 'На розгляді',
+      draft: 'Чернетка',
     },
     sipCards: {
       sip1: {
@@ -190,6 +195,14 @@ const uk = {
       sip3: {
         title: 'DUSD Native Yield Expansion',
         copy: 'Покращує циркуляцію капіталу, щоб торгова активність підсилювала маршрути прибутковості DUSD.',
+      },
+      sip4: {
+        title: 'Block Options',
+        copy: 'Опціоноподібні Take Profit і Stop Loss поверх Block Trade. Ви сплачуєте невелику Reservation Fee за право вийти — або увійти — за фіксованою ціною будь-коли до завершення терміну.',
+      },
+      sip5: {
+        title: 'Universal Markets',
+        copy: 'Пропозиція безпермісійного лістингу перпів: будь-хто може спонсорувати ринок, застейкавши DUSD, фінансувати маркет-мейкерів спільноти та отримувати частку комісій.',
       },
     },
     readMore: 'Детальніше',
@@ -314,6 +327,8 @@ const uk = {
       sip1: 'SIP #1 — Block Trades',
       sip2: 'SIP #2 — Position Yield',
       sip3: 'SIP #3 — DUSD Native Yield',
+      sip4: 'SIP #4 — Block Options',
+      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: 'Спільнота',
     community: {

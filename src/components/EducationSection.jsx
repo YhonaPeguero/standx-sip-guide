@@ -7,10 +7,15 @@ import SectionHeader from './ui/SectionHeader';
 const FLOW_STEP_KEYS = ['step1', 'step2', 'step3', 'step4'];
 
 const SIP_OVERVIEW = [
-  { id: 'sip-1', tag: 'SIP #1', key: 'sip1', href: 'https://docs.standx.com/sip/sip-1-block-trade' },
-  { id: 'sip-2', tag: 'SIP #2', key: 'sip2', href: 'https://docs.standx.com/sip/sip-2-position-yield' },
-  { id: 'sip-3', tag: 'SIP #3', key: 'sip3', href: 'https://docs.standx.com/sip/sip-3-dusd-native-yield' },
+  { id: 'sip-1', tag: 'SIP #1', key: 'sip1', status: 'live', href: 'https://docs.standx.com/sip/sip-1-block-trade' },
+  { id: 'sip-2', tag: 'SIP #2', key: 'sip2', status: 'live', href: 'https://docs.standx.com/sip/sip-2-position-yield' },
+  { id: 'sip-3', tag: 'SIP #3', key: 'sip3', status: 'live', href: 'https://docs.standx.com/sip/sip-3-dusd-native-yield' },
+  { id: 'sip-4', tag: 'SIP #4', key: 'sip4', status: 'review', href: 'https://docs.standx.com/sip/sip-4-block-options' },
+  { id: 'sip-5', tag: 'SIP #5', key: 'sip5', status: 'draft', href: 'https://docs.standx.com/sip/sip-5-universal-markets-listing' },
 ];
+
+// Status → Chip tone: live=green, review=coral (in progress), draft=muted (not yet available)
+const STATUS_TONE = { live: 'primary', review: 'accent', draft: 'muted' };
 
 export default function EducationSection({ sectionId }) {
   const { t } = useI18n();
@@ -25,6 +30,7 @@ export default function EducationSection({ sectionId }) {
     ...sip,
     title: t(`education.sipCards.${sip.key}.title`),
     copy: t(`education.sipCards.${sip.key}.copy`),
+    statusLabel: t(`education.sipStatus.${sip.status}`),
   }));
 
   return (
@@ -75,8 +81,9 @@ export default function EducationSection({ sectionId }) {
           {sipCards.map((sip) => (
             <Card key={sip.id} tone="default" padding="md" interactive className="h-full">
               <div className="flex h-full flex-col">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <Chip tone="primary">{sip.tag}</Chip>
+                  <Chip tone={STATUS_TONE[sip.status] ?? 'muted'}>{sip.statusLabel}</Chip>
                 </div>
                 <h4 className="mt-3.5 text-[18px] font-semibold leading-[1.28] tracking-[-0.015em] text-[var(--sx-text)]">
                   {sip.title}
