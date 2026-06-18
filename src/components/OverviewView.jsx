@@ -1,3 +1,4 @@
+import BlockOptionsSection from './BlockOptionsSection';
 import EducationSection from './EducationSection';
 import Hero from './Hero';
 import ProtocolStatusList from './ProtocolStatusList';
@@ -62,6 +63,8 @@ export default function OverviewView({ isSip2On, onToggleSip2, onOpenSimulator, 
       </section>
 
       <EducationSection sectionId={educationSectionId} />
+
+      <BlockOptionsSection sectionId="overview-block-options" />
     </div>
   );
 }

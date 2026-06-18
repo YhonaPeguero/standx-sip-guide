@@ -207,6 +207,65 @@ const en = {
     readMore: 'Read more',
     communityNote: 'Built by the community to help users understand StandX SIPs faster.',
   },
+  blockOptions: {
+    tag: 'SIP #4 · Now Live',
+    title: 'Block Options: TP & SL as a reserved right',
+    description:
+      'StandX turns Take Profit and Stop Loss into Block Options. Instead of a mechanical trigger, your exit becomes a right that someone reserves for a fee — and the holder decides whether to execute before expiry.',
+    intro:
+      'A normal TP/SL just fires at a price. SIP-4 builds on Block Trade so exit intent becomes tradable: a counterparty pays or receives a Reservation Fee, the right is reserved until expiry, and execution stays a choice — not an automatic stop-out on the first ugly wick.',
+    marginNote: 'Block Options currently work with Cross Margin positions only — not Isolated.',
+    tp: {
+      chip: 'Block Option TP',
+      title: 'Monetize a planned exit',
+      summary:
+        'You were already willing to take profit at a target. Offer that exit as a tradable right and earn while you wait.',
+      feeLabel: 'Reservation Fee',
+      feeValue: 'You receive',
+      steps: [
+        'Open your position, select TP and choose “Community Hedge” Block Option mode.',
+        'Set the TP price, the quantity to cover and the expiry, then confirm and sign.',
+        'A counterparty pays you the Reservation Fee to reserve the right.',
+        'If executed, you exit at your price; if it expires unused, you keep the fee and the position.',
+      ],
+    },
+    sl: {
+      chip: 'Block Option SL',
+      title: 'Protection without losing control',
+      summary:
+        'A normal stop fires on the first touch — wicks included. Block SL gives you a reserved exit right you choose when to use.',
+      feeLabel: 'Reservation Fee',
+      feeValue: 'You pay',
+      steps: [
+        'Open your position, select SL and choose Block Option mode.',
+        'Set the protection price, the quantity and the expiry, then confirm and sign.',
+        'You pay a limited Reservation Fee and wait for the order to fill onchain.',
+        'If the market keeps moving against you, press Execute before expiry — a wick that recovers won’t stop you out.',
+      ],
+    },
+    terms: {
+      items: [
+        {
+          term: 'Reservation Fee',
+          copy: 'The payment to reserve the right. The TP seller receives it; the SL holder pays it.',
+        },
+        {
+          term: 'Expiry',
+          copy: 'Reserved rights stay exercisable until expiry. Unused, they cancel with no settlement.',
+        },
+        {
+          term: 'Execute',
+          copy: 'American-style: the holder may execute any time before expiry, at their discretion.',
+        },
+      ],
+    },
+    resourcesLabel: 'Learn more',
+    links: {
+      docs: 'Official docs',
+      thread: 'StandX thread',
+      intern: 'Deep-dive thread',
+    },
+  },
   playbook: {
     tag: 'Community Playbook',
     eyebrow: 'Community Yield Playbook',

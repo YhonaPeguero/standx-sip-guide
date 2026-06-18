@@ -209,6 +209,66 @@ const es = {
     communityNote:
       'Construido por la comunidad para ayudar a entender los SIPs de StandX más rápido.',
   },
+  blockOptions: {
+    tag: 'SIP #4 · Ya disponible',
+    title: 'Block Options: TP y SL como un derecho reservado',
+    description:
+      'StandX convierte el Take Profit y el Stop Loss en Block Options. En lugar de un disparador mecánico, tu salida se vuelve un derecho que alguien reserva pagando una comisión, y quien lo tiene decide si lo ejecuta antes del vencimiento.',
+    intro:
+      'Un TP/SL normal solo se dispara a un precio. SIP-4 se apoya en Block Trade para que la intención de salida sea negociable: una contraparte paga o recibe una Reservation Fee, el derecho queda reservado hasta el vencimiento, y ejecutar sigue siendo una decisión, no un stop automático por la primera mecha fea.',
+    marginNote:
+      'Las Block Options funcionan por ahora solo con posiciones en Cross Margin, no en Isolated.',
+    tp: {
+      chip: 'Block Option TP',
+      title: 'Monetiza una salida planeada',
+      summary:
+        'Ya estabas dispuesto a tomar ganancias en un nivel. Ofrece esa salida como un derecho negociable y gana mientras esperas.',
+      feeLabel: 'Reservation Fee',
+      feeValue: 'Recibes',
+      steps: [
+        'Abre tu posición, selecciona TP y elige el modo Block Option “Community Hedge”.',
+        'Define el precio de TP, la cantidad a cubrir y el vencimiento; luego confirma y firma.',
+        'Una contraparte te paga la Reservation Fee para reservar el derecho.',
+        'Si se ejecuta, sales a tu precio; si vence sin usarse, conservas la comisión y la posición.',
+      ],
+    },
+    sl: {
+      chip: 'Block Option SL',
+      title: 'Protección sin perder el control',
+      summary:
+        'Un stop normal se dispara al primer toque, mechas incluidas. El Block SL te da un derecho de salida reservado que usas cuando tú decides.',
+      feeLabel: 'Reservation Fee',
+      feeValue: 'Pagas',
+      steps: [
+        'Abre tu posición, selecciona SL y elige el modo Block Option.',
+        'Define el precio de protección, la cantidad y el vencimiento; luego confirma y firma.',
+        'Pagas una Reservation Fee limitada y esperas a que la orden se llene onchain.',
+        'Si el mercado sigue en tu contra, pulsa Execute antes del vencimiento; una mecha que se recupera no te saca.',
+      ],
+    },
+    terms: {
+      items: [
+        {
+          term: 'Reservation Fee',
+          copy: 'El pago por reservar el derecho. En el TP la recibe quien vende; en el SL la paga quien la tiene.',
+        },
+        {
+          term: 'Vencimiento',
+          copy: 'El derecho reservado se puede ejercer hasta el vencimiento. Sin usar, se cancela sin liquidación.',
+        },
+        {
+          term: 'Execute',
+          copy: 'Estilo americano: quien lo tiene puede ejecutar cuando quiera antes del vencimiento, a su criterio.',
+        },
+      ],
+    },
+    resourcesLabel: 'Saber más',
+    links: {
+      docs: 'Docs oficiales',
+      thread: 'Hilo de StandX',
+      intern: 'Hilo explicativo',
+    },
+  },
   playbook: {
     tag: 'Playbook Comunitario',
     eyebrow: 'Playbook de Yield Comunitario',

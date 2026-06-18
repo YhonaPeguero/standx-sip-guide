@@ -10,7 +10,7 @@ const SIP_OVERVIEW = [
   { id: 'sip-1', tag: 'SIP #1', key: 'sip1', status: 'live', href: 'https://docs.standx.com/sip/sip-1-block-trade' },
   { id: 'sip-2', tag: 'SIP #2', key: 'sip2', status: 'live', href: 'https://docs.standx.com/sip/sip-2-position-yield' },
   { id: 'sip-3', tag: 'SIP #3', key: 'sip3', status: 'live', href: 'https://docs.standx.com/sip/sip-3-dusd-native-yield' },
-  { id: 'sip-4', tag: 'SIP #4', key: 'sip4', status: 'review', href: 'https://docs.standx.com/sip/sip-4-block-options' },
+  { id: 'sip-4', tag: 'SIP #4', key: 'sip4', status: 'live', href: 'https://docs.standx.com/sip/sip-4-block-options' },
   { id: 'sip-5', tag: 'SIP #5', key: 'sip5', status: 'draft', href: 'https://docs.standx.com/sip/sip-5-universal-markets-listing' },
 ];
 
