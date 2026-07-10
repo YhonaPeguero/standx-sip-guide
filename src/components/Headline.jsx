@@ -4,9 +4,9 @@ export default function Headline() {
   const { t } = useI18n();
 
   return (
-    <h1 className="max-w-[640px] text-[42px] font-semibold leading-[1] tracking-[-0.038em] text-[var(--sx-text)] sm:text-[56px] sm:leading-[0.96] lg:text-[64px]">
+    <h1 className="type-h1 max-w-[680px]">
       {t('headline.title')}
-      <span className="text-[var(--sx-primary-bright)]">.</span>
+      <span className="text-[var(--sx-primary-glow)]">.</span>
     </h1>
   );
 }

@@ -1,11 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useI18n } from '../i18n';
 import Button from './ui/Button';
 
-function HeroTag() {
-  const { t } = useI18n();
-  return <span className="tag-pill">{t('hero.tag')}</span>;
-}
+const EASE = [0.22, 1, 0.36, 1];
 
 function FeatureRow() {
   const { t } = useI18n();
@@ -17,11 +14,11 @@ function FeatureRow() {
   ];
 
   return (
-    <ul className="mt-8 grid grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-4">
+    <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-4">
       {features.map((feature, index) => (
         <li
           key={feature.key}
-          className="flex items-start gap-2 text-[12px] leading-[1.4] text-[var(--sx-text-muted)]"
+          className="type-body-sm flex items-start gap-2 text-[var(--sx-text-muted)]"
         >
           <span
             className="mono mt-0.5 inline-flex h-4 w-5 items-center justify-center text-[10px] tracking-[0.12em] text-[var(--sx-primary-bright)]"
@@ -38,37 +35,68 @@ function FeatureRow() {
 
 export default function Hero({ onPrimary, onSecondary }) {
   const { t } = useI18n();
+  const reduceMotion = useReducedMotion();
+
+  // Signature entrance: tag → headline → subtitle → CTAs → features rise in sequence,
+  // then a gradient rule sweeps in under the headline. Disabled under reduced motion.
+  const container = {
+    hidden: {},
+    show: {
+      transition: reduceMotion ? {} : { staggerChildren: 0.09, delayChildren: 0.05 },
+    },
+  };
+
+  const item = {
+    hidden: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+  };
 
   return (
     <section className="relative">
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col items-start gap-5"
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="flex flex-col items-start gap-6"
       >
-        <HeroTag />
+        <motion.span variants={item} className="tag-pill">
+          {t('hero.tag')}
+        </motion.span>
 
-        <h1 className="max-w-[820px] text-[40px] font-semibold leading-[1.02] tracking-[-0.038em] text-[var(--sx-text)] sm:text-[56px] sm:leading-[0.98] lg:text-[64px]">
+        <motion.h1 variants={item} className="type-display max-w-[900px]">
           {t('hero.title.line1')}{' '}
-          <span className="text-[var(--sx-primary-bright)]">{t('hero.title.line2')}</span>
-          <span className="text-[var(--sx-primary-bright)]">.</span>
-        </h1>
+          <span className="text-gradient-primary">{t('hero.title.line2')}</span>
+          <span className="text-[var(--sx-primary-glow)]">.</span>
+        </motion.h1>
 
-        <p className="max-w-[640px] text-[16px] leading-[1.6] text-[var(--sx-text-muted)] sm:text-[17px]">
+        <motion.span
+          aria-hidden="true"
+          initial={reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.7, delay: reduceMotion ? 0 : 0.55, ease: EASE }}
+          className="h-[2px] w-[72px] origin-left"
+          style={{
+            background: 'linear-gradient(90deg, var(--sx-primary-bright), var(--sx-primary-glow))',
+            boxShadow: '0 0 16px rgba(0, 255, 128, 0.35)',
+          }}
+        />
+
+        <motion.p variants={item} className="type-body-lg max-w-[620px] text-[var(--sx-text-muted)]">
           {t('hero.subtitle')}
-        </p>
+        </motion.p>
 
-        <div className="mt-2 flex flex-wrap items-center gap-3">
+        <motion.div variants={item} className="mt-1 flex flex-wrap items-center gap-3">
           <Button variant="primary" size="lg" onClick={onPrimary} iconRight={<span>→</span>}>
             {t('hero.primaryCta')}
           </Button>
           <Button variant="outline" size="lg" onClick={onSecondary}>
             {t('hero.secondaryCta')}
           </Button>
-        </div>
+        </motion.div>
 
-        <FeatureRow />
+        <motion.div variants={item} className="w-full">
+          <FeatureRow />
+        </motion.div>
       </motion.div>
     </section>
   );

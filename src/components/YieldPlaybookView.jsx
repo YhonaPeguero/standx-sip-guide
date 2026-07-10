@@ -1,4 +1,5 @@
 import { useI18n } from '../i18n';
+import { Reveal, StaggerGroup, StaggerItem } from './Reveal';
 import Button from './ui/Button';
 import Card from './ui/Card';
 import Chip from './ui/Chip';
@@ -26,19 +27,20 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
   }));
 
   return (
-    <section className="space-y-12" data-guide-id="guide-playbook">
-      <div className="flex flex-col gap-4">
-        <span className="tag-pill">{t('playbook.tag')}</span>
+    <section className="section-block" data-guide-id="guide-playbook">
+      <Reveal>
         <SectionHeader
           size="lg"
+          eyebrow={t('playbook.tag')}
           title={t('playbook.title')}
           description={t('playbook.description')}
         />
-      </div>
+      </Reveal>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <StaggerGroup className="grid gap-4 md:grid-cols-2">
         {playbookCards.map((card) => (
-          <Card key={card.id} tone="raised" padding="lg" interactive className="h-full">
+          <StaggerItem key={card.id} className="h-full">
+          <Card tone="raised" padding="lg" interactive className="h-full">
             <div className="flex h-full flex-col gap-4">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
@@ -53,10 +55,10 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-[19px] font-semibold leading-[1.22] tracking-[-0.018em] text-[var(--sx-text)] sm:text-[21px]">
+                <h3 className="type-h3">
                   {card.title}
                 </h3>
-                <p className="text-[15px] leading-[1.55] text-[var(--sx-text-muted)]">
+                <p className="type-body text-[var(--sx-text-muted)]">
                   {card.headline}
                 </p>
               </div>
@@ -82,11 +84,12 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
               </div>
             </div>
           </Card>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGroup>
 
       <div className="hairline pt-5">
-        <p className="text-[13px] leading-[1.58] text-[var(--sx-muted)]">
+        <p className="type-body-sm text-[var(--sx-muted)]">
           {t('playbook.disclaimer')}
         </p>
       </div>

@@ -1,4 +1,6 @@
 import { useI18n } from '../i18n';
+import { Reveal } from './Reveal';
+import Card from './ui/Card';
 import Chart from './Chart';
 import ControlPanel from './ControlPanel';
 import Headline from './Headline';
@@ -36,9 +38,9 @@ export default function SimulatorView({
   const { t } = useI18n();
 
   return (
-    <div className="space-y-10 sm:space-y-14" data-guide-id="guide-simulator">
-      <section className="flex flex-col gap-6">
-        <div className="flex flex-col gap-4">
+    <div className="section-block" data-guide-id="guide-simulator">
+      <Reveal as="section" className="flex flex-col gap-8">
+        <div className="flex flex-col gap-5">
           <div className="flex flex-wrap items-center gap-3">
             <span className="tag-pill">{t('simulator.tag')}</span>
             <StatusChip isOn={isSip2On} compact />
@@ -48,19 +50,16 @@ export default function SimulatorView({
         </div>
 
         <div className="flex flex-col items-start justify-between gap-3 border-y border-[var(--sx-border)] py-4 sm:flex-row sm:items-center">
-          <p className="text-[13px] leading-[1.5] text-[var(--sx-muted)]">
+          <p className="type-body-sm text-[var(--sx-muted)]">
             {t('simulator.rangeHint')}
           </p>
           <RangeSelector value={rangeId} onChange={onRangeChange} />
         </div>
-      </section>
+      </Reveal>
 
-      <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <Reveal as="section" delay={0.08} className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="space-y-5">
-          <article
-            className="border border-[var(--sx-border)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)] sm:p-8"
-            style={{ borderRadius: 6 }}
-          >
+          <Card as="article" tone="default" padding="lg" elevated>
             <div className="flex items-start justify-between gap-5">
               <ValueDisplay
                 estimatedValueLabel={estimatedValueLabel}
@@ -90,7 +89,7 @@ export default function SimulatorView({
               onYieldPct={scenario.onYieldPct}
               isSip2On={isSip2On}
             />
-          </article>
+          </Card>
         </div>
 
         <ControlPanel
@@ -106,7 +105,7 @@ export default function SimulatorView({
           onPresetSelect={onPresetSelect}
           activeCapital={activeCapital}
         />
-      </section>
+      </Reveal>
     </div>
   );
 }

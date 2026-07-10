@@ -181,6 +181,7 @@ const uk = {
     sipStatus: {
       live: 'Активний',
       review: 'На розгляді',
+      wip: 'В розробці', // TODO: needs native review
       draft: 'Чернетка',
     },
     sipCards: {
@@ -200,12 +201,23 @@ const uk = {
         title: 'Block Options',
         copy: 'Опціоноподібні Take Profit і Stop Loss поверх Block Trade. Ви сплачуєте невелику Reservation Fee за право вийти — або увійти — за фіксованою ціною будь-коли до завершення терміну.',
       },
+      // TODO: needs native review (uk) — sip5 / sip5a / sip5b
       sip5: {
-        title: 'Universal Markets',
-        copy: 'Пропозиція безпермісійного лістингу перпів: будь-хто може спонсорувати ринок, застейкавши DUSD, фінансувати маркет-мейкерів спільноти та отримувати частку комісій.',
+        title: 'Universal Markets Listing',
+        copy: 'Фреймворк у розробці (WIP) для безпермісійного лістингу перпів, тепер поділений на поетапні під-пропозиції. Розгорніть, щоб побачити, що вже активне (5A) і що готується (5B).',
+      },
+      sip5a: {
+        title: 'Community Maker Yield',
+        copy: 'Перший активний елемент Universal Markets. Він оновлює Market Maker Uptime Program до щоденного yield: makerи, що виставляють двосторонню order book ліквідність біля mark price, накопичують "Maker Hours" (зважені за близькістю до ціни та uptime) і ділять щоденний пул винагород у DUSD/token, що поповнюється переробленими торговими комісіями.',
+      },
+      sip5b: {
+        title: 'Universal Markets — Наступна фаза',
+        copy: 'Наступна фаза Universal Markets, що розширює фреймворк безпермісійного лістингу. Чернетка — деталі незабаром.',
       },
     },
     readMore: 'Детальніше',
+    showSubProposals: 'Показати під-пропозиції', // TODO: needs native review
+    hideSubProposals: 'Сховати під-пропозиції', // TODO: needs native review
     communityNote:
       'Створено спільнотою, щоб допомогти користувачам швидше зрозуміти SIP від StandX.',
   },

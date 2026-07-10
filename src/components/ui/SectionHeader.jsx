@@ -9,18 +9,18 @@ export default function SectionHeader({
 }) {
   const alignClasses = align === 'center' ? 'text-center items-center' : 'text-left items-start';
 
+  // Sizes come from the token scale (--sx-fs-h2 / --sx-fs-h2-sm) via type roles.
   const titleClass =
-    size === 'lg'
-      ? 'max-w-[760px] text-[28px] font-semibold leading-[1.1] tracking-[-0.022em] text-[var(--sx-text)] sm:text-[34px]'
-      : 'max-w-[680px] text-[24px] font-semibold leading-[1.14] tracking-[-0.02em] text-[var(--sx-text)] sm:text-[28px]';
+    size === 'lg' ? 'type-h2 max-w-[780px]' : 'type-h2-sm max-w-[680px]';
 
   return (
     <header className={`flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between ${className}`}>
-      <div className={`flex flex-col gap-2.5 ${alignClasses}`}>
-        {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
+      <div className={`flex flex-col ${alignClasses}`}>
+        {/* Eyebrow is the single section-marker pattern (tag-pill), with air before the title */}
+        {eyebrow ? <span className="tag-pill mb-5">{eyebrow}</span> : null}
         {title ? <h2 className={titleClass}>{title}</h2> : null}
         {description ? (
-          <p className="max-w-[600px] text-[15px] leading-[1.62] text-[var(--sx-text-muted)]">
+          <p className="type-body mt-3.5 max-w-[620px] text-[var(--sx-text-muted)]">
             {description}
           </p>
         ) : null}

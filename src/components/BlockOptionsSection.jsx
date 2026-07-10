@@ -1,4 +1,5 @@
 import { useI18n } from '../i18n';
+import { Reveal, StaggerGroup, StaggerItem } from './Reveal';
 import Button from './ui/Button';
 import Card from './ui/Card';
 import Chip from './ui/Chip';
@@ -58,26 +59,27 @@ export default function BlockOptionsSection({ sectionId }) {
   const termItems = Array.isArray(terms) ? terms : [];
 
   return (
-    <section id={sectionId} className="space-y-8" aria-labelledby="block-options-heading">
-      <div className="flex flex-col gap-3">
-        <span className="tag-pill">{t('blockOptions.tag')}</span>
+    <section id={sectionId} className="section-block" aria-labelledby="block-options-heading">
+      <Reveal className="flex flex-col gap-4">
         <SectionHeader
           size="lg"
+          eyebrow={t('blockOptions.tag')}
           title={t('blockOptions.title')}
           description={t('blockOptions.description')}
         />
-        <p className="max-w-[760px] text-[14px] leading-[1.66] text-[var(--sx-text-muted)] sm:text-[15px]">
+        <p className="type-body max-w-[760px] text-[var(--sx-text-muted)]">
           {t('blockOptions.intro')}
         </p>
-      </div>
+      </Reveal>
 
-      <div className="grid gap-3 md:grid-cols-2">
+      <StaggerGroup className="grid gap-3 md:grid-cols-2">
         {SIDES.map(({ key, tone, accent }) => {
           const steps = t(`blockOptions.${key}.steps`);
           const stepItems = Array.isArray(steps) ? steps : [];
 
           return (
-            <Card key={key} tone="default" padding="lg" interactive className="h-full">
+            <StaggerItem key={key} className="h-full">
+            <Card tone="default" padding="lg" interactive className="h-full">
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between gap-2">
                   <span
@@ -90,10 +92,10 @@ export default function BlockOptionsSection({ sectionId }) {
                   <Chip tone={tone}>{t(`blockOptions.${key}.feeLabel`)}</Chip>
                 </div>
 
-                <h3 className="mt-4 text-[20px] font-semibold leading-[1.22] tracking-[-0.018em] text-[var(--sx-text)]">
+                <h3 className="type-h3 mt-4">
                   {t(`blockOptions.${key}.title`)}
                 </h3>
-                <p className="mt-2 text-[14px] leading-[1.62] text-[var(--sx-text-muted)]">
+                <p className="type-body-sm mt-2 text-[var(--sx-text-muted)]">
                   {t(`blockOptions.${key}.summary`)}
                 </p>
 
@@ -130,13 +132,15 @@ export default function BlockOptionsSection({ sectionId }) {
                 </div>
               </div>
             </Card>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerGroup>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <StaggerGroup className="grid gap-3 sm:grid-cols-3">
         {termItems.map((item, index) => (
-          <Card key={index} tone="subtle" padding="md" className="h-full">
+          <StaggerItem key={index} className="h-full">
+          <Card tone="subtle" padding="md" className="h-full">
             <span className="mono text-[11px] uppercase tracking-[0.14em] text-[var(--sx-primary-bright)]">
               {item.term}
             </span>
@@ -144,8 +148,9 @@ export default function BlockOptionsSection({ sectionId }) {
               {item.copy}
             </p>
           </Card>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGroup>
 
       <div className="hairline flex flex-col gap-5 pt-5">
         <p className="text-[13px] leading-[1.58] text-[var(--sx-muted)]">

@@ -181,6 +181,7 @@ const ptBR = {
     sipStatus: {
       live: 'Ativo',
       review: 'Em revisão',
+      wip: 'Em desenvolvimento',
       draft: 'Rascunho',
     },
     sipCards: {
@@ -201,11 +202,21 @@ const ptBR = {
         copy: 'Take Profit e Stop Loss no estilo opção sobre o Block Trade. Você paga uma pequena Reservation Fee pelo direito de sair — ou entrar — a um preço fixo a qualquer momento antes do vencimento.',
       },
       sip5: {
-        title: 'Universal Markets',
-        copy: 'Uma proposta de listagem de perps sem permissão: qualquer pessoa pode patrocinar um mercado fazendo staking de DUSD, financiando market-makers da comunidade e ganhando uma parte das taxas.',
+        title: 'Universal Markets Listing',
+        copy: 'Um framework em desenvolvimento para listagem de perps sem permissão, agora dividido em sub-propostas por etapas. Expanda para ver o que está ativo (5A) e o que está por vir (5B).',
+      },
+      sip5a: {
+        title: 'Community Maker Yield',
+        copy: 'A primeira peça ativa do Universal Markets. Transforma o Market Maker Uptime Program em um yield diário: makers que cotam liquidez de dois lados perto do preço de marca acumulam "Maker Hours" — ponderadas pela proximidade do preço e pelo uptime — e dividem um pool diário de recompensas em DUSD/token, reforçado por taxas de trading recicladas.',
+      },
+      sip5b: {
+        title: 'Universal Markets — Próxima Fase',
+        copy: 'A próxima fase do Universal Markets, estendendo o framework de listagem sem permissão. Rascunho — detalhes em breve.',
       },
     },
     readMore: 'Ler mais',
+    showSubProposals: 'Ver sub-propostas',
+    hideSubProposals: 'Ocultar sub-propostas',
     communityNote:
       'Construído pela comunidade para ajudar usuários a entender os SIPs da StandX mais rápido.',
   },

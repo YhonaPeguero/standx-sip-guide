@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import BackgroundFX from './components/BackgroundFX';
+import BottomNav from './components/BottomNav';
 import Footer from './components/Footer';
 import GuideOverlay from './components/GuideOverlay';
 import OverviewView from './components/OverviewView';
@@ -605,13 +606,14 @@ export default function App() {
 
       <main
         id="main-content"
-        className="relative z-10 mx-auto w-full max-w-[1240px] px-4 pb-16 pt-10 sm:px-6 sm:pt-14 lg:px-8 lg:pt-20"
+        className="relative z-10 mx-auto w-full max-w-[1240px] px-4 pb-28 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8 lg:pt-24"
       >
+        {/* Tab switch is a plain fade — each section supplies its own staggered rise via Reveal */}
         <motion.div
           key={safeActiveTab}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
         >
           {safeActiveTab === 'overview' ? (
             <OverviewView
@@ -658,6 +660,8 @@ export default function App() {
 
         <Footer />
       </main>
+
+      <BottomNav activeTab={safeActiveTab} onTabChange={handleTabChange} />
     </div>
   );
 }

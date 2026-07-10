@@ -20,11 +20,11 @@
   --sx-border-strong: #2a3e38;
   --sx-border-active: rgba(0, 255, 130, 0.45);
 
-  /* Text */
-  --sx-text: #eef5f0;
-  --sx-text-muted: #b4c2ba;
-  --sx-muted: #8d9b93;
-  --sx-muted-soft: #6c7a72;
+  /* Text — muted steps lifted for contrast (same green-gray hue family) */
+  --sx-text: #f2f8f4;
+  --sx-text-muted: #c3d1c9;
+  --sx-muted: #97a69d;
+  --sx-muted-soft: #778680;
 
   /* Brand — StandX dark green with bright accent */
   --sx-primary: #006632;
@@ -41,16 +41,17 @@
   --sx-success: #00ff2a;
   --sx-warning: #f7c948;
 
-  /* Type scale */
+  /* Type scale — fluid. Display runs big and confident; body stays quiet. */
   --sx-fs-eyebrow: 11px;
   --sx-fs-meta: 12px;
-  --sx-fs-body-sm: 13px;
+  --sx-fs-body-sm: 13.5px;
   --sx-fs-body: 15px;
   --sx-fs-body-lg: 17px;
-  --sx-fs-h3: 19px;
-  --sx-fs-h2: 28px;
-  --sx-fs-h1: 44px;
-  --sx-fs-display: 64px;
+  --sx-fs-h3: clamp(19px, 1vw + 15px, 22px);
+  --sx-fs-h2-sm: clamp(22px, 1.6vw + 16px, 28px);
+  --sx-fs-h2: clamp(28px, 2.2vw + 18px, 38px);
+  --sx-fs-h1: clamp(40px, 4vw + 22px, 60px);
+  --sx-fs-display: clamp(46px, 6vw + 22px, 84px);
 
   /* Radii — StandX runs sharp (3-6px) */
   --sx-r-xs: 3px;
@@ -71,10 +72,10 @@
   --sx-sp-12: 48px;
   --sx-sp-16: 64px;
 
-  /* Shadows */
-  --sx-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --sx-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.32);
-  --sx-shadow-lg: 0 24px 46px rgba(0, 0, 0, 0.36);
+  /* Shadows — inset top highlight gives every surface a lit upper edge (depth without new color) */
+  --sx-shadow-sm: inset 0 1px 0 rgba(242, 248, 244, 0.035), 0 1px 2px rgba(0, 0, 0, 0.35);
+  --sx-shadow-md: inset 0 1px 0 rgba(242, 248, 244, 0.05), 0 10px 28px rgba(0, 0, 0, 0.38);
+  --sx-shadow-lg: inset 0 1px 0 rgba(242, 248, 244, 0.06), 0 28px 56px rgba(0, 0, 0, 0.44);
   --sx-shadow-glow: 0 0 0 1px rgba(0, 102, 50, 0.35), 0 16px 36px rgba(0, 102, 50, 0.18);
   --sx-shadow-focus: 0 0 0 2px var(--sx-bg), 0 0 0 4px rgba(250, 198, 195, 0.7);
 
@@ -89,6 +90,12 @@
   /* Layout */
   --sx-container: 1240px;
   --sx-container-tight: 980px;
+
+  /* Vertical rhythm — generous air between sections, clear gap between a header and its content.
+     Section ceiling is 112px: exactly 2:1 over --sx-gap-header (56px max) — the floor for a
+     legible spatial hierarchy. Wider gaps read as voids on a dark surface. */
+  --sx-gap-section: clamp(96px, 2vw + 80px, 112px);
+  --sx-gap-header: clamp(36px, 3vw + 24px, 56px);
 }
 
 html,
@@ -129,8 +136,8 @@ button:disabled {
 
 /* Locale-specific tightening for CJK so headlines don't crush */
 :root[lang='ko'] {
-  --sx-fs-h1: 38px;
-  --sx-fs-display: 52px;
+  --sx-fs-h1: clamp(34px, 3.4vw + 18px, 50px);
+  --sx-fs-display: clamp(40px, 5vw + 18px, 66px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -149,6 +156,76 @@ button:disabled {
   font-variant-numeric: tabular-nums;
 }
 
+/* Type roles — components use these instead of hardcoded px so the scale actually applies */
+.type-display {
+  font-size: var(--sx-fs-display);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.048em;
+  color: var(--sx-text);
+}
+
+.type-h1 {
+  font-size: var(--sx-fs-h1);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.042em;
+  color: var(--sx-text);
+}
+
+.type-h2 {
+  font-size: var(--sx-fs-h2);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--sx-text);
+}
+
+.type-h2-sm {
+  font-size: var(--sx-fs-h2-sm);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.024em;
+  color: var(--sx-text);
+}
+
+.type-h3 {
+  font-size: var(--sx-fs-h3);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.018em;
+  color: var(--sx-text);
+}
+
+.type-body-lg {
+  font-size: var(--sx-fs-body-lg);
+  line-height: 1.65;
+}
+
+.type-body {
+  font-size: var(--sx-fs-body);
+  line-height: 1.62;
+}
+
+.type-body-sm {
+  font-size: var(--sx-fs-body-sm);
+  line-height: 1.6;
+}
+
+.type-caption {
+  font-size: var(--sx-fs-meta);
+  line-height: 1.5;
+}
+
+/* Display accent — bright→glow gradient from the existing palette, with a soft light bloom */
+.text-gradient-primary {
+  background: linear-gradient(96deg, var(--sx-primary-bright) 10%, var(--sx-primary-glow) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 24px rgba(0, 255, 128, 0.22));
+}
+
 .eyebrow {
   font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: var(--sx-fs-eyebrow);
@@ -164,6 +241,19 @@ button:disabled {
 
 .hairline {
   border-top: 1px solid var(--sx-border);
+}
+
+/* Rhythm utilities — one spacing system for all three tabs */
+.section-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sx-gap-section);
+}
+
+.section-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sx-gap-header);
 }
 
 /* Skip link — visually hidden until focused */

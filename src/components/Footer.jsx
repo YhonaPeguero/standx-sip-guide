@@ -27,7 +27,7 @@ export default function Footer() {
   const { t } = useI18n();
 
   return (
-    <footer className="mt-16 border-t border-[var(--sx-border)] pt-10">
+    <footer className="mt-[var(--sx-gap-section)] border-t border-[var(--sx-border)] pt-12">
       <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
           <span className="mono text-[11px] uppercase tracking-[0.18em] text-[var(--sx-primary-bright)]">

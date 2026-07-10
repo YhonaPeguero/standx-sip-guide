@@ -175,6 +175,7 @@ const ko = {
     sipStatus: {
       live: '운영 중',
       review: '검토 중',
+      wip: '개발 중', // TODO: needs native review
       draft: '초안',
     },
     sipCards: {
@@ -194,12 +195,23 @@ const ko = {
         title: 'Block Options',
         copy: 'Block Trade 위에 얹는 옵션형 Take Profit·Stop Loss입니다. 소액의 Reservation Fee를 내면 만기 전 언제든 정해진 가격에 청산하거나 진입할 권리를 얻습니다.',
       },
+      // TODO: needs native review (ko) — sip5 / sip5a / sip5b
       sip5: {
-        title: 'Universal Markets',
-        copy: '무허가 퍼프(perp) 상장 제안입니다. 누구나 DUSD를 스테이킹해 마켓을 후원(Sponsor)하고, 커뮤니티 마켓메이커에 자금을 지원하며 수수료의 일부를 받을 수 있습니다.',
+        title: 'Universal Markets Listing',
+        copy: '무허가 퍼프(perp) 상장을 위한 개발 중(WIP) 프레임워크로, 이제 단계별 하위 제안으로 나뉩니다. 펼쳐서 무엇이 운영 중(5A)이고 무엇이 예정(5B)인지 확인하세요.',
+      },
+      sip5a: {
+        title: 'Community Maker Yield',
+        copy: 'Universal Markets의 첫 번째 운영 요소입니다. Market Maker Uptime Program을 일일 yield로 업그레이드합니다: mark price 근처에서 양방향 order book 유동성을 제시하는 maker는 "Maker Hours"(가격 근접도와 uptime으로 가중)를 적립하고, 재활용된 트레이딩 수수료로 보강되는 일일 DUSD/token 리워드 풀을 나눠 가집니다.',
+      },
+      sip5b: {
+        title: 'Universal Markets — 다음 단계',
+        copy: 'Universal Markets의 다음 단계로, 무허가 상장 프레임워크를 확장합니다. 초안 — 세부 내용은 곧 공개됩니다.',
       },
     },
     readMore: '자세히 보기',
+    showSubProposals: '하위 제안 보기', // TODO: needs native review
+    hideSubProposals: '하위 제안 숨기기', // TODO: needs native review
     communityNote: '사용자가 StandX SIP를 더 빠르게 이해할 수 있도록 커뮤니티가 만들었습니다.',
   },
   playbook: {
