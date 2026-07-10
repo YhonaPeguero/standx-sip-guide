@@ -180,6 +180,7 @@ const en = {
     sipStatus: {
       live: 'Live',
       review: 'In Review',
+      wip: 'WIP',
       draft: 'Draft',
     },
     sipCards: {
@@ -200,11 +201,21 @@ const en = {
         copy: 'Option-like Take Profit & Stop Loss on top of Block Trade. Pay a small Reservation Fee for the right to exit — or enter — at a preset price any time before expiry.',
       },
       sip5: {
-        title: 'Universal Markets',
-        copy: 'A proposed framework for permissionless perp listing: anyone can sponsor a market by staking DUSD, funding community market-makers, and earning a share of fees.',
+        title: 'Universal Markets Listing',
+        copy: 'A work-in-progress framework for permissionless perp listing, now staged into sub-proposals. Expand to see what is live (5A) and what is coming (5B).',
+      },
+      sip5a: {
+        title: 'Community Maker Yield',
+        copy: 'The first live piece of Universal Markets. It upgrades the Market Maker Uptime Program into a daily yield: makers quoting two-sided liquidity near the mark price accrue "Maker Hours" — weighted by price proximity and uptime — and split a daily DUSD/token reward pool, topped up by recycled trading fees.',
+      },
+      sip5b: {
+        title: 'Universal Markets — Next Phase',
+        copy: 'The next phase of Universal Markets, extending the permissionless listing framework. Draft — details coming soon.',
       },
     },
     readMore: 'Read more',
+    showSubProposals: 'View sub-proposals',
+    hideSubProposals: 'Hide sub-proposals',
     communityNote: 'Built by the community to help users understand StandX SIPs faster.',
   },
   blockOptions: {
