@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../i18n';
+import { Reveal, StaggerGroup, StaggerItem } from './Reveal';
 import Button from './ui/Button';
 import Card from './ui/Card';
 import Chip from './ui/Chip';
@@ -53,20 +54,21 @@ export default function EducationSection({ sectionId }) {
   }));
 
   return (
-    <section id={sectionId} className="space-y-14">
-      <div className="space-y-6">
-        <div className="flex flex-col gap-3">
-          <span className="tag-pill">{t('education.mechanics.tag')}</span>
+    <section id={sectionId} className="section-stack">
+      <div className="section-block">
+        <Reveal>
           <SectionHeader
             size="lg"
+            eyebrow={t('education.mechanics.tag')}
             title={t('education.mechanics.title')}
             description={t('education.mechanics.description')}
           />
-        </div>
+        </Reveal>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerGroup className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {flowSteps.map((step, index) => (
-            <Card key={step.key} tone="subtle" padding="md" interactive className="h-full">
+            <StaggerItem key={step.key} className="h-full">
+            <Card tone="subtle" padding="md" interactive className="h-full">
               <div className="flex items-center justify-between">
                 <span className="mono text-[11px] uppercase tracking-[0.16em] text-[var(--sx-primary-bright)]">
                   {t('education.stepLabel')} {String(index + 1).padStart(2, '0')}
@@ -82,26 +84,28 @@ export default function EducationSection({ sectionId }) {
                 {step.copy}
               </p>
             </Card>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </div>
 
-      <div className="space-y-6">
-        <div className="flex flex-col gap-3">
-          <span className="tag-pill">{t('education.sipOverview.tag')}</span>
+      <div className="section-block">
+        <Reveal>
           <SectionHeader
             size="lg"
+            eyebrow={t('education.sipOverview.tag')}
             title={t('education.sipOverview.title')}
             description={t('education.sipOverview.description')}
           />
-        </div>
+        </Reveal>
 
-        <div className="grid gap-3 md:grid-cols-3">
+        <StaggerGroup className="grid gap-3 md:grid-cols-3">
           {sipCards.map((sip) => {
             const hasChildren = sip.children.length > 0;
             const isExpanded = expandedId === sip.id;
             return (
-              <Card key={sip.id} tone="default" padding="md" interactive className="h-full">
+              <StaggerItem key={sip.id} className="h-full">
+              <Card tone="default" padding="md" interactive className="h-full">
                 <div className="flex h-full flex-col">
                   <div className="flex items-center justify-between gap-2">
                     <Chip tone="primary">{sip.tag}</Chip>
@@ -173,9 +177,10 @@ export default function EducationSection({ sectionId }) {
                   )}
                 </div>
               </Card>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerGroup>
       </div>
 
       <div className="hairline pt-5">

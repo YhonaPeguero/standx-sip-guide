@@ -1,7 +1,9 @@
 import BlockOptionsSection from './BlockOptionsSection';
+import Card from './ui/Card';
 import EducationSection from './EducationSection';
 import Hero from './Hero';
 import ProtocolStatusList from './ProtocolStatusList';
+import { Reveal } from './Reveal';
 import StatusChip from './StatusChip';
 import YieldLoopFlow from './YieldLoopFlow';
 import { useI18n } from '../i18n';
@@ -17,16 +19,21 @@ export default function OverviewView({ isSip2On, onToggleSip2, onOpenSimulator, 
   };
 
   return (
-    <div className="space-y-14 sm:space-y-20">
+    <div className="section-stack">
       <Hero onPrimary={onOpenSimulator} onSecondary={scrollToLearn} />
 
-      <section
+      <Reveal
+        as="section"
+        delay={0.12}
         className="grid gap-5 lg:grid-cols-[320px_minmax(0,1fr)]"
         aria-labelledby="interactive-preview-heading"
       >
-        <article
-          className="relative flex flex-col border border-[var(--sx-border)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)]"
-          style={{ borderRadius: 6 }}
+        <Card
+          as="article"
+          tone="default"
+          padding="lg"
+          elevated
+          className="flex flex-col"
           data-guide-id="guide-protocol-layers"
         >
           <div className="flex flex-col gap-3">
@@ -46,21 +53,21 @@ export default function OverviewView({ isSip2On, onToggleSip2, onOpenSimulator, 
             className="mt-6"
           />
 
-          <p className="mt-6 text-[14px] leading-[1.62] text-[var(--sx-text-muted)]">
+          <p className="type-body mt-6 text-[var(--sx-text-muted)]">
             {isSip2On ? t('overview.previewActive') : t('overview.previewIdle')}
           </p>
 
           <div className="mt-auto pt-6">
             <div className="hairline pt-4">
-              <p className="text-[13px] leading-[1.58] text-[var(--sx-muted)]">
+              <p className="type-body-sm text-[var(--sx-muted)]">
                 {t('overview.storyHint')}
               </p>
             </div>
           </div>
-        </article>
+        </Card>
 
         <YieldLoopFlow isOn={isSip2On} />
-      </section>
+      </Reveal>
 
       <EducationSection sectionId={educationSectionId} />
 
