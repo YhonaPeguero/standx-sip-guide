@@ -184,7 +184,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
         </div>
 
         <nav
-          className="no-scrollbar -mb-px flex items-center gap-0.5 overflow-x-auto"
+          className="no-scrollbar -mb-px hidden items-center gap-0.5 overflow-x-auto sm:flex"
           aria-label={t('topBar.nav.ariaLabel')}
         >
           {navItems.map((item) => {
