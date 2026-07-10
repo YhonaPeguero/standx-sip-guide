@@ -214,6 +214,66 @@ const ko = {
     hideSubProposals: '하위 제안 숨기기', // TODO: needs native review
     communityNote: '사용자가 StandX SIP를 더 빠르게 이해할 수 있도록 커뮤니티가 만들었습니다.',
   },
+  // TODO: needs native review (ko) — blockOptions
+  blockOptions: {
+    tag: 'SIP #4 · 운영 중',
+    title: 'Block Options: 예약된 권리로서의 TP & SL',
+    description:
+      'StandX는 Take Profit과 Stop Loss를 Block Options로 바꿉니다. 기계적인 트리거 대신, 청산은 누군가 수수료를 내고 예약하는 권리가 되고, 보유자가 만기 전에 실행할지 직접 결정합니다.',
+    intro:
+      '일반 TP/SL은 정해진 가격에서 그냥 발동됩니다. SIP-4는 Block Trade 위에서 청산 의사를 거래 가능하게 만듭니다: 상대방이 Reservation Fee를 지불하거나 수령하고, 권리는 만기까지 예약되며, 실행은 여전히 선택으로 남습니다 — 첫 급격한 꼬리(wick)에 자동으로 청산되지 않습니다.',
+    marginNote: 'Block Options는 현재 Cross Margin 포지션에서만 작동하며, Isolated에서는 사용할 수 없습니다.',
+    tp: {
+      chip: 'Block Option TP',
+      title: '계획된 청산을 수익화',
+      summary:
+        '어차피 목표가에서 이익을 실현할 생각이었다면, 그 청산을 거래 가능한 권리로 제공하고 기다리는 동안 수익을 얻으세요.',
+      feeLabel: 'Reservation Fee',
+      feeValue: '수령',
+      steps: [
+        '포지션을 열고 TP를 선택한 뒤 “Community Hedge” Block Option 모드를 고릅니다.',
+        'TP 가격, 커버할 수량, 만기를 설정한 뒤 확인하고 서명합니다.',
+        '상대방이 권리를 예약하기 위해 Reservation Fee를 지불합니다.',
+        '실행되면 원하는 가격에 청산되고, 사용되지 않고 만기되면 수수료와 포지션을 모두 유지합니다.',
+      ],
+    },
+    sl: {
+      chip: 'Block Option SL',
+      title: '통제력을 잃지 않는 보호',
+      summary:
+        '일반 스탑은 첫 터치에 발동됩니다 — 꼬리(wick)도 포함해서요. Block SL은 언제 사용할지 직접 선택하는 예약된 청산 권리를 제공합니다.',
+      feeLabel: 'Reservation Fee',
+      feeValue: '지불',
+      steps: [
+        '포지션을 열고 SL을 선택한 뒤 Block Option 모드를 고릅니다.',
+        '보호 가격, 수량, 만기를 설정한 뒤 확인하고 서명합니다.',
+        '제한된 Reservation Fee를 지불하고 주문이 온체인에서 체결되기를 기다립니다.',
+        '시장이 계속 불리하게 움직이면 만기 전에 Execute를 누르세요 — 회복되는 꼬리에는 청산당하지 않습니다.',
+      ],
+    },
+    terms: {
+      items: [
+        {
+          term: 'Reservation Fee',
+          copy: '권리를 예약하기 위한 지불금입니다. TP 판매자는 수령하고, SL 보유자는 지불합니다.',
+        },
+        {
+          term: '만기 (Expiry)',
+          copy: '예약된 권리는 만기까지 행사할 수 있습니다. 사용하지 않으면 정산 없이 취소됩니다.',
+        },
+        {
+          term: 'Execute',
+          copy: '아메리칸 스타일: 보유자는 만기 전 언제든 자신의 판단으로 실행할 수 있습니다.',
+        },
+      ],
+    },
+    resourcesLabel: '더 알아보기',
+    links: {
+      docs: '공식 문서',
+      thread: 'StandX 스레드',
+      intern: '심층 분석 스레드',
+    },
+  },
   playbook: {
     tag: '커뮤니티 플레이북',
     eyebrow: '커뮤니티 수익 플레이북',
