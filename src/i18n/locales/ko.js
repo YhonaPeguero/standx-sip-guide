@@ -7,8 +7,7 @@ const ko = {
       vaults: 'Vaults',
       ariaLabel: '주요 섹션',
     },
-    independent: '독립적', // TODO: needs native review
-    independentFull: '커뮤니티가 만든 독립 프로젝트 — StandX 팀과 제휴 관계 없음.', // TODO: needs native review
+    community: '커뮤니티', // TODO: needs native review
     language: {
       button: '언어',
       buttonAria: '언어 메뉴 열기',
@@ -93,7 +92,7 @@ const ko = {
       maintainer: '관리자', // TODO: needs native review
       maintainerValue: 'Thisnotmeme',
       affiliation: '제휴 관계', // TODO: needs native review
-      affiliationValue: '독립적 — StandX와 제휴 관계 없음', // TODO: needs native review
+      affiliationValue: 'StandX 팀과 제휴 관계 없음', // TODO: needs native review
     },
   },
   headline: {

@@ -37,7 +37,9 @@ export default function Hero({ onPrimary, onSecondary }) {
     { key: 'scope', value: scopeValue, wide: true },
     { key: 'languages', value: t('hero.features.multilingual') },
     { key: 'maintainer', value: t('hero.meta.maintainerValue') },
-    { key: 'affiliation', value: t('hero.meta.affiliationValue'), emphasis: true },
+    // Stated at the same weight as every other field. Non-affiliation is a property of
+    // this document, so it reads as a record entry rather than as a disclaimer.
+    { key: 'affiliation', value: t('hero.meta.affiliationValue') },
   ];
 
   const container = {
@@ -80,10 +82,7 @@ export default function Hero({ onPrimary, onSecondary }) {
               <dt className="mono text-[11px] uppercase tracking-[0.14em] text-[var(--sx-muted)]">
                 {t(`hero.meta.${field.key}`)}
               </dt>
-              <dd
-                className="mono text-[13px] font-semibold leading-[1.5] tracking-[-0.01em]"
-                style={{ color: field.emphasis ? 'var(--sx-primary-bright)' : 'var(--sx-text)' }}
-              >
+              <dd className="mono text-[13px] font-semibold leading-[1.5] tracking-[-0.01em] text-[var(--sx-text)]">
                 {field.href ? (
                   <a
                     href={field.href}

@@ -1,0 +1,12 @@
+{
+  "detector": {
+    "ignoreRules": [
+      "codex-grid-background"
+    ],
+    "ignoreFiles": [],
+    "ignoreValues": []
+  },
+  "ignoreRuleReasons": {
+    "codex-grid-background": "The fine rule grid is StandX's visual language, not AI slop. It is the background treatment on standx-stats.vercel.app and is reproduced here deliberately: a 52px white grid, a 260px green grid at 5x that pitch, and a dot on the coarse intersections, over a flat base. Dismissed on the same grounds as dark-glow in the 2026-07-27 critique, where every hit was the locked green-on-near-black brand this project has committed to."
+  }
+}

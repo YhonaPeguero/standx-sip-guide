@@ -7,8 +7,7 @@ const es = {
       vaults: 'Vaults',
       ariaLabel: 'Secciones principales',
     },
-    independent: 'Independiente',
-    independentFull: 'Hecho por la comunidad e independiente — sin afiliación con el equipo de StandX.',
+    community: 'Comunidad',
     language: {
       button: 'Idioma',
       buttonAria: 'Abrir menú de idiomas',
@@ -93,7 +92,7 @@ const es = {
       maintainer: 'Responsable',
       maintainerValue: 'Thisnotmeme',
       affiliation: 'Afiliación',
-      affiliationValue: 'Independiente — sin afiliación con StandX',
+      affiliationValue: 'Sin afiliación con el equipo de StandX',
     },
   },
   headline: {

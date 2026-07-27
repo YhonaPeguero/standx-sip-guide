@@ -7,8 +7,7 @@ const en = {
       vaults: 'Vaults',
       ariaLabel: 'Primary sections',
     },
-    independent: 'Independent',
-    independentFull: 'Community-built and independent — not affiliated with the StandX team.',
+    community: 'Community',
     language: {
       button: 'Language',
       buttonAria: 'Open language menu',
@@ -93,7 +92,7 @@ const en = {
       maintainer: 'Maintainer',
       maintainerValue: 'Thisnotmeme',
       affiliation: 'Affiliation',
-      affiliationValue: 'Independent — not affiliated with StandX',
+      affiliationValue: 'Not affiliated with the StandX team',
     },
   },
   headline: {

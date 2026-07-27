@@ -7,8 +7,7 @@ const uk = {
       vaults: 'Vaults',
       ariaLabel: 'Основні розділи',
     },
-    independent: 'Незалежний', // TODO: needs native review
-    independentFull: 'Створено спільнотою, незалежний — не афілійований з командою StandX.', // TODO: needs native review
+    community: 'Спільнота', // TODO: needs native review
     language: {
       button: 'Мова',
       buttonAria: 'Відкрити меню мов',
@@ -93,7 +92,7 @@ const uk = {
       maintainer: 'Супровід', // TODO: needs native review
       maintainerValue: 'Thisnotmeme',
       affiliation: 'Афіліація', // TODO: needs native review
-      affiliationValue: 'Незалежний — не афілійований зі StandX', // TODO: needs native review
+      affiliationValue: 'Не афілійований з командою StandX', // TODO: needs native review
     },
   },
   headline: {

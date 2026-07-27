@@ -7,8 +7,7 @@ const ptBR = {
       vaults: 'Vaults',
       ariaLabel: 'Seções principais',
     },
-    independent: 'Independente',
-    independentFull: 'Feito pela comunidade e independente — sem afiliação com a equipe da StandX.',
+    community: 'Comunidade',
     language: {
       button: 'Idioma',
       buttonAria: 'Abrir menu de idiomas',
@@ -93,7 +92,7 @@ const ptBR = {
       maintainer: 'Responsável',
       maintainerValue: 'Thisnotmeme',
       affiliation: 'Afiliação',
-      affiliationValue: 'Independente — sem afiliação com a StandX',
+      affiliationValue: 'Sem afiliação com a equipe da StandX',
     },
   },
   headline: {

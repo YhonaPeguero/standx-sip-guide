@@ -72,16 +72,13 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
         <div className="flex items-center justify-between gap-3 py-3.5 sm:py-4">
           <div className="flex min-w-0 items-center gap-3">
             <StandXBrand />
-            {/* Independence is a fact this guide preserves, not a disclaimer it minimizes.
-                It used to appear only above 1024px while the full statement sat ~4000px
-                down in the footer, so most readers never met it. Visible at every width;
-                the title carries the whole sentence for anyone who wants it. */}
+            {/* Visible at every width rather than lg and up. The non-affiliation statement
+                itself lives in the masthead's AFFILIATION field, not here. */}
             <span
-              title={t('topBar.independentFull')}
               className="inline-flex h-5 shrink-0 items-center border border-[rgba(139,210,178,0.3)] bg-[rgba(0,102,50,0.16)] px-2 text-[10.5px] font-medium uppercase tracking-[0.14em] text-[var(--sx-primary-soft-text)] sm:text-[11px] sm:tracking-[0.16em]"
               style={{ borderRadius: 3 }}
             >
-              {t('topBar.independent')}
+              {t('topBar.community')}
             </span>
           </div>
 

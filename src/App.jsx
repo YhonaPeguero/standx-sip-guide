@@ -696,7 +696,7 @@ export default function App() {
       <a href="#main-content" className="skip-link">
         {t('app.skipToContent')}
       </a>
-      <BackgroundFX isOn={isSip2On} />
+      <BackgroundFX />
       <TopBar activeTab={safeActiveTab} onTabChange={handleTabChange} onStartGuide={handleStartGuide} />
       {showGuidePrompt || isGuideOpen ? (
         <GuideOverlay
