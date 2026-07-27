@@ -1,76 +1,55 @@
 import { useEffect, useMemo } from 'react';
 import { animate, useMotionValue, useTransform } from 'framer-motion';
-import { BASE_VALUE, POINTS, SIP2_OFF_PROGRESS } from '../constants/chart';
-import { buildPoints, toAreaPath, toLinePath } from '../lib/chartPaths';
-import { calculateSimulationSnapshot, computeEffectiveTarget } from '../lib/simulator';
+import { POINTS } from '../constants/chart';
+import { MAX_FILL, buildPoints, toAreaPath, toLinePath } from '../lib/chartPaths';
+import { calculateSimulationSnapshot, resolveAppliedRate } from '../lib/simulator';
 
 const ON_EASE = [0.16, 1, 0.3, 1];
 const OFF_EASE = [0.4, 0, 0.75, 0];
 
-export function useSipMotion({ isSip2On, target, capital, sip2Multiplier = 1 }) {
-  const safeTarget = Number.isFinite(target) ? target : BASE_VALUE;
-  const effectiveTarget = isSip2On
-    ? computeEffectiveTarget({ target: safeTarget, isSip2On: true, sip2Multiplier })
-    : safeTarget;
-  const onProgress = useMotionValue(SIP2_OFF_PROGRESS);
-  const chartTarget = useMotionValue(effectiveTarget);
-
+export function useSipMotion({ isSip2On, baseRate, sip2Rate, yearFraction, capital }) {
   const simulated = useMemo(
-    () => calculateSimulationSnapshot({ capital, target, isSip2On, sip2Multiplier }),
-    [capital, isSip2On, sip2Multiplier, target],
+    () => calculateSimulationSnapshot({ capital, baseRate, sip2Rate, yearFraction, isSip2On }),
+    [baseRate, capital, isSip2On, sip2Rate, yearFraction],
   );
 
-  useEffect(() => {
-    const targetProgress = isSip2On ? 1 : SIP2_OFF_PROGRESS;
-    const currentRawProgress = onProgress.get();
-    const currentProgress = Number.isFinite(currentRawProgress) ? currentRawProgress : SIP2_OFF_PROGRESS;
+  // The projection is drawn against the reader's full base + SIP-2 rate, so toggling SIP-2
+  // moves the line by exactly the share the reader attributed to it. With no rate entered
+  // the reference is 0 and the line sits flat on the baseline, which is the honest empty
+  // state: nothing has been parameterised yet, so there is nothing to project.
+  const referenceRate = resolveAppliedRate({ baseRate, sip2Rate, isSip2On: true });
+  const targetFill = referenceRate > 0 ? (simulated.appliedRate / referenceRate) * MAX_FILL : 0;
 
-    if (!Number.isFinite(currentRawProgress)) {
-      onProgress.set(SIP2_OFF_PROGRESS);
+  const fill = useMotionValue(targetFill);
+
+  useEffect(() => {
+    const current = fill.get();
+    const safeCurrent = Number.isFinite(current) ? current : 0;
+
+    if (!Number.isFinite(current)) {
+      fill.set(0);
     }
 
-    const goingUp = targetProgress > currentProgress;
+    const goingUp = targetFill > safeCurrent;
 
-    const controls = animate(onProgress, targetProgress, {
+    const controls = animate(fill, targetFill, {
       duration: goingUp ? 0.72 : 0.42,
       ease: goingUp ? ON_EASE : OFF_EASE,
     });
 
     return () => controls.stop();
-  }, [isSip2On, onProgress]);
+  }, [fill, targetFill]);
 
-  useEffect(() => {
-    const controls = animate(chartTarget, effectiveTarget, {
-      duration: 0.72,
-      ease: ON_EASE,
-    });
-
-    return () => controls.stop();
-  }, [chartTarget, effectiveTarget]);
-
-  const getSafeProgress = () => {
-    const progress = onProgress.get();
-    return Number.isFinite(progress) ? progress : 0;
+  const getSafeFill = () => {
+    const value = fill.get();
+    return Number.isFinite(value) ? value : 0;
   };
 
-  const getSafeChartTarget = () => {
-    const currentTarget = chartTarget.get();
-    return Number.isFinite(currentTarget) ? currentTarget : BASE_VALUE;
-  };
-
-  const linePath = useTransform(() => {
-    const points = buildPoints(getSafeProgress(), getSafeChartTarget());
-    return toLinePath(points);
-  });
-
-  const areaPath = useTransform(() => {
-    const points = buildPoints(getSafeProgress(), getSafeChartTarget());
-    return toAreaPath(points);
-  });
+  const linePath = useTransform(() => toLinePath(buildPoints(getSafeFill())));
+  const areaPath = useTransform(() => toAreaPath(buildPoints(getSafeFill())));
 
   const endY = useTransform(() => {
-    const points = buildPoints(getSafeProgress(), getSafeChartTarget());
-    const point = points[POINTS];
+    const point = buildPoints(getSafeFill())[POINTS];
 
     if (!point || !Number.isFinite(point[1])) {
       return 0;

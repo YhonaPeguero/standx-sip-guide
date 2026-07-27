@@ -1,8 +1,14 @@
 import { useI18n } from '../../i18n';
 
-// Two fixed markers used across the SIP-5B modules. Both read the same literal string in
-// every locale on purpose: one states that a figure came from the reader, the other that
-// SIP-5B does not publish it. Neither may ever be attached to an invented number.
+// The two fixed markers that carry the site's numbers rule: every figure on screen is
+// published by StandX, typed in by the reader, or declared `not published`. Both read the
+// same literal string in every locale on purpose. Neither may ever be attached to an
+// invented number.
+//
+// They started out in the SIP-5B modules and now serve the simulator too, so they live here
+// rather than under components/vaults/. The i18n keys keep their original `vaults.*` names:
+// the strings are single-sourced and identical everywhere, and renaming them across five
+// locales would churn the vaults tab for no behavioural gain.
 
 export function IllustrativeNote({ className = '' }) {
   const { t } = useI18n();

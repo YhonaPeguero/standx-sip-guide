@@ -1,10 +1,20 @@
 import { motion } from 'framer-motion';
 import { VB_H, VB_W } from '../constants/chart';
 
-export default function Chart({ linePath, areaPath, endY, isOn, markers }) {
+// The x axis is the selected horizon, subdivided into units of itself (6h/12h/18h/1D for a
+// day, 3M/6M/9M/1Y for a year). It used to print 'Oct 12 · Oct 26 · Nov 09 · Active', which
+// implied a real historical series that never existed.
+
+export default function Chart({ linePath, areaPath, endY, isOn, ticks, ariaLabel }) {
   return (
     <div className="relative mt-4 h-[210px] w-full">
-      <svg viewBox={`0 0 ${VB_W} ${VB_H}`} preserveAspectRatio="none" className="h-full w-full">
+      <svg
+        viewBox={`0 0 ${VB_W} ${VB_H}`}
+        preserveAspectRatio="none"
+        className="h-full w-full"
+        role="img"
+        aria-label={ariaLabel}
+      >
         <defs>
           <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#006632" stopOpacity="0.4" />
@@ -82,8 +92,8 @@ export default function Chart({ linePath, areaPath, endY, isOn, markers }) {
       </svg>
 
       <div className="mono mt-2 flex items-center justify-between text-[11px] uppercase tracking-[0.12em] text-[var(--sx-muted)]">
-        {markers.map((marker) => (
-          <span key={marker}>{marker}</span>
+        {ticks.map((tick) => (
+          <span key={tick}>{tick}</span>
         ))}
       </div>
     </div>

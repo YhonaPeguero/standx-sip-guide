@@ -4,7 +4,7 @@ import { useI18n } from '../../i18n';
 import { Reveal } from '../Reveal';
 import Card from '../ui/Card';
 import SectionHeader from '../ui/SectionHeader';
-import { NotPublishedChip } from './VaultLabels';
+import { NotPublishedChip } from '../ui/Markers';
 
 // The four conditions SIP-5B requires before a market moves from Bootstrapping to Live.
 // Three of them are measured against figures the proposal does not publish.

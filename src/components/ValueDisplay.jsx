@@ -1,11 +1,19 @@
 import { motion } from 'framer-motion';
 import { useI18n } from '../i18n';
+import { IllustrativeNote } from './ui/Markers';
 
-export default function ValueDisplay({ estimatedValueLabel, yieldPctLabel, isOn }) {
+// The 58px figure is the gain, which is what the reader's rates actually produce. It used to
+// be `estimatedValue` under the label "Total Yield Generated" — capital plus yield presented
+// as the yield.
+//
+// The illustrative marker sits directly under the figure it qualifies. It used to live at
+// 11px in a separate column, so the largest number on the page carried no visible caveat.
+
+export default function ValueDisplay({ estimatedGainLabel, yieldPctLabel, isOn }) {
   const { t } = useI18n();
 
   return (
-    <div>
+    <div className="min-w-0">
       <p className="mono text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--sx-muted)]">
         {t('valueDisplay.label')}
       </p>
@@ -16,7 +24,7 @@ export default function ValueDisplay({ estimatedValueLabel, yieldPctLabel, isOn 
           transition={{ duration: 0.4 }}
           className="mono text-[34px] font-semibold leading-none tracking-[-0.025em] sm:text-[48px] lg:text-[58px]"
         >
-          {estimatedValueLabel}
+          {estimatedGainLabel}
         </motion.span>
 
         <motion.span
@@ -30,6 +38,8 @@ export default function ValueDisplay({ estimatedValueLabel, yieldPctLabel, isOn 
           +{yieldPctLabel}
         </motion.span>
       </div>
+
+      <IllustrativeNote className="mt-2 max-w-[42ch]" />
     </div>
   );
 }

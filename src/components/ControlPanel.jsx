@@ -1,6 +1,6 @@
 import CapitalSimulator from './CapitalSimulator';
 import ProtocolStatusList from './ProtocolStatusList';
-import ScenarioSelector from './ScenarioSelector';
+import RateInputs from './RateInputs';
 import ToggleSwitch from './ToggleSwitch';
 import Button from './ui/Button';
 import { useI18n } from '../i18n';
@@ -8,8 +8,6 @@ import { useI18n } from '../i18n';
 export default function ControlPanel({
   isSip2On,
   onToggleSip2,
-  sip2ScenarioId,
-  onSip2ScenarioChange,
   onLearnHowItWorks,
   capitalInput,
   capitalError,
@@ -17,6 +15,14 @@ export default function ControlPanel({
   onCapitalInputBlur,
   onPresetSelect,
   activeCapital,
+  baseRateInput,
+  sip2RateInput,
+  baseRateError,
+  sip2RateError,
+  onBaseRateChange,
+  onSip2RateChange,
+  onBaseRateBlur,
+  onSip2RateBlur,
 }) {
   const { t } = useI18n();
 
@@ -47,11 +53,17 @@ export default function ControlPanel({
         </p>
       </div>
 
-      <ScenarioSelector
-        value={sip2ScenarioId}
-        onChange={onSip2ScenarioChange}
-        disabled={!isSip2On}
-        className="mt-6"
+      <RateInputs
+        baseRateInput={baseRateInput}
+        sip2RateInput={sip2RateInput}
+        baseRateError={baseRateError}
+        sip2RateError={sip2RateError}
+        onBaseRateChange={onBaseRateChange}
+        onSip2RateChange={onSip2RateChange}
+        onBaseRateBlur={onBaseRateBlur}
+        onSip2RateBlur={onSip2RateBlur}
+        isSip2On={isSip2On}
+        className="mt-7"
       />
 
       <CapitalSimulator

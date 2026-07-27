@@ -17,14 +17,13 @@ export default function SimulatorView({
   onRangeChange,
   isSip2On,
   onToggleSip2,
-  sip2ScenarioId,
-  onSip2ScenarioChange,
   linePath,
   areaPath,
   endY,
-  markers,
+  ticks,
+  chartAriaLabel,
   simulated,
-  estimatedValueLabel,
+  estimatedGainLabel,
   yieldPctLabel,
   capitalInput,
   capitalError,
@@ -32,6 +31,14 @@ export default function SimulatorView({
   onCapitalInputBlur,
   onPresetSelect,
   activeCapital,
+  baseRateInput,
+  sip2RateInput,
+  baseRateError,
+  sip2RateError,
+  onBaseRateChange,
+  onSip2RateChange,
+  onBaseRateBlur,
+  onSip2RateBlur,
   onLearnHowItWorks,
   scenario,
 }) {
@@ -62,20 +69,26 @@ export default function SimulatorView({
           <Card as="article" tone="default" padding="lg" elevated>
             <div className="flex items-start justify-between gap-5">
               <ValueDisplay
-                estimatedValueLabel={estimatedValueLabel}
+                estimatedGainLabel={estimatedGainLabel}
                 yieldPctLabel={yieldPctLabel}
                 isOn={isSip2On}
               />
               <TrendSignal isOn={isSip2On} />
             </div>
 
-            <Chart linePath={linePath} areaPath={areaPath} endY={endY} isOn={isSip2On} markers={markers} />
+            <Chart
+              linePath={linePath}
+              areaPath={areaPath}
+              endY={endY}
+              isOn={isSip2On}
+              ticks={ticks}
+              ariaLabel={chartAriaLabel}
+            />
 
             <ProtocolStats
               initialCapital={simulated.initialCapital}
               estimatedValue={simulated.estimatedValue}
-              estimatedGain={simulated.estimatedGain}
-              yieldPct={simulated.yieldPct}
+              appliedRate={simulated.appliedRate}
               isOn={isSip2On}
             />
 
@@ -95,8 +108,6 @@ export default function SimulatorView({
         <ControlPanel
           isSip2On={isSip2On}
           onToggleSip2={onToggleSip2}
-          sip2ScenarioId={sip2ScenarioId}
-          onSip2ScenarioChange={onSip2ScenarioChange}
           onLearnHowItWorks={onLearnHowItWorks}
           capitalInput={capitalInput}
           capitalError={capitalError}
@@ -104,6 +115,14 @@ export default function SimulatorView({
           onCapitalInputBlur={onCapitalInputBlur}
           onPresetSelect={onPresetSelect}
           activeCapital={activeCapital}
+          baseRateInput={baseRateInput}
+          sip2RateInput={sip2RateInput}
+          baseRateError={baseRateError}
+          sip2RateError={sip2RateError}
+          onBaseRateChange={onBaseRateChange}
+          onSip2RateChange={onSip2RateChange}
+          onBaseRateBlur={onBaseRateBlur}
+          onSip2RateBlur={onSip2RateBlur}
         />
       </Reveal>
     </div>

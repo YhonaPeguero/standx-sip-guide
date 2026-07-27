@@ -48,7 +48,7 @@ const uk = {
       },
       simulator: {
         title: 'Симулятор',
-        text: 'Спробуйте різні суми капіталу, періоди й орієнтовні сценарії, щоб побачити, як може поводитися кожен шар.',
+        text: 'Введіть власні ставки, а потім спробуйте різні суми капіталу й горизонти, щоб побачити, як може поводитися кожен шар.', // TODO: needs native review
       },
       playbook: {
         title: 'Плейбук прибутковості',
@@ -61,8 +61,9 @@ const uk = {
     errors: {
       minAmount: 'Мінімальна сума: $100',
       maxAmount: 'Максимальна сума: $1,000,000',
+      minRate: 'Мінімальна ставка: 0%', // TODO: needs native review
+      maxRate: 'Максимальна ставка: 100%', // TODO: needs native review
     },
-    chartMarkers: ['12 жовт', '26 жовт', '09 лист', 'Активно'],
     footer: {
       disclaimer: 'Лише освітня симуляція. Фактичні результати можуть відрізнятися.',
       createdBy: 'Створено: Thisnotmeme,',
@@ -107,8 +108,8 @@ const uk = {
   },
   simulator: {
     tag: 'Симулятор прибутковості',
-    rangeHint:
-      'Освітня симуляція. Налаштуйте капітал і період, щоб побачити поведінку.',
+    rangeHint: 'Освітня проєкція. Введіть власні ставки, потім змініть капітал і горизонт.', // TODO: needs native review
+    chartAriaLabel: 'Прогнозоване нарахування прибутковості за {horizon} на основі введених вами ставок.', // TODO: needs native review
   },
   toggle: {
     ariaOn: 'Вимкнути прибутковість',
@@ -531,22 +532,21 @@ const uk = {
     ariaLabel: 'Часовий діапазон',
   },
   valueDisplay: {
-    label: 'Оцінена вартість',
+    label: 'Оцінений прибуток', // TODO: needs native review
+  },
+  rateInputs: {
+    eyebrow: 'Ставки прибутковості', // TODO: needs native review
+    baseLabel: 'База DUSD — річна', // TODO: needs native review
+    sip2Label: 'SIP #2 — річна', // TODO: needs native review
+    placeholder: '0.00',
+    rangeHint: 'Введіть {min}–{max}%', // TODO: needs native review
+    sip2DisabledHint: 'Увімкніть SIP #2, щоб застосувати цю ставку.', // TODO: needs native review
+    note: 'StandX не публікує жодної ставки для DUSD, SIP #2 чи SIP #3. Ці цифри — ваші, а проєкція є арифметикою на їх основі.', // TODO: needs native review
   },
   protocolStats: {
     initialCapital: 'Початковий капітал',
     estimatedValue: 'Оцінена вартість',
-    estimatedGain: 'Оцінений прибуток',
-    yieldPct: 'Прибутковість %',
-  },
-  scenarioSelector: {
-    label: 'Орієнтовний сценарій SIP #2',
-    illustrative: 'Лише ілюстративно — фактичну ставку визначає протокол.',
-    hint: 'Сценарії показують орієнтовні діапазони поведінки SIP #2 з освітньою метою. Фактичну ставку SIP #2 визначає протокол, а не користувач. Базовий дохід DUSD і SIP #3 не змінюються.',
-    disabledHint: 'Увімкніть SIP #2, щоб застосувати обраний сценарій.',
-    conservative: 'Консервативний',
-    base: 'Базовий',
-    optimistic: 'Оптимістичний',
+    appliedRate: 'Застосована ставка', // TODO: needs native review
   },
   scenario: {
     eyebrow: 'Порівняння сценаріїв',

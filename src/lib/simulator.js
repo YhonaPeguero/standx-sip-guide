@@ -1,4 +1,11 @@
-import { BASE_VALUE, SIP2_OFF_BASELINE_RATIO } from '../constants/chart.js';
+// Simple accrual on rates the reader supplies: gain = capital × (rate% / 100) × yearFraction.
+//
+// There is no compounding and no baseline split, because both would require numbers StandX
+// does not publish — a compounding frequency, and the share of total yield attributable to
+// SIP-2. The reader states the DUSD base rate (SIP-3 included, since SIP-3 routes fees into
+// the same DUSD pool) and, separately, what SIP-2 adds on top. The SIP-2 toggle decides
+// whether the second rate is applied, so the OFF/ON difference is the reader's own figure
+// rather than a ratio we invented.
 
 function toSafeNumber(value, fallback = 0) {
   return Number.isFinite(value) ? value : fallback;
@@ -8,49 +15,27 @@ function toSafeCapital(capital) {
   return Math.max(0, toSafeNumber(capital, 0));
 }
 
-function toSafeTarget(target) {
-  return Math.max(0, toSafeNumber(target, BASE_VALUE));
+// An unentered rate is 0, never a stand-in default.
+function toSafeRate(rate) {
+  return Math.max(0, toSafeNumber(rate, 0));
 }
 
-export function calculateProjectedValue(capital, target) {
-  const safeCapital = toSafeCapital(capital);
-  const safeTarget = toSafeTarget(target);
-
-  if (BASE_VALUE <= 0) {
-    return safeCapital;
-  }
-
-  return safeCapital * (safeTarget / BASE_VALUE);
+function toSafeYearFraction(yearFraction) {
+  return Math.max(0, toSafeNumber(yearFraction, 0));
 }
 
-function resolveSip2Multiplier(value) {
-  if (!Number.isFinite(value) || value < 0) {
-    return 1;
-  }
-
-  return value;
+// The annual rate actually in effect, before the horizon scales it.
+export function resolveAppliedRate({ baseRate, sip2Rate, isSip2On }) {
+  return toSafeRate(baseRate) + (isSip2On ? toSafeRate(sip2Rate) : 0);
 }
 
-export function computeEffectiveTarget({ target, isSip2On, sip2Multiplier = 1 }) {
-  const safeTarget = toSafeTarget(target);
-  const baselineTarget = BASE_VALUE + (safeTarget - BASE_VALUE) * SIP2_OFF_BASELINE_RATIO;
-
-  if (!isSip2On) {
-    return baselineTarget;
-  }
-
-  const safeMultiplier = resolveSip2Multiplier(sip2Multiplier);
-  const sip2Delta = safeTarget - baselineTarget;
-  return baselineTarget + sip2Delta * safeMultiplier;
-}
-
-export function calculateSimulationSnapshot({ capital, target, isSip2On, sip2Multiplier = 1 }) {
+export function calculateSimulationSnapshot({ capital, baseRate, sip2Rate, yearFraction, isSip2On }) {
   const initialCapital = toSafeCapital(capital);
-  const effectiveTarget = computeEffectiveTarget({ target, isSip2On, sip2Multiplier });
+  const appliedRate = resolveAppliedRate({ baseRate, sip2Rate, isSip2On });
+  const periodRate = (appliedRate / 100) * toSafeYearFraction(yearFraction);
 
-  const projectedValue = calculateProjectedValue(initialCapital, effectiveTarget);
-  const estimatedValue = Math.max(initialCapital, toSafeNumber(projectedValue, initialCapital));
-  const estimatedGain = Math.max(0, estimatedValue - initialCapital);
+  const estimatedGain = Math.max(0, initialCapital * periodRate);
+  const estimatedValue = initialCapital + estimatedGain;
   const yieldPct = initialCapital > 0 ? (estimatedGain / initialCapital) * 100 : 0;
 
   return {
@@ -58,30 +43,35 @@ export function calculateSimulationSnapshot({ capital, target, isSip2On, sip2Mul
     estimatedValue,
     estimatedGain,
     yieldPct,
+    appliedRate,
   };
 }
 
-export function calculateScenarioSnapshot({ capital, target, sip2Multiplier = 1 }) {
-  const initialCapital = toSafeCapital(capital);
-  const safeTarget = toSafeTarget(target);
+// OFF and ON side by side, both derived from the same reader-entered rates.
+export function calculateScenarioSnapshot({ capital, baseRate, sip2Rate, yearFraction }) {
+  const off = calculateSimulationSnapshot({
+    capital,
+    baseRate,
+    sip2Rate,
+    yearFraction,
+    isSip2On: false,
+  });
 
-  const baselineTarget = BASE_VALUE + (safeTarget - BASE_VALUE) * SIP2_OFF_BASELINE_RATIO;
-  const offEstimatedValue = Math.max(0, calculateProjectedValue(initialCapital, baselineTarget));
-  const offEstimatedGain = Math.max(0, offEstimatedValue - initialCapital);
-  const offYieldPct = initialCapital > 0 ? (offEstimatedGain / initialCapital) * 100 : 0;
-
-  const onTarget = computeEffectiveTarget({ target, isSip2On: true, sip2Multiplier });
-  const onEstimatedValue = Math.max(0, calculateProjectedValue(initialCapital, onTarget));
-  const onEstimatedGain = Math.max(0, onEstimatedValue - initialCapital);
-  const onYieldPct = initialCapital > 0 ? (onEstimatedGain / initialCapital) * 100 : 0;
+  const on = calculateSimulationSnapshot({
+    capital,
+    baseRate,
+    sip2Rate,
+    yearFraction,
+    isSip2On: true,
+  });
 
   return {
-    initialCapital,
-    offEstimatedValue,
-    offEstimatedGain,
-    offYieldPct,
-    onEstimatedValue,
-    onEstimatedGain,
-    onYieldPct,
+    initialCapital: off.initialCapital,
+    offEstimatedValue: off.estimatedValue,
+    offEstimatedGain: off.estimatedGain,
+    offYieldPct: off.yieldPct,
+    onEstimatedValue: on.estimatedValue,
+    onEstimatedGain: on.estimatedGain,
+    onYieldPct: on.yieldPct,
   };
 }

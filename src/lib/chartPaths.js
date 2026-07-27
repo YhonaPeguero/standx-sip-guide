@@ -1,28 +1,30 @@
-import { BASE_VALUE, POINTS, VB_H, VB_W } from '../constants/chart';
+import { POINTS, VB_H, VB_W } from '../constants/chart';
 
-const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+// The chart draws the accrual function, so the line is straight: simple accrual is linear in
+// time. It used to be a power curve with two layers of seeded noise, which read as a price
+// history — jitter the protocol never published, on an axis labelled with dates. Both are
+// gone. A curved line here would imply compounding, and no compounding frequency is
+// published either.
 
-const seededNoise = (index, seed) => {
-  const x = Math.sin(index * 12.9898 + seed * 78.233) * 43758.5453;
-  return (x - Math.floor(x)) * 2 - 1;
-};
+const PLOT_LEFT = 6;
+const PLOT_RIGHT = VB_W - 6;
+const BASE_Y = VB_H - 26;
+const TOP_Y = 14;
 
-export const buildPoints = (progress, target) => {
-  const growth = (target - BASE_VALUE) / BASE_VALUE;
-  const baseY = VB_H - 26;
-  const topY = 14;
-  const scale = Math.min(0.3 + growth * 0.5, 0.92);
+// Leaves headroom so the fully-on projection does not touch the top of the viewBox.
+export const MAX_FILL = 0.86;
+
+// `fill` is the share of the plot height the projection reaches: 0 when no rate has been
+// entered yet, MAX_FILL when the reader's base + SIP-2 rates are both applied.
+export const buildPoints = (fill) => {
+  const safeFill = Number.isFinite(fill) ? Math.max(0, Math.min(MAX_FILL, fill)) : 0;
+  const endY = BASE_Y - safeFill * (BASE_Y - TOP_Y);
   const points = [];
 
   for (let index = 0; index <= POINTS; index += 1) {
     const t = index / POINTS;
-    const x = 6 + t * (VB_W - 12);
-    const curveT = Math.pow(t, 1.4);
-    const noise = seededNoise(index, 3) * 0.022 + seededNoise(index, 7) * 0.012;
-    const noisyCurve = clamp(curveT + noise * Math.min(t + 0.2, 1), 0, 1);
-    const curveY = baseY - noisyCurve * (baseY - topY) * scale;
-    const flatY = baseY - 1 + seededNoise(index, 13) * 0.25;
-    const y = flatY + (curveY - flatY) * progress;
+    const x = PLOT_LEFT + t * (PLOT_RIGHT - PLOT_LEFT);
+    const y = BASE_Y + (endY - BASE_Y) * t;
 
     points.push([x, y]);
   }

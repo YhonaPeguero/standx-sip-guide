@@ -48,7 +48,7 @@ const es = {
       },
       simulator: {
         title: 'Simulador',
-        text: 'Prueba distintos montos, periodos y escenarios de referencia para previsualizar cómo puede comportarse cada capa.',
+        text: 'Introduce tus propias tasas y prueba distintos capitales y horizontes para ver cómo puede comportarse cada capa.',
       },
       playbook: {
         title: 'Playbook de Yield',
@@ -61,8 +61,9 @@ const es = {
     errors: {
       minAmount: 'Monto mínimo: $100',
       maxAmount: 'Monto máximo: $1,000,000',
+      minRate: 'Tasa mínima: 0%',
+      maxRate: 'Tasa máxima: 100%',
     },
-    chartMarkers: ['12 oct', '26 oct', '09 nov', 'Activo'],
     footer: {
       disclaimer: 'Simulación educativa. Los resultados reales pueden variar.',
       createdBy: 'Creado por: Thisnotmeme,',
@@ -107,8 +108,8 @@ const es = {
   },
   simulator: {
     tag: 'Simulador de Yield',
-    rangeHint:
-      'Simulación educativa. Ajusta capital y periodo para previsualizar el comportamiento.',
+    rangeHint: 'Proyección educativa. Introduce tus propias tasas y luego ajusta capital y horizonte.',
+    chartAriaLabel: 'Acumulación de rendimiento proyectada en {horizon}, según las tasas que introdujiste.',
   },
   toggle: {
     ariaOn: 'Desactivar rendimiento',
@@ -529,22 +530,21 @@ const es = {
     ariaLabel: 'Rango de tiempo',
   },
   valueDisplay: {
-    label: 'Valor estimado',
+    label: 'Ganancia estimada',
+  },
+  rateInputs: {
+    eyebrow: 'Tasas de rendimiento',
+    baseLabel: 'Base DUSD — anual',
+    sip2Label: 'SIP #2 — anual',
+    placeholder: '0.00',
+    rangeHint: 'Introduce {min}–{max}%',
+    sip2DisabledHint: 'Activa SIP #2 para aplicar esta tasa.',
+    note: 'StandX no publica ninguna tasa para DUSD, SIP #2 ni SIP #3. Estas cifras son tuyas y la proyección es aritmética sobre ellas.',
   },
   protocolStats: {
     initialCapital: 'Capital inicial',
     estimatedValue: 'Valor estimado',
-    estimatedGain: 'Ganancia estimada',
-    yieldPct: 'Yield %',
-  },
-  scenarioSelector: {
-    label: 'Escenario de referencia SIP #2',
-    illustrative: 'Solo ilustrativo — la tasa real la define el protocolo.',
-    hint: 'Los escenarios muestran rangos de comportamiento de SIP #2 con fines educativos. La tasa real de SIP #2 la determina el protocolo, no el usuario. DUSD base y SIP #3 no se ven afectados.',
-    disabledHint: 'Activa SIP #2 para aplicar el escenario seleccionado.',
-    conservative: 'Conservador',
-    base: 'Base',
-    optimistic: 'Optimista',
+    appliedRate: 'Tasa aplicada',
   },
   scenario: {
     eyebrow: 'Comparación de escenarios',

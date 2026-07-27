@@ -48,7 +48,7 @@ const en = {
       },
       simulator: {
         title: 'Simulator',
-        text: 'Try different capital amounts, timeframes, and reference scenarios to preview how each layer may behave.',
+        text: 'Enter your own rates, then try different capital amounts and horizons to see how each layer may behave.',
       },
       playbook: {
         title: 'Yield Playbook',
@@ -61,8 +61,9 @@ const en = {
     errors: {
       minAmount: 'Min amount: $100',
       maxAmount: 'Max amount: $1,000,000',
+      minRate: 'Min rate: 0%',
+      maxRate: 'Max rate: 100%',
     },
-    chartMarkers: ['Oct 12', 'Oct 26', 'Nov 09', 'Active'],
     footer: {
       disclaimer: 'Educational simulation only. Actual results may vary.',
       createdBy: 'Created by: Thisnotmeme,',
@@ -107,7 +108,8 @@ const en = {
   },
   simulator: {
     tag: 'Yield Simulator',
-    rangeHint: 'Educational simulation. Adjust capital and timeframe to preview behavior.',
+    rangeHint: 'Educational projection. Enter your own rates, then adjust capital and horizon.',
+    chartAriaLabel: 'Projected yield accrual over {horizon}, from the rates you entered.',
   },
   toggle: {
     ariaOn: 'Turn yield off',
@@ -527,22 +529,21 @@ const en = {
     ariaLabel: 'Time range',
   },
   valueDisplay: {
-    label: 'Estimated Value',
+    label: 'Estimated Gain',
+  },
+  rateInputs: {
+    eyebrow: 'Yield Rates',
+    baseLabel: 'DUSD base — annual',
+    sip2Label: 'SIP #2 — annual',
+    placeholder: '0.00',
+    rangeHint: 'Enter {min}–{max}%',
+    sip2DisabledHint: 'Turn on SIP #2 to apply this rate.',
+    note: 'StandX publishes no yield rate for DUSD, SIP #2 or SIP #3. These figures are yours, and the projection is arithmetic on them.',
   },
   protocolStats: {
     initialCapital: 'Initial Capital',
     estimatedValue: 'Estimated Value',
-    estimatedGain: 'Estimated Gain',
-    yieldPct: 'Yield %',
-  },
-  scenarioSelector: {
-    label: 'SIP #2 reference scenario',
-    illustrative: 'Illustrative only — the protocol sets the actual rate.',
-    hint: 'Scenarios show example ranges of SIP #2 behavior for educational purposes. The actual SIP #2 yield rate is determined by the protocol, not by the user. DUSD base and SIP #3 are unaffected.',
-    disabledHint: 'Turn on SIP #2 to apply the selected scenario.',
-    conservative: 'Conservative',
-    base: 'Base',
-    optimistic: 'Optimistic',
+    appliedRate: 'Rate Applied',
   },
   scenario: {
     eyebrow: 'Scenario Comparison',
