@@ -573,18 +573,14 @@ const en = {
   footer: {
     brand: 'StandX SIP Guide',
     tagline:
-      'A community-built explainer for the StandX SIP system. Not affiliated with the StandX team.',
+      'A community-built explainer for the StandX SIP system.',
     disclaimer:
       'Educational simulation only. Numbers shown are illustrative — actual results may vary.',
+    sectionsTitle: 'Sections',
     resourcesTitle: 'Resources',
     resources: {
-      docs: 'StandX Docs',
+      sipDocs: 'SIP documentation',
       website: 'StandX.com',
-      sip1: 'SIP #1 — Block Trades',
-      sip2: 'SIP #2 — Position Yield',
-      sip3: 'SIP #3 — DUSD Native Yield',
-      sip4: 'SIP #4 — Block Options',
-      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: 'Community',
     community: {

@@ -576,18 +576,14 @@ const uk = {
   footer: {
     brand: 'StandX SIP Guide',
     tagline:
-      'Пояснювач, створений спільнотою для системи SIP від StandX. Не пов’язаний з командою StandX.',
+      'Пояснювач системи SIP від StandX, створений спільнотою.',  // TODO: needs native review
     disclaimer:
       'Лише освітня симуляція. Числа є ілюстративними — фактичні результати можуть відрізнятися.',
+    sectionsTitle: 'Розділи',  // TODO: needs native review
     resourcesTitle: 'Ресурси',
     resources: {
-      docs: 'Документація StandX',
+      sipDocs: 'Документація SIP',  // TODO: needs native review
       website: 'StandX.com',
-      sip1: 'SIP #1 — Block Trades',
-      sip2: 'SIP #2 — Position Yield',
-      sip3: 'SIP #3 — DUSD Native Yield',
-      sip4: 'SIP #4 — Block Options',
-      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: 'Спільнота',
     community: {

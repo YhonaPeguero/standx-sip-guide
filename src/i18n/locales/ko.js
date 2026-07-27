@@ -569,18 +569,14 @@ const ko = {
   footer: {
     brand: 'StandX SIP 가이드',
     tagline:
-      'StandX의 SIP 시스템을 위한 커뮤니티 기반 설명서입니다. StandX 팀과 공식적인 연관은 없습니다.',
+      '커뮤니티가 만든 StandX SIP 시스템 해설서입니다.',  // TODO: needs native review
     disclaimer:
       '교육 목적의 시뮬레이션입니다. 표시되는 수치는 예시이며, 실제 결과는 다를 수 있습니다.',
+    sectionsTitle: '섹션',  // TODO: needs native review
     resourcesTitle: '리소스',
     resources: {
-      docs: 'StandX 문서',
+      sipDocs: 'SIP 문서',  // TODO: needs native review
       website: 'StandX.com',
-      sip1: 'SIP #1 — Block Trades',
-      sip2: 'SIP #2 — Position Yield',
-      sip3: 'SIP #3 — DUSD Native Yield',
-      sip4: 'SIP #4 — Block Options',
-      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: '커뮤니티',
     community: {

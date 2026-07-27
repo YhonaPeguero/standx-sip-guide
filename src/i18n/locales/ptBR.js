@@ -574,18 +574,14 @@ const ptBR = {
   footer: {
     brand: 'StandX SIP Guide',
     tagline:
-      'Um explicador feito pela comunidade para o sistema SIP da StandX. Sem vínculo com a equipe StandX.',
+      'Um explicador do sistema de SIPs da StandX, feito pela comunidade.',
     disclaimer:
       'Apenas simulação educacional. Os números são ilustrativos — os resultados reais podem variar.',
+    sectionsTitle: 'Seções',
     resourcesTitle: 'Recursos',
     resources: {
-      docs: 'Docs da StandX',
+      sipDocs: 'Documentação dos SIPs',
       website: 'StandX.com',
-      sip1: 'SIP #1 — Block Trades',
-      sip2: 'SIP #2 — Position Yield',
-      sip3: 'SIP #3 — DUSD Native Yield',
-      sip4: 'SIP #4 — Block Options',
-      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: 'Comunidade',
     community: {
