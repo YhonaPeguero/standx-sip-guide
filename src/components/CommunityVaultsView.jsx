@@ -4,8 +4,6 @@ import Button from './ui/Button';
 import Card from './ui/Card';
 import SectionHeader from './ui/SectionHeader';
 import LiquidationFlow from './vaults/LiquidationFlow';
-import RewardTierConfigurator from './vaults/RewardTierConfigurator';
-import ShieldHealthLadder from './vaults/ShieldHealthLadder';
 import TradingGateChecklist from './vaults/TradingGateChecklist';
 import VaultTypesCompare from './vaults/VaultTypesCompare';
 
@@ -60,10 +58,9 @@ export default function CommunityVaultsView() {
         </Reveal>
       </div>
 
+      {/* Three modules; Shield Health rides along inside the liquidation flow as a strip */}
       <VaultTypesCompare />
-      <RewardTierConfigurator />
       <TradingGateChecklist />
-      <ShieldHealthLadder />
       <LiquidationFlow />
     </div>
   );

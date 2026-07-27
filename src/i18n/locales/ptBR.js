@@ -357,32 +357,6 @@ const ptBR = {
           'Capital de seguro posicionado à frente do ADL para os pares que respalda. Os depositantes recebem LP tokens precificados pelo NAV e assumem o risco de cauda em troca de receita de seguro, com risco isolado por par. Um Shield Vault opera um negócio de seguros, e ganha como tal e perde como tal.',
       },
     },
-    reward: {
-      eyebrow: 'Reward Vault',
-      title: 'Os tiers de bps/depth precisam somar exatamente 100%',
-      description:
-        'O Sponsor define um conjunto de tiers de bps/depth, cada um combinando uma faixa de distância do mark price com um percentual de recompensa. Distribua suas próprias faixas abaixo: o conjunto fica bloqueado até que os percentuais somem exatamente 100%.',
-      tiersLabel: 'Conjunto de tiers',
-      bandLabel: 'Faixa de distância',
-      bandPlaceholder: 'ex.: 0–10 bps',
-      shareLabel: 'Percentual',
-      addTier: 'Adicionar tier',
-      removeTier: 'Remover tier',
-      total: 'Total alocado',
-      valid: 'Válido: o conjunto soma exatamente 100% e pode ser bloqueado.',
-      blocked: 'Bloqueado: os tiers precisam somar exatamente 100%. Faltam {remaining}% para alocar.',
-      lockValid: 'Bloquear conjunto',
-      lockBlocked: 'Bloqueado até 100%',
-      rulesLabel: 'Da proposta',
-      rule: 'Todos os percentuais dos tiers precisam somar exatamente 1 (100%).',
-      notes: [
-        'Os tiers decidem quanto orçamento cada faixa de preço carrega; a contabilidade diária de Maker Hours do SIP-5A decide a parte de cada maker dentro de uma faixa.',
-        'A proximidade ao mark price é contada uma única vez, dentro da curva do SIP-5A.',
-        'Se um tier não tiver makers qualificados em uma epoch, aquele orçamento fica no vault e passa para epochs futuras.',
-        'Dar peso aos tiers estreitos compra um top of book apertado; espalhar o orçamento por faixas mais largas compra profundidade que resiste à volatilidade.',
-        'O SIP-5B não publica valores de faixa, então cada faixa de distância aqui é sua.',
-      ],
-    },
     gate: {
       eyebrow: 'Trading Gate',
       title: 'Quatro condições antes de um mercado ir para Live',
@@ -408,35 +382,27 @@ const ptBR = {
     },
     shield: {
       eyebrow: 'Shield Health',
-      title: 'Quatro estágios de escalonamento após o lançamento',
       description:
         'A saúde do Shield continua agindo sobre a receita do Sponsor e o estado do mercado depois do lançamento. Percorra a escada para ver o que dispara cada estágio.',
-      stageLabel: 'Estágio',
-      healthy: 'Dentro do requisito',
-      current: 'Atual',
       triggerLabel: 'Disparo',
       thresholdLabel: 'Limite',
       footnote:
         'O SIP-5B diz o que dispara cada estágio, mas não publica nenhum limite, janela de reposição ou índice de cobertura, então nenhum aparece aqui. A escada estende o fee share condicionado à saúde do SIP-5 até a camada de capital: Sponsors são pagos por manter seu mercado solvente, não por tê-lo lançado.',
       stages: {
         escrow: {
-          short: 'Escrow',
           name: 'O fee share vai para escrow',
           trigger:
             'O equity bloqueado do Sponsor ou a cobertura geral do vault cai abaixo do requisito, e um aviso de reposição é emitido.',
         },
         oiCut: {
-          short: 'Corte de OI',
           name: 'OI cap reduzido, ou rebaixado para Watchlist',
           trigger: 'O déficit não é restaurado dentro da janela de reposição.',
         },
         reduceOnly: {
-          short: 'ReduceOnly',
           name: 'O mercado entra em ReduceOnly',
           trigger: 'A cobertura rompe o limite rígido, ou segue comprometida.',
         },
         sunset: {
-          short: 'Sunset',
           name: 'O mercado entra em Sunset',
           trigger:
             'O déficit não pode ser reparado. As shares do Sponsor só são desbloqueadas depois que toda posição e responsabilidade é liquidada.',

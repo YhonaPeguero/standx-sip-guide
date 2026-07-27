@@ -355,32 +355,6 @@ const en = {
           'Insurance capital standing in front of ADL for the pairs it backs. Depositors hold LP tokens priced at NAV and underwrite tail risk in exchange for insurance income, with risk isolated per pair. A Shield Vault runs an insurance business, and it earns like one and loses like one.',
       },
     },
-    reward: {
-      eyebrow: 'Reward Vault',
-      title: 'bps/depth tiers must sum to exactly 100%',
-      description:
-        'The Sponsor defines a set of bps/depth tiers, each pairing a distance band from the mark price with a reward percentage. Lay out your own bands below — the tier set stays blocked until the shares sum to exactly 100%.',
-      tiersLabel: 'Tier set',
-      bandLabel: 'Distance band',
-      bandPlaceholder: 'e.g. 0–10 bps',
-      shareLabel: 'Reward share',
-      addTier: 'Add tier',
-      removeTier: 'Remove tier',
-      total: 'Total allocated',
-      valid: 'Valid — the tier set sums to exactly 100% and can be locked.',
-      blocked: 'Blocked — tiers must sum to exactly 100%. {remaining}% still unallocated.',
-      lockValid: 'Lock tier set',
-      lockBlocked: 'Locked until 100%',
-      rulesLabel: 'From the proposal',
-      rule: 'All tier percentages must sum to exactly 1 (100%).',
-      notes: [
-        'Tiers decide how much budget each price band carries; the daily Maker Hours accounting of SIP-5A decides each maker’s share inside a band.',
-        'Proximity to the mark price is counted once, inside the SIP-5A curve.',
-        'If a tier has no qualifying makers in an epoch, that tier’s budget stays in the vault and rolls into future epochs.',
-        'Weighting tight tiers buys a tight top of book; spreading budget across wider bands buys depth that holds up through volatility.',
-        'SIP-5B publishes no band values, so every distance band here is your own.',
-      ],
-    },
     gate: {
       eyebrow: 'Trading Gate',
       title: 'Four conditions before a market goes Live',
@@ -406,35 +380,27 @@ const en = {
     },
     shield: {
       eyebrow: 'Shield Health',
-      title: 'Four stages of escalation after launch',
       description:
         'Shield health keeps acting on the Sponsor’s income and the market’s state after launch. Step through the ladder to see what triggers each stage.',
-      stageLabel: 'Stage',
-      healthy: 'Within requirement',
-      current: 'Current',
       triggerLabel: 'Trigger',
       thresholdLabel: 'Threshold',
       footnote:
         'SIP-5B states what triggers each stage but publishes no threshold, replenishment window or coverage ratio, so none appears here. The ladder extends SIP-5’s health-conditional fee share down to the capital layer: Sponsors are paid for keeping their market solvent, not for having launched it.',
       stages: {
         escrow: {
-          short: 'Escrow',
           name: 'Fee share moves into escrow',
           trigger:
             'The Sponsor’s locked equity or the vault’s overall coverage falls below requirement, and a replenishment notice is issued.',
         },
         oiCut: {
-          short: 'OI cut',
           name: 'OI cap reduced, or demoted to Watchlist',
           trigger: 'The shortfall is not restored within the replenishment window.',
         },
         reduceOnly: {
-          short: 'ReduceOnly',
           name: 'Market enters ReduceOnly',
           trigger: 'Coverage breaks the hard threshold, or stays impaired.',
         },
         sunset: {
-          short: 'Sunset',
           name: 'Market enters Sunset',
           trigger:
             'The shortfall cannot be repaired. The Sponsor’s shares unlock only after every position and liability settles.',

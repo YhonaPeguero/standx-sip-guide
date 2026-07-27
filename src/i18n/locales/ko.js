@@ -352,32 +352,6 @@ const ko = {
           '지원하는 페어에 대해 ADL 앞에 서는 보험 자본입니다. 예치자는 NAV로 가격이 책정된 LP 토큰을 보유하고 보험 수익을 받는 대가로 테일 리스크를 인수하며, 리스크는 페어별로 격리됩니다. Shield Vault는 보험업을 운영하며, 그렇게 벌고 그렇게 잃습니다.',
       },
     },
-    reward: {
-      eyebrow: 'Reward Vault',
-      title: 'bps/depth tier의 합은 정확히 100%여야 합니다',
-      description:
-        'Sponsor는 mark price로부터의 거리 구간과 리워드 비율을 짝지은 bps/depth tier 집합을 정의합니다. 아래에서 직접 구간을 배분하세요. 합이 정확히 100%가 될 때까지 구성은 잠긴 상태로 유지됩니다.',
-      tiersLabel: 'tier 집합',
-      bandLabel: '거리 구간',
-      bandPlaceholder: '예: 0–10 bps',
-      shareLabel: '리워드 비율',
-      addTier: 'tier 추가',
-      removeTier: 'tier 삭제',
-      total: '배분 합계',
-      valid: '유효 — tier 합이 정확히 100%이며 잠글 수 있습니다.',
-      blocked: '차단됨 — tier 합은 정확히 100%여야 합니다. {remaining}%가 아직 배분되지 않았습니다.',
-      lockValid: 'tier 집합 잠금',
-      lockBlocked: '100%가 될 때까지 잠김',
-      rulesLabel: '제안서에서',
-      rule: '모든 tier 비율의 합은 정확히 1(100%)이어야 합니다.',
-      notes: [
-        'tier는 각 가격 구간이 가져가는 예산 비중을 정하고, 구간 내 개별 maker의 몫은 SIP-5A의 일일 Maker Hours 회계가 정합니다.',
-        'mark price와의 근접도는 SIP-5A 커브 안에서 한 번만 계산됩니다.',
-        '어떤 tier에 자격을 갖춘 maker가 해당 epoch에 없으면 그 예산은 vault에 남아 이후 epoch로 이월됩니다.',
-        '좁은 tier에 가중치를 두면 촘촘한 top of book을 사는 것이고, 넓은 구간에 예산을 펼치면 변동성에서 버티는 depth를 사는 것입니다.',
-        'SIP-5B는 구간 값을 공개하지 않으므로 여기에 보이는 거리 구간은 모두 사용자가 입력한 값입니다.',
-      ],
-    },
     gate: {
       eyebrow: 'Trading Gate',
       title: '마켓이 Live가 되기 위한 네 가지 조건',
@@ -403,35 +377,27 @@ const ko = {
     },
     shield: {
       eyebrow: 'Shield Health',
-      title: '출시 이후 네 단계의 에스컬레이션',
       description:
         'Shield 상태는 출시 이후에도 Sponsor의 수익과 마켓 상태에 계속 작용합니다. 사다리를 따라가며 각 단계를 촉발하는 조건을 확인하세요.',
-      stageLabel: '단계',
-      healthy: '요건 충족 상태',
-      current: '현재',
       triggerLabel: '촉발 조건',
       thresholdLabel: '임계값',
       footnote:
         'SIP-5B는 각 단계를 촉발하는 조건은 밝히지만 임계값, 보충 기간, 커버리지 비율은 공개하지 않으므로 여기에도 표시하지 않습니다. 이 사다리는 SIP-5의 건전성 조건부 fee share를 자본 레이어까지 확장합니다. Sponsor는 마켓을 출시한 대가가 아니라 지급 능력을 유지하는 대가로 보상받습니다.',
       stages: {
         escrow: {
-          short: 'Escrow',
           name: 'fee share가 escrow로 이동',
           trigger:
             'Sponsor의 락업 equity 또는 vault의 전체 커버리지가 요건 아래로 떨어지고, 보충 통지가 발행됩니다.',
         },
         oiCut: {
-          short: 'OI 축소',
           name: 'OI cap 축소 또는 Watchlist 강등',
           trigger: '보충 기간 내에 부족분이 복구되지 않습니다.',
         },
         reduceOnly: {
-          short: 'ReduceOnly',
           name: '마켓이 ReduceOnly로 전환',
           trigger: '커버리지가 하드 임계값을 넘거나 손상 상태가 지속됩니다.',
         },
         sunset: {
-          short: 'Sunset',
           name: '마켓이 Sunset으로 전환',
           trigger:
             '부족분을 복구할 수 없습니다. Sponsor의 지분은 모든 포지션과 부채가 정산된 뒤에만 락업이 해제됩니다.',

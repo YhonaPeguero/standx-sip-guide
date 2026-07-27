@@ -6,6 +6,7 @@ import { splitLiquidation } from '../../lib/vaults';
 import { Reveal } from '../Reveal';
 import Card from '../ui/Card';
 import SectionHeader from '../ui/SectionHeader';
+import ShieldHealthStrip from './ShieldHealthStrip';
 import { IllustrativeNote, NotPublishedChip } from './VaultLabels';
 
 const AMOUNT_PATTERN = /^\d*(\.\d{0,2})?$/;
@@ -243,6 +244,9 @@ export default function LiquidationFlow() {
             </p>
             <IllustrativeNote className="mt-3" />
           </div>
+
+          {/* What happens to the market when that shield coverage falls short */}
+          <ShieldHealthStrip />
         </Card>
       </Reveal>
     </div>
