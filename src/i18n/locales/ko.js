@@ -8,7 +8,7 @@ const ko = {
       vaults: 'Vaults',
       ariaLabel: '주요 섹션',
     },
-    community: '커뮤니티 제작', // TODO: needs native review
+    community: '커뮤니티', // TODO: needs native review
     language: {
       button: '언어',
       buttonAria: '언어 메뉴 열기',

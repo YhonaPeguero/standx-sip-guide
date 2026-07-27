@@ -8,7 +8,7 @@ const es = {
       vaults: 'Vaults',
       ariaLabel: 'Secciones principales',
     },
-    community: 'Hecho por la comunidad',
+    community: 'Comunidad',
     language: {
       button: 'Idioma',
       buttonAria: 'Abrir menú de idiomas',

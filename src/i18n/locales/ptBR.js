@@ -8,7 +8,7 @@ const ptBR = {
       vaults: 'Vaults',
       ariaLabel: 'Seções principais',
     },
-    community: 'Feito pela comunidade',
+    community: 'Comunidade',
     language: {
       button: 'Idioma',
       buttonAria: 'Abrir menu de idiomas',

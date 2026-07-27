@@ -72,8 +72,8 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
         <div className="flex items-center justify-between gap-3 py-3.5 sm:py-4">
           <div className="flex min-w-0 items-center gap-3">
             <StandXBrand />
-            {/* Visible at every width rather than lg and up. This and the masthead's
-                BUILT BY field carry the provenance between them; neither denies anything. */}
+            {/* Visible at every width rather than lg and up. One word — the masthead's
+                BUILT BY field carries the full statement; neither denies anything. */}
             <span
               className="inline-flex h-5 shrink-0 items-center border border-[rgba(139,210,178,0.3)] bg-[rgba(0,102,50,0.16)] px-2 text-[10.5px] font-medium uppercase tracking-[0.14em] text-[var(--sx-primary-soft-text)] sm:text-[11px] sm:tracking-[0.16em]"
               style={{ borderRadius: 3 }}

@@ -8,7 +8,7 @@ const uk = {
       vaults: 'Vaults',
       ariaLabel: 'Основні розділи',
     },
-    community: 'Створено спільнотою', // TODO: needs native review
+    community: 'Спільнота', // TODO: needs native review
     language: {
       button: 'Мова',
       buttonAria: 'Відкрити меню мов',
