@@ -161,9 +161,9 @@ export default function EducationSection({ sectionId }) {
                           transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                           className="overflow-hidden"
                         >
-                          <div className="mt-4 space-y-2.5 border-t border-[var(--sx-border-soft)] pt-4">
+                          <div className="mt-4 flex flex-col">
                             {sip.children.map((child) => (
-                              <Card key={child.id} as="div" tone="subtle" padding="sm">
+                              <div key={child.id} className="subregion mt-4 first:mt-0">
                                 <div className="flex items-center justify-between gap-2">
                                   <Chip tone="primary">{child.tag}</Chip>
                                   <Chip tone={STATUS_TONE[child.status] ?? 'muted'}>{child.statusLabel}</Chip>
@@ -200,7 +200,7 @@ export default function EducationSection({ sectionId }) {
                                     )}
                                   </div>
                                 )}
-                              </Card>
+                              </div>
                             ))}
                           </div>
                         </motion.div>

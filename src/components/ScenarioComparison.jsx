@@ -24,10 +24,7 @@ export default function ScenarioComparison({
       <span className="eyebrow">{t('scenario.eyebrow')}</span>
 
       <div className={`mt-4 grid gap-3 ${isSip2On ? 'sm:grid-cols-2' : ''}`}>
-        <article
-          className="border border-[var(--sx-border)] bg-[var(--sx-surface-2)] p-4"
-          style={{ borderRadius: 6 }}
-        >
+        <article className="subregion">
           <div className="flex items-center justify-between">
             <span className="mono text-[11px] uppercase tracking-[0.13em] text-[var(--sx-muted)]">
               {t('scenario.sipOff')}
@@ -48,13 +45,7 @@ export default function ScenarioComparison({
         </article>
 
         {isSip2On ? (
-          <article
-            className="relative border border-[rgba(0,102,50,0.55)] bg-[rgba(11,22,18,0.95)] p-4"
-            style={{
-              borderRadius: 6,
-              boxShadow: '0 0 0 1px rgba(0,102,50,0.18), 0 12px 28px rgba(0,102,50,0.16)',
-            }}
-          >
+          <article className="subregion subregion-active relative">
             <div className="flex items-center justify-between">
               <span className="mono text-[11px] uppercase tracking-[0.13em] text-[var(--sx-primary-bright)]">
                 {t('scenario.sipOn')}

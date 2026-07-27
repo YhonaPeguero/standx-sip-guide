@@ -243,6 +243,21 @@ button:disabled {
   border-top: 1px solid var(--sx-border);
 }
 
+/* A region inside an already-framed surface. One frame per nesting level: the Card
+   carries the border, fill and radius, so anything nested keeps only its padding and
+   a top rule. Depth comes from the inset-highlight ladder on the parent, never from
+   a second frame. Use this instead of a bordered box wherever a Card is the ancestor. */
+.subregion {
+  border-top: 1px solid var(--sx-border-soft);
+  padding-top: var(--sx-sp-4);
+}
+
+/* The active variant. The rule is the only thing that changes — a nested region that
+   can be "on" recolors its one carrier rather than growing a frame back. */
+.subregion-active {
+  border-top-color: var(--sx-border-active);
+}
+
 /* Rhythm utilities — one spacing system for all three tabs */
 .section-stack {
   display: flex;

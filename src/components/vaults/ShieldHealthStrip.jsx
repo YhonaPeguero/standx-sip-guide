@@ -19,11 +19,7 @@ export default function ShieldHealthStrip() {
 
       <ol className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {STAGES.map((id, index) => (
-          <li
-            key={id}
-            className="flex flex-col border border-[var(--sx-border)] bg-[var(--sx-surface-2)] p-3.5"
-            style={{ borderRadius: 6 }}
-          >
+          <li key={id} className="subregion flex flex-col">
             <div className="flex items-center gap-2">
               <span
                 className="mono grid h-[22px] w-[22px] shrink-0 place-items-center border text-[10.5px] font-semibold"
