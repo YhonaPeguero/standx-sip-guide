@@ -523,7 +523,7 @@ const ko = {
     ariaLabel: '기간 범위',
   },
   valueDisplay: {
-    label: '총 생성 수익',
+    label: '예상 가치',
   },
   protocolStats: {
     initialCapital: '초기 자본',

@@ -531,7 +531,7 @@ const uk = {
     ariaLabel: 'Часовий діапазон',
   },
   valueDisplay: {
-    label: 'Згенерована прибутковість',
+    label: 'Оцінена вартість',
   },
   protocolStats: {
     initialCapital: 'Початковий капітал',

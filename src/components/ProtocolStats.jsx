@@ -30,7 +30,7 @@ export default function ProtocolStats({ initialCapital, estimatedValue, estimate
       <StatCell label={t('protocolStats.estimatedValue')} value={estimatedLabel} valueColor="var(--sx-text)" />
       <StatCell
         label={t('protocolStats.estimatedGain')}
-        value={isOn ? `+${gainLabel}` : '$0.00'}
+        value={`+${gainLabel}`}
         valueColor={isOn ? 'var(--sx-primary-bright)' : '#839188'}
       />
       <StatCell

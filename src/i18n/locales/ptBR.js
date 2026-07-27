@@ -529,7 +529,7 @@ const ptBR = {
     ariaLabel: 'Intervalo de tempo',
   },
   valueDisplay: {
-    label: 'Yield total gerado',
+    label: 'Valor Estimado',
   },
   protocolStats: {
     initialCapital: 'Capital Inicial',

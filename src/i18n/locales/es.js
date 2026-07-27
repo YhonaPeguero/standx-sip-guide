@@ -529,7 +529,7 @@ const es = {
     ariaLabel: 'Rango de tiempo',
   },
   valueDisplay: {
-    label: 'Rendimiento total generado',
+    label: 'Valor estimado',
   },
   protocolStats: {
     initialCapital: 'Capital inicial',

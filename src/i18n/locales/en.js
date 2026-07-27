@@ -527,7 +527,7 @@ const en = {
     ariaLabel: 'Time range',
   },
   valueDisplay: {
-    label: 'Total Yield Generated',
+    label: 'Estimated Value',
   },
   protocolStats: {
     initialCapital: 'Initial Capital',
