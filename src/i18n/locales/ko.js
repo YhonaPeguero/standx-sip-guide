@@ -529,6 +529,7 @@ const ko = {
     customAmount: '직접 입력 금액',
     rangeHint: '최소 {min} · 최대 {max}',
     note: '교육 목적의 시뮬레이션 예시입니다. 실제 결과는 달라질 수 있습니다.',
+    suffixHint: '약식 표기: 10k = $10,000, 1.5m = $1,500,000.', // TODO: needs native review
   },
   rangeSelector: {
     ariaLabel: '기간 범위',

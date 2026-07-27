@@ -17,14 +17,18 @@ export default function CapitalSimulator({
   amountError,
   onPresetSelect,
   activeAmount,
+  headingId,
 }) {
   const { t } = useI18n();
 
   return (
-    <div className="mt-7 hairline pt-6">
-      <span className="eyebrow">{t('capitalSimulator.eyebrow')}</span>
+    <div>
+      <span className="eyebrow" id={headingId}>
+        {t('capitalSimulator.eyebrow')}
+      </span>
 
-      <div className="mt-3 grid grid-cols-2 gap-2">
+      {/* Four across at full width, two by two once the band splits into thirds. */}
+      <div className="mt-3 grid grid-cols-4 gap-2 lg:grid-cols-2">
         {CAPITAL_PRESETS.map((preset) => {
           const active = Math.abs(activeAmount - preset) < 0.001 && !amountError;
 
@@ -92,6 +96,11 @@ export default function CapitalSimulator({
             })}
           </p>
         )}
+
+        {/* The shorthand is only discoverable if something says it exists. */}
+        <p className="mt-1 text-[12px] text-[var(--sx-muted-soft)]">
+          {t('capitalSimulator.suffixHint')}
+        </p>
       </div>
 
       <p className="mt-4 text-[12px] leading-[1.58] text-[var(--sx-muted)]">

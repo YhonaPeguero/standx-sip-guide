@@ -534,6 +534,7 @@ const ptBR = {
     customAmount: 'Valor personalizado',
     rangeHint: 'Mín {min} · Máx {max}',
     note: 'Exemplo simulado para fins educacionais. Os resultados reais podem variar.',
+    suffixHint: 'Abreviação: 10k = $10,000, 1.5m = $1,500,000.',
   },
   rangeSelector: {
     ariaLabel: 'Intervalo de tempo',

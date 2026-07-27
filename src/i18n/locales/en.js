@@ -533,6 +533,7 @@ const en = {
     customAmount: 'Custom amount',
     rangeHint: 'Min {min} · Max {max}',
     note: 'Simulated example for educational purposes. Actual results may vary.',
+    suffixHint: 'Shorthand: 10k = $10,000, 1.5m = $1,500,000.',
   },
   rangeSelector: {
     ariaLabel: 'Time range',

@@ -15,8 +15,8 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
   return (
     <div>
       {/* Inline flow rather than a flex row: the chip follows the label text directly, so it
-          stays beside the label instead of wrapping onto a line of its own in the 340px
-          sidebar — and it keeps that adjacency in the locales with the longest labels. */}
+          stays beside the label instead of wrapping onto a line of its own in a narrow
+          column — and it keeps that adjacency in the locales with the longest labels. */}
       <div className="leading-[1.7]">
         <label
           htmlFor={id}
@@ -71,14 +71,17 @@ export default function RateInputs({
   onBaseRateBlur,
   onSip2RateBlur,
   isSip2On,
+  headingId,
   className = '',
 }) {
   const { t } = useI18n();
   const rangeHint = t('rateInputs.rangeHint', { min: MIN_RATE, max: MAX_RATE });
 
   return (
-    <div className={`hairline pt-6 ${className}`}>
-      <span className="eyebrow">{t('rateInputs.eyebrow')}</span>
+    <div className={className}>
+      <span className="eyebrow" id={headingId}>
+        {t('rateInputs.eyebrow')}
+      </span>
 
       <div className="mt-3 flex flex-col gap-5">
         <RateField

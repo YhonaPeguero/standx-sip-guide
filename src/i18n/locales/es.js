@@ -534,6 +534,7 @@ const es = {
     customAmount: 'Monto personalizado',
     rangeHint: 'Mín {min} · Máx {max}',
     note: 'Ejemplo simulado con fines educativos. Los resultados reales pueden variar.',
+    suffixHint: 'Abreviatura: 10k = $10,000, 1.5m = $1,500,000.',
   },
   rangeSelector: {
     ariaLabel: 'Rango de tiempo',

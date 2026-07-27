@@ -25,7 +25,9 @@ import { readRoute, subscribeRoute, writeRoute } from './lib/route';
 import { calculateScenarioSnapshot } from './lib/simulator';
 import { canNarrateLanguage, speakGuideStep } from './lib/speechSynthesis';
 
-const CAPITAL_PATTERN = /^\d*(\.\d{0,2})?$/;
+// Digits, at most two decimals, and an optional k/m suffix. Anything else cannot become an
+// amount no matter what the reader types next, so it is the only thing refused outright.
+const CAPITAL_PATTERN = /^\d*(\.\d{0,2})?[kKmM]?$/;
 const RATE_PATTERN = /^\d*(\.\d{0,2})?$/;
 const MAX_ERROR_KEY = 'maxAmount';
 const MIN_ERROR_KEY = 'minAmount';
@@ -83,6 +85,27 @@ const GUIDE_STEPS = [
 ];
 
 const sanitizeInput = (value) => value.replace(/[$,\s]/g, '');
+
+// Traders write 10k, not 10000. The suffix is part of the notation, so it is accepted as
+// typed and expanded on blur rather than rejected keystroke by keystroke.
+const CAPITAL_SUFFIX_MULTIPLIER = { k: 1_000, m: 1_000_000 };
+
+const parseCapitalInput = (rawValue) => {
+  const cleaned = sanitizeInput(rawValue);
+  const match = cleaned.match(/^(\d*\.?\d*)([kKmM]?)$/);
+
+  if (!match || !match[1] || match[1] === '.') {
+    return NaN;
+  }
+
+  const base = Number(match[1]);
+
+  if (!Number.isFinite(base)) {
+    return NaN;
+  }
+
+  return base * (CAPITAL_SUFFIX_MULTIPLIER[match[2].toLowerCase()] ?? 1);
+};
 
 const normalizeCapitalInput = (value) => {
   if (!Number.isFinite(value)) {
@@ -238,6 +261,10 @@ export default function App() {
     setCapitalErrorKey('');
   }, []);
 
+  // The reader's text is kept exactly as typed. Only characters that cannot form an amount
+  // at all are refused; a value that is merely out of range is accepted into the field and
+  // answered with a message, because silently swallowing a keystroke reads as a broken
+  // keyboard rather than as a limit.
   const handleCapitalInputChange = useCallback((rawValue) => {
     const nextValue = sanitizeInput(rawValue);
 
@@ -252,8 +279,7 @@ export default function App() {
       return;
     }
 
-    const parsedAmount = Number(nextValue);
-    const validation = validateCapitalAmount(parsedAmount);
+    const validation = validateCapitalAmount(parseCapitalInput(nextValue));
 
     if (!validation.isValid) {
       setCapitalErrorKey(validation.errorKey);
@@ -264,6 +290,10 @@ export default function App() {
     setCapitalErrorKey('');
   }, []);
 
+  // Blur formats a good value and expands any suffix. It never overwrites a bad one: the
+  // text and its message both stay, so the reader can see what they typed, read why it was
+  // refused, and edit it. Previously both were discarded together, which left the field
+  // showing a number the reader had not chosen and no explanation of where theirs went.
   const handleCapitalInputBlur = useCallback(() => {
     if (capitalInput.trim().length === 0) {
       setCapitalInput(normalizeCapitalInput(capitalAmount));
@@ -271,12 +301,10 @@ export default function App() {
       return;
     }
 
-    const parsedAmount = Number(capitalInput);
-    const validation = validateCapitalAmount(parsedAmount);
+    const validation = validateCapitalAmount(parseCapitalInput(capitalInput));
 
     if (!validation.isValid) {
-      setCapitalInput(normalizeCapitalInput(capitalAmount));
-      setCapitalErrorKey('');
+      setCapitalErrorKey(validation.errorKey);
       return;
     }
 
@@ -769,7 +797,6 @@ export default function App() {
               onSip2RateChange={handleSip2RateChange}
               onBaseRateBlur={handleBaseRateBlur}
               onSip2RateBlur={handleSip2RateBlur}
-              onLearnHowItWorks={handleOpenOverviewLearning}
               scenario={scenario}
             />
           ) : null}

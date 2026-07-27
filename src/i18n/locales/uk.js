@@ -536,6 +536,7 @@ const uk = {
     customAmount: 'Власна сума',
     rangeHint: 'Мін {min} · Макс {max}',
     note: 'Змодельований приклад для освітніх цілей. Фактичні результати можуть відрізнятися.',
+    suffixHint: 'Скорочення: 10k = $10,000, 1.5m = $1,500,000.', // TODO: needs native review
   },
   rangeSelector: {
     ariaLabel: 'Часовий діапазон',
