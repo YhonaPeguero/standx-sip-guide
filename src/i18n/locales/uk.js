@@ -7,7 +7,8 @@ const uk = {
       vaults: 'Vaults',
       ariaLabel: 'Основні розділи',
     },
-    community: 'Спільнота',
+    independent: 'Незалежний', // TODO: needs native review
+    independentFull: 'Створено спільнотою, незалежний — не афілійований з командою StandX.', // TODO: needs native review
     language: {
       button: 'Мова',
       buttonAria: 'Відкрити меню мов',
@@ -70,7 +71,6 @@ const uk = {
     },
   },
   hero: {
-    tag: 'Створено спільнотою',
     title: {
       line1: 'Розберіться у StandX SIPs,',
       line2: 'у реальному часі',
@@ -84,6 +84,16 @@ const uk = {
       sip2: 'Прибутковість позиції (SIP #2)',
       sip3: 'Розширення DUSD (SIP #3)',
       multilingual: 'Підтримка п’яти мов',
+    },
+    meta: {
+      source: 'Джерело', // TODO: needs native review
+      sourceValue: 'docs.standx.com/sip',
+      scope: 'Обсяг', // TODO: needs native review
+      languages: 'Мови', // TODO: needs native review
+      maintainer: 'Супровід', // TODO: needs native review
+      maintainerValue: 'Thisnotmeme',
+      affiliation: 'Афіліація', // TODO: needs native review
+      affiliationValue: 'Незалежний — не афілійований зі StandX', // TODO: needs native review
     },
   },
   headline: {

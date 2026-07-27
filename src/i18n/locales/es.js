@@ -7,7 +7,8 @@ const es = {
       vaults: 'Vaults',
       ariaLabel: 'Secciones principales',
     },
-    community: 'Comunidad',
+    independent: 'Independiente',
+    independentFull: 'Hecho por la comunidad e independiente — sin afiliación con el equipo de StandX.',
     language: {
       button: 'Idioma',
       buttonAria: 'Abrir menú de idiomas',
@@ -70,7 +71,6 @@ const es = {
     },
   },
   hero: {
-    tag: 'Hecho por la comunidad',
     title: {
       line1: 'Entiende los SIP de StandX,',
       line2: 'en tiempo real',
@@ -84,6 +84,16 @@ const es = {
       sip2: 'Yield de posición (SIP #2)',
       sip3: 'Expansión DUSD (SIP #3)',
       multilingual: 'Cinco idiomas soportados',
+    },
+    meta: {
+      source: 'Fuente',
+      sourceValue: 'docs.standx.com/sip',
+      scope: 'Alcance',
+      languages: 'Idiomas',
+      maintainer: 'Responsable',
+      maintainerValue: 'Thisnotmeme',
+      affiliation: 'Afiliación',
+      affiliationValue: 'Independiente — sin afiliación con StandX',
     },
   },
   headline: {
