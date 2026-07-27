@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 import { useI18n } from '../i18n';
+import Switch from './ui/Switch';
 
 const ALWAYS_ACTIVE_ROWS = [
   {
@@ -28,39 +28,6 @@ function StatusDot({ active = true }) {
         />
       ) : null}
     </span>
-  );
-}
-
-function InlineSwitch({ isOn, onChange, ariaLabel }) {
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={isOn}
-      aria-label={ariaLabel}
-      onClick={onChange}
-      className="relative block h-[24px] w-[44px] shrink-0 cursor-pointer outline-none"
-      style={{
-        borderRadius: 999,
-        backgroundColor: isOn ? 'rgba(0, 102, 50, 0.85)' : 'var(--sx-surface-2)',
-        border: `1px solid ${isOn ? 'rgba(0, 102, 50, 0.95)' : 'var(--sx-border-strong)'}`,
-        transition: 'background-color 200ms ease, border-color 200ms ease',
-      }}
-    >
-      <motion.span
-        animate={{ x: isOn ? 22 : 2 }}
-        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          position: 'absolute',
-          top: 3,
-          left: 0,
-          height: 16,
-          width: 16,
-          borderRadius: 999,
-          backgroundColor: isOn ? '#00ff2a' : '#6f7d74',
-        }}
-      />
-    </button>
   );
 }
 
@@ -172,7 +139,7 @@ export default function ProtocolStatusList({
             >
               {isSip2On ? t('toggle.on') : t('toggle.off')}
             </span>
-            <InlineSwitch
+            <Switch
               isOn={isSip2On}
               onChange={onToggleSip2}
               ariaLabel={isSip2On ? t('toggle.ariaOn') : t('toggle.ariaOff')}

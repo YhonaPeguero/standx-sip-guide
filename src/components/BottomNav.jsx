@@ -44,10 +44,14 @@ function VaultsIcon(props) {
   );
 }
 
+// At 390px each cell is 98px wide. "Yield Playbook" measures 98px in pt-BR and 100px in
+// uk, so both wrapped — and with leading-none the two lines collided and the uk label ran
+// into the Vaults column. The label gets a short form of its own rather than a smaller
+// type size, which would only postpone the collision to the next locale.
 const NAV_ITEMS = [
   { id: 'overview', Icon: OverviewIcon },
   { id: 'simulator', Icon: SimulatorIcon },
-  { id: 'playbook', Icon: PlaybookIcon },
+  { id: 'playbook', Icon: PlaybookIcon, labelKey: 'topBar.nav.playbookShort' },
   { id: 'vaults', Icon: VaultsIcon },
 ];
 
@@ -67,7 +71,7 @@ export default function BottomNav({ activeTab, onTabChange }) {
       }}
     >
       <div className="mx-auto grid max-w-[520px] grid-cols-4">
-        {NAV_ITEMS.map(({ id, Icon }) => {
+        {NAV_ITEMS.map(({ id, Icon, labelKey }) => {
           const active = id === activeTab;
 
           return (
@@ -78,7 +82,7 @@ export default function BottomNav({ activeTab, onTabChange }) {
               aria-current={active ? 'page' : undefined}
               whileTap={{ scale: 0.94 }}
               transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex flex-col items-center justify-center gap-1 py-2.5 outline-none transition-colors duration-200 focus-visible:text-[var(--sx-text)]"
+              className="control-min relative flex flex-col items-center justify-center gap-1 px-1 py-2.5 outline-none transition-colors duration-200 focus-visible:text-[var(--sx-text)]"
               style={{ color: active ? 'var(--sx-primary-bright)' : 'var(--sx-muted)' }}
             >
               {active ? (
@@ -88,9 +92,11 @@ export default function BottomNav({ activeTab, onTabChange }) {
                   transition={{ type: 'spring', stiffness: 480, damping: 36 }}
                 />
               ) : null}
-              <Icon className="h-[22px] w-[22px]" />
-              <span className="text-[10.5px] font-medium uppercase tracking-[0.08em] leading-none">
-                {t(`topBar.nav.${id}`)}
+              <Icon className="h-[22px] w-[22px] shrink-0" />
+              {/* leading-[1.2] rather than leading-none: if a locale still wraps, the two
+                  lines stack instead of overprinting each other. */}
+              <span className="text-center text-[10.5px] font-medium uppercase leading-[1.2] tracking-[0.06em]">
+                {t(labelKey ?? `topBar.nav.${id}`)}
               </span>
             </motion.button>
           );

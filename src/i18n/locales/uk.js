@@ -4,10 +4,11 @@ const uk = {
       overview: 'Огляд',
       simulator: 'Симулятор',
       playbook: 'Плейбук прибутковості',
+      playbookShort: 'Плейбук', // TODO: needs native review
       vaults: 'Vaults',
       ariaLabel: 'Основні розділи',
     },
-    community: 'Спільнота',
+    community: 'Спільнота', // TODO: needs native review
     language: {
       button: 'Мова',
       buttonAria: 'Відкрити меню мов',
@@ -32,27 +33,43 @@ const uk = {
     steps: {
       dusd: {
         title: 'DUSD',
-        text: 'DUSD приносить дохід автоматично, поки ви його тримаєте. Завжди увімкнено — без стейкінгу, без перемикача.',
+        text:
+          'DUSD приносить дохід автоматично, поки ви його тримаєте. Завжди увімкнено — без стейкінгу, без перемикача.',
       },
       sip2: {
         title: 'SIP #2 Прибутковість Позиції',
-        text: 'Це опціональний шар, який контролюєте ви. Увімкнення SIP #2 додає дохід на прийнятні відкриті позиції поверх базового рівня.',
+        text:
+          'Це опціональний шар, який контролюєте ви. Увімкнення SIP #2 додає дохід на прийнятні відкриті позиції поверх базового рівня.',
       },
       sip3: {
         title: 'SIP #3 Розширення Нативної Прибутковості DUSD',
-        text: 'Як і базовий дохід DUSD, SIP #3 завжди активний — торгова активність StandX спрямовується в дохід DUSD у фоні.',
+        text:
+          'Як і базовий дохід DUSD, SIP #3 завжди активний — торгова активність StandX спрямовується в дохід DUSD у фоні.',
       },
-      protocolLayers: {
-        title: 'Як шари складаються разом',
-        text: 'DUSD і SIP #3 працюють самостійно. SIP #2 — це шар, який ви вирішуєте увімкнути. Панель керування показує, що пасивне, а що ви перемикаєте.',
+      capital: {
+        title: 'Капітал', // TODO: needs native review
+        text:
+          'Почніть тут. Оберіть пресет або введіть будь-яку суму — 10k і 1.5m працюють. Усе нижче перераховується від цього.', // TODO: needs native review
       },
-      simulator: {
-        title: 'Симулятор',
-        text: 'Введіть власні ставки, а потім спробуйте різні суми капіталу й горизонти, щоб побачити, як може поводитися кожен шар.', // TODO: needs native review
+      rates: {
+        title: 'Ставки прибутковості', // TODO: needs native review
+        text:
+          'Їх задаєте ви. StandX не публікує жодної з них, тому обидва поля порожні й позначені not published — тут нічого не вгадують за вас.', // TODO: needs native review
+      },
+      output: {
+        title: 'Що дають ваші числа', // TODO: needs native review
+        text:
+          'Прибуток, графік і статистика читаються з того, що ви ввели вище. Без введеної ставки прибуток дорівнює нулю.', // TODO: needs native review
+      },
+      vaults: {
+        title: 'Community Vaults', // TODO: needs native review
+        text:
+          'SIP-5B додає три типи сховищ — стратегія, винагорода та щит. Кожне вказує джерело доходу і спосіб виходу.', // TODO: needs native review
       },
       playbook: {
-        title: 'Плейбук прибутковості',
-        text: 'Перегляньте прості сценарії від спільноти для розуміння та використання SIP від StandX.',
+        title: 'Плейбук прибутковості', // TODO: needs native review
+        text:
+          'Короткі спільнотні сценарії застосування SIP, кожен на кілька кроків від початку до кінця.', // TODO: needs native review
       },
     },
   },
@@ -70,7 +87,6 @@ const uk = {
     },
   },
   hero: {
-    tag: 'Створено спільнотою',
     title: {
       line1: 'Розберіться у StandX SIPs,',
       line2: 'у реальному часі',
@@ -84,6 +100,16 @@ const uk = {
       sip2: 'Прибутковість позиції (SIP #2)',
       sip3: 'Розширення DUSD (SIP #3)',
       multilingual: 'Підтримка п’яти мов',
+    },
+    meta: {
+      source: 'Джерело', // TODO: needs native review
+      sourceValue: 'docs.standx.com/sip',
+      scope: 'Обсяг', // TODO: needs native review
+      languages: 'Мови', // TODO: needs native review
+      maintainer: 'Супровід', // TODO: needs native review
+      maintainerValue: 'Thisnotmeme',
+      builtBy: 'Створено', // TODO: needs native review
+      builtByValue: 'Спільнотою StandX', // TODO: needs native review
     },
   },
   headline: {
@@ -503,6 +529,11 @@ const uk = {
       'Базовий дохід DUSD і SIP #3 завжди активні. Увімкніть SIP #2, щоб додати дохід від позицій.',
     sip2Label: 'SIP #2 — Дохід від позицій',
     sip2Hint: 'Опціональний шар. Активує дохід для прийнятних відкритих позицій.',
+    breakdown: {
+      base: 'Базова', // TODO: needs native review
+      sip2: 'SIP #2',
+      applied: 'Застосована', // TODO: needs native review
+    },
     learnHowItWorks: 'Дізнатися, як це працює',
   },
   protocolStatus: {
@@ -527,6 +558,7 @@ const uk = {
     customAmount: 'Власна сума',
     rangeHint: 'Мін {min} · Макс {max}',
     note: 'Змодельований приклад для освітніх цілей. Фактичні результати можуть відрізнятися.',
+    suffixHint: 'Скорочення: 10k = $10,000, 1.5m = $1,500,000.', // TODO: needs native review
   },
   rangeSelector: {
     ariaLabel: 'Часовий діапазон',

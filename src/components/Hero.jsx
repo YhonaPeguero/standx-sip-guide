@@ -2,101 +2,122 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useI18n } from '../i18n';
 import Button from './ui/Button';
 
+// THESIS: this guide opens as what it is — the front matter of a specification, not the
+// top of a landing page. It refuses eyebrow pill → gradient display headline → two CTAs →
+// numbered feature row, the arrangement every dark crypto site has shipped since 2021.
+// OWN-WORLD: inherited unchanged. StandX green on near-black, Geist + Geist Mono, 3–6px
+// radii, hairline rules, the inset-highlight elevation ladder. The one primitive promoted
+// is the mono field table already used for SIP-5B's header on the vaults tab.
+// STORY: a reader arriving from a shared link learns in one viewport what this document
+// is, what it covers, who maintains it, that it is unaffiliated, and where to start.
+// FIRST VIEWPORT: left-aligned masthead. Title at h1, abstract beneath it, then a
+// hairline-ruled six-field table. Affiliation is a field with a value, not fine print.
+// One outline action into the simulator; the mechanics link stays plain text.
+// FORM: specification front matter — the notation this audience reads daily on
+// docs.standx.com. Inherited surface, so no concept roll.
+
 const EASE = [0.22, 1, 0.36, 1];
 
-function FeatureRow() {
-  const { t } = useI18n();
-  const features = [
-    { key: 'dusd', label: t('hero.features.dusd') },
-    { key: 'sip2', label: t('hero.features.sip2') },
-    { key: 'sip3', label: t('hero.features.sip3') },
-    { key: 'multilingual', label: t('hero.features.multilingual') },
-  ];
-
-  return (
-    <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-4">
-      {features.map((feature, index) => (
-        <li
-          key={feature.key}
-          className="type-body-sm flex items-start gap-2 text-[var(--sx-text-muted)]"
-        >
-          <span
-            className="mono mt-0.5 inline-flex h-4 w-5 items-center justify-center text-[10px] tracking-[0.12em] text-[var(--sx-primary-bright)]"
-            aria-hidden="true"
-          >
-            {String(index + 1).padStart(2, '0')}
-          </span>
-          <span className="tracking-[-0.005em]">{feature.label}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
+export const SIP_DOCS_URL = 'https://docs.standx.com/sip/';
 
 export default function Hero({ onPrimary, onSecondary }) {
   const { t } = useI18n();
   const reduceMotion = useReducedMotion();
 
-  // Signature entrance: tag → headline → subtitle → CTAs → features rise in sequence,
-  // then a gradient rule sweeps in under the headline. Disabled under reduced motion.
+  // The scope field carries the three yield layers the guide covers, joined rather than
+  // listed, so the table reads as one record instead of reintroducing a feature row.
+  const scopeValue = [
+    t('hero.features.dusd'),
+    t('hero.features.sip2'),
+    t('hero.features.sip3'),
+  ].join(' · ');
+
+  const fields = [
+    { key: 'source', value: t('hero.meta.sourceValue'), href: SIP_DOCS_URL },
+    { key: 'scope', value: scopeValue, wide: true },
+    { key: 'languages', value: t('hero.features.multilingual') },
+    { key: 'maintainer', value: t('hero.meta.maintainerValue') },
+    // Provenance stated positively. Who built it carries the same information as a denial
+    // would, without the page having to argue with a claim nobody made — the COMMUNITY
+    // BUILT badge in the header says the same thing in the same words.
+    { key: 'builtBy', value: t('hero.meta.builtByValue') },
+  ];
+
   const container = {
     hidden: {},
     show: {
-      transition: reduceMotion ? {} : { staggerChildren: 0.09, delayChildren: 0.05 },
+      transition: reduceMotion ? {} : { staggerChildren: 0.07, delayChildren: 0.04 },
     },
   };
 
   const item = {
-    hidden: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+    hidden: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
   };
 
-  // content-layer keeps the hero on its own compositing layer, off the background's
   return (
     <section className="content-layer relative">
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="flex flex-col items-start gap-6"
-      >
-        <motion.span variants={item} className="tag-pill">
-          {t('hero.tag')}
-        </motion.span>
-
-        <motion.h1 variants={item} className="type-display max-w-[900px]">
+      <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col">
+        {/* Two clauses, two colours. Solid --sx-primary-bright, not the gradient that used
+            to run across this line: the gradient was the detector's one finding and it is
+            not coming back. The contrast between the clauses was always the point, and a
+            flat fill carries it without the effect. */}
+        <motion.h1 variants={item} className="type-h1 max-w-[760px]">
           {t('hero.title.line1')}{' '}
-          <span className="text-gradient-primary">{t('hero.title.line2')}</span>
-          <span className="text-[var(--sx-primary-glow)]">.</span>
+          <span className="text-[var(--sx-primary-bright)]">{t('hero.title.line2')}</span>
         </motion.h1>
 
-        <motion.span
-          aria-hidden="true"
-          initial={reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.7, delay: reduceMotion ? 0 : 0.55, ease: EASE }}
-          className="h-[2px] w-[72px] origin-left"
-          style={{
-            background: 'linear-gradient(90deg, var(--sx-primary-bright), var(--sx-primary-glow))',
-            boxShadow: '0 0 16px rgba(0, 255, 128, 0.35)',
-          }}
-        />
-
-        <motion.p variants={item} className="type-body-lg max-w-[620px] text-[var(--sx-text-muted)]">
+        <motion.p
+          variants={item}
+          className="type-body-lg mt-6 max-w-[640px] text-[var(--sx-text-muted)]"
+        >
           {t('hero.subtitle')}
         </motion.p>
 
-        <motion.div variants={item} className="mt-1 flex flex-wrap items-center gap-3">
-          <Button variant="primary" size="lg" onClick={onPrimary} iconRight={<span>→</span>}>
+        {/* The masthead record. Same mono dt/dd grammar as the SIP-5B header table on the
+            vaults tab, so the guide describes itself the way it describes a proposal. */}
+        <motion.dl
+          variants={item}
+          className="hairline mt-10 grid gap-x-8 gap-y-5 pt-7 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {fields.map((field) => (
+            <div
+              key={field.key}
+              className={`flex flex-col gap-1.5 ${field.wide ? 'lg:col-span-2' : ''}`}
+            >
+              <dt className="mono text-[11px] uppercase tracking-[0.14em] text-[var(--sx-muted)]">
+                {t(`hero.meta.${field.key}`)}
+              </dt>
+              <dd className="mono text-[13px] font-semibold leading-[1.5] tracking-[-0.01em] text-[var(--sx-text)]">
+                {field.href ? (
+                  <a
+                    href={field.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tap-target inline-flex items-center underline decoration-[var(--sx-border-strong)] underline-offset-4 transition-colors duration-200 hover:decoration-[var(--sx-primary-bright)]"
+                  >
+                    {field.value}
+                    <span aria-hidden="true"> ↗</span>
+                  </a>
+                ) : (
+                  field.value
+                )}
+              </dd>
+            </div>
+          ))}
+        </motion.dl>
+
+        <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Button variant="outline" size="md" onClick={onPrimary} iconRight={<span>→</span>}>
             {t('hero.primaryCta')}
           </Button>
-          <Button variant="outline" size="lg" onClick={onSecondary}>
+          <button
+            type="button"
+            onClick={onSecondary}
+            className="tap-target text-[14px] font-medium text-[var(--sx-text-muted)] underline decoration-[var(--sx-border-strong)] underline-offset-4 outline-none transition-colors duration-200 hover:text-[var(--sx-text)] hover:decoration-[var(--sx-primary-bright)]"
+          >
             {t('hero.secondaryCta')}
-          </Button>
-        </motion.div>
-
-        <motion.div variants={item} className="w-full">
-          <FeatureRow />
+          </button>
         </motion.div>
       </motion.div>
     </section>

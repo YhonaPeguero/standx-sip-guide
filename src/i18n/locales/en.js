@@ -4,6 +4,7 @@ const en = {
       overview: 'Overview',
       simulator: 'Simulator',
       playbook: 'Yield Playbook',
+      playbookShort: 'Playbook',
       vaults: 'Vaults',
       ariaLabel: 'Primary sections',
     },
@@ -32,27 +33,43 @@ const en = {
     steps: {
       dusd: {
         title: 'DUSD',
-        text: 'DUSD earns automatically while you hold it. This is always on — no staking, no toggle.',
+        text:
+          'DUSD earns automatically while you hold it. This is always on — no staking, no toggle.',
       },
       sip2: {
         title: 'SIP #2 Position Yield',
-        text: 'This is the optional layer you control. Toggling SIP #2 adds yield on eligible open positions on top of the baseline.',
+        text:
+          'This is the optional layer you control. Toggling SIP #2 adds yield on eligible open positions on top of the baseline.',
       },
       sip3: {
         title: 'SIP #3 DUSD Yield Expansion',
-        text: 'Like DUSD base yield, SIP #3 is always active — StandX trading activity routes into DUSD yield in the background.',
+        text:
+          'Like DUSD base yield, SIP #3 is always active — StandX trading activity routes into DUSD yield in the background.',
       },
-      protocolLayers: {
-        title: 'How the layers stack',
-        text: 'DUSD and SIP #3 run on their own. SIP #2 is the layer you choose to turn on. The control panel shows what is passive and what you toggle.',
+      capital: {
+        title: 'Capital',
+        text:
+          'Start here. Pick a preset or type any amount — 10k and 1.5m both work. Everything below recalculates from it.',
       },
-      simulator: {
-        title: 'Simulator',
-        text: 'Enter your own rates, then try different capital amounts and horizons to see how each layer may behave.',
+      rates: {
+        title: 'Yield rates',
+        text:
+          'You supply these. StandX publishes neither figure, so both fields start empty and carry the not published marker — nothing here is guessed for you.',
+      },
+      output: {
+        title: 'What your numbers produce',
+        text:
+          'The gain, the chart and the stats all read from what you entered above. With no rate typed, the gain is zero.',
+      },
+      vaults: {
+        title: 'Community Vaults',
+        text:
+          'SIP-5B adds three kinds of vault — strategy, reward and shield. Each states its return source and how you get out.',
       },
       playbook: {
         title: 'Yield Playbook',
-        text: 'Explore simple community flows for understanding and using StandX SIPs.',
+        text:
+          'Short community flows for putting the SIPs to use, each one a few steps end to end.',
       },
     },
   },
@@ -70,7 +87,6 @@ const en = {
     },
   },
   hero: {
-    tag: 'Community Built',
     title: {
       line1: 'Understand StandX SIPs,',
       line2: 'in real time',
@@ -84,6 +100,16 @@ const en = {
       sip2: 'Position yield (SIP #2)',
       sip3: 'DUSD expansion (SIP #3)',
       multilingual: 'Five languages supported',
+    },
+    meta: {
+      source: 'Source',
+      sourceValue: 'docs.standx.com/sip',
+      scope: 'Scope',
+      languages: 'Languages',
+      maintainer: 'Maintainer',
+      maintainerValue: 'Thisnotmeme',
+      builtBy: 'Built by',
+      builtByValue: 'The StandX community',
     },
   },
   headline: {
@@ -500,6 +526,11 @@ const en = {
       'DUSD base yield and SIP #3 are always on. Toggle SIP #2 to layer position yield on top.',
     sip2Label: 'SIP #2 — Position Yield',
     sip2Hint: 'Optional layer. Activates yield on eligible open positions.',
+    breakdown: {
+      base: 'Base',
+      sip2: 'SIP #2',
+      applied: 'Applied',
+    },
     learnHowItWorks: 'Learn how it works',
   },
   protocolStatus: {
@@ -524,6 +555,7 @@ const en = {
     customAmount: 'Custom amount',
     rangeHint: 'Min {min} · Max {max}',
     note: 'Simulated example for educational purposes. Actual results may vary.',
+    suffixHint: 'Shorthand: 10k = $10,000, 1.5m = $1,500,000.',
   },
   rangeSelector: {
     ariaLabel: 'Time range',

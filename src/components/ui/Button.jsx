@@ -67,7 +67,9 @@ export default function Button({
   const isExternalLink = typeof href === 'string' && /^https?:\/\//i.test(href);
   const linkTarget = target ?? (isExternalLink ? '_blank' : undefined);
   const linkRel = rel ?? (linkTarget === '_blank' ? 'noopener noreferrer' : undefined);
-  const classes = `group inline-flex items-center justify-center gap-2 font-medium tracking-[-0.005em] outline-none transition-colors duration-200 ${palette.base} ${sizeClass} ${widthClass} ${className}`;
+  // tap-target rather than control-min: the visible heights are part of the type scale,
+  // so on touch the hit area grows around them instead of the button itself.
+  const classes = `tap-target group inline-flex items-center justify-center gap-2 font-medium tracking-[-0.005em] outline-none transition-colors duration-200 ${palette.base} ${sizeClass} ${widthClass} ${className}`;
 
   const content = (
     <>

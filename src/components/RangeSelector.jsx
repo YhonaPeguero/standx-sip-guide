@@ -22,7 +22,7 @@ export default function RangeSelector({ value, onChange }) {
             onClick={() => onChange(range.id)}
             role="radio"
             aria-checked={active}
-            className="mono relative px-3.5 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 outline-none sm:px-4"
+            className="tap-target relative mono px-3.5 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 outline-none sm:px-4"
             style={{
               color: active ? 'var(--sx-text)' : 'var(--sx-muted)',
               borderRadius: 4,

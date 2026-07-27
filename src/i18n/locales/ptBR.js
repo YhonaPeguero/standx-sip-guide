@@ -4,6 +4,7 @@ const ptBR = {
       overview: 'Visão Geral',
       simulator: 'Simulador',
       playbook: 'Playbook de Yield',
+      playbookShort: 'Playbook',
       vaults: 'Vaults',
       ariaLabel: 'Seções principais',
     },
@@ -32,27 +33,43 @@ const ptBR = {
     steps: {
       dusd: {
         title: 'DUSD',
-        text: 'O DUSD rende automaticamente enquanto você o mantém. Está sempre ativo — sem staking, sem interruptor.',
+        text:
+          'O DUSD rende automaticamente enquanto você o mantém. Está sempre ativo — sem staking, sem interruptor.',
       },
       sip2: {
         title: 'SIP #2 Yield de Posição',
-        text: 'Essa é a camada opcional que você controla. Ativar o SIP #2 soma yield em posições abertas elegíveis acima do baseline.',
+        text:
+          'Essa é a camada opcional que você controla. Ativar o SIP #2 soma yield em posições abertas elegíveis acima do baseline.',
       },
       sip3: {
         title: 'SIP #3 Expansão de Yield Nativo DUSD',
-        text: 'Como o yield base do DUSD, o SIP #3 também está sempre ativo — a atividade de trading na StandX é direcionada ao yield do DUSD em segundo plano.',
+        text:
+          'Como o yield base do DUSD, o SIP #3 também está sempre ativo — a atividade de trading na StandX é direcionada ao yield do DUSD em segundo plano.',
       },
-      protocolLayers: {
-        title: 'Como as camadas se empilham',
-        text: 'DUSD e SIP #3 funcionam sozinhos. O SIP #2 é a camada que você decide ligar. O painel de controle mostra o que é passivo e o que você ativa.',
+      capital: {
+        title: 'Capital',
+        text:
+          'Comece aqui. Escolha um preset ou digite qualquer valor: 10k e 1.5m funcionam. Tudo abaixo é recalculado a partir disso.',
       },
-      simulator: {
-        title: 'Simulador',
-        text: 'Insira suas próprias taxas e teste diferentes capitais e horizontes para ver como cada camada pode se comportar.',
+      rates: {
+        title: 'Taxas de yield',
+        text:
+          'Você define. A StandX não publica nenhuma das duas, então ambos os campos começam vazios e levam a marca not published: nada aqui é adivinhado por você.',
+      },
+      output: {
+        title: 'O que seus números produzem',
+        text:
+          'O ganho, o gráfico e as estatísticas leem o que você inseriu acima. Sem taxa digitada, o ganho é zero.',
+      },
+      vaults: {
+        title: 'Community Vaults',
+        text:
+          'O SIP-5B adiciona três tipos de vault: estratégia, recompensa e escudo. Cada um declara sua fonte de retorno e como sair.',
       },
       playbook: {
         title: 'Playbook de Yield',
-        text: 'Explore fluxos simples da comunidade para entender e usar os SIPs da StandX.',
+        text:
+          'Fluxos curtos da comunidade para usar os SIPs, cada um com poucos passos do início ao fim.',
       },
     },
   },
@@ -70,7 +87,6 @@ const ptBR = {
     },
   },
   hero: {
-    tag: 'Feito pela comunidade',
     title: {
       line1: 'Entenda os SIPs da StandX,',
       line2: 'em tempo real',
@@ -84,6 +100,16 @@ const ptBR = {
       sip2: 'Yield de posição (SIP #2)',
       sip3: 'Expansão DUSD (SIP #3)',
       multilingual: 'Cinco idiomas suportados',
+    },
+    meta: {
+      source: 'Fonte',
+      sourceValue: 'docs.standx.com/sip',
+      scope: 'Escopo',
+      languages: 'Idiomas',
+      maintainer: 'Responsável',
+      maintainerValue: 'Thisnotmeme',
+      builtBy: 'Feito por',
+      builtByValue: 'A comunidade StandX',
     },
   },
   headline: {
@@ -501,6 +527,11 @@ const ptBR = {
       'O yield base de DUSD e o SIP #3 estão sempre ativos. Acione o SIP #2 para somar o yield de posições.',
     sip2Label: 'SIP #2 — Position Yield',
     sip2Hint: 'Camada opcional. Ativa o yield em posições abertas elegíveis.',
+    breakdown: {
+      base: 'Base',
+      sip2: 'SIP #2',
+      applied: 'Aplicada',
+    },
     learnHowItWorks: 'Entender como funciona',
   },
   protocolStatus: {
@@ -525,6 +556,7 @@ const ptBR = {
     customAmount: 'Valor personalizado',
     rangeHint: 'Mín {min} · Máx {max}',
     note: 'Exemplo simulado para fins educacionais. Os resultados reais podem variar.',
+    suffixHint: 'Abreviação: 10k = $10,000, 1.5m = $1,500,000.',
   },
   rangeSelector: {
     ariaLabel: 'Intervalo de tempo',

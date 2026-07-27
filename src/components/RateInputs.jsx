@@ -15,8 +15,8 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
   return (
     <div>
       {/* Inline flow rather than a flex row: the chip follows the label text directly, so it
-          stays beside the label instead of wrapping onto a line of its own in the 340px
-          sidebar — and it keeps that adjacency in the locales with the longest labels. */}
+          stays beside the label instead of wrapping onto a line of its own in a narrow
+          column — and it keeps that adjacency in the locales with the longest labels. */}
       <div className="leading-[1.7]">
         <label
           htmlFor={id}
@@ -37,7 +37,7 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
           onChange={(event) => onChange(event.target.value)}
           onBlur={onBlur}
           placeholder={placeholder}
-          className="mono h-11 w-full border bg-[var(--sx-surface-2)] pl-3 pr-8 text-[14px] text-[var(--sx-text)] outline-none transition-colors duration-200 focus:bg-[var(--sx-surface-3)] disabled:cursor-not-allowed disabled:opacity-55"
+          className="mono h-12 w-full border bg-[var(--sx-surface-2)] pl-3 pr-9 text-[18px] font-semibold tracking-[-0.015em] text-[var(--sx-text)] outline-none transition-colors duration-200 focus:bg-[var(--sx-surface-3)] disabled:cursor-not-allowed disabled:opacity-55"
           style={{
             borderRadius: 4,
             borderColor: error ? 'var(--sx-accent)' : 'var(--sx-border)',
@@ -45,7 +45,7 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
           aria-invalid={Boolean(error)}
           aria-describedby={error ? errorId : undefined}
         />
-        <span className="mono pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-[var(--sx-muted)]">
+        <span className="mono pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[16px] text-[var(--sx-muted)]">
           %
         </span>
       </div>
@@ -71,14 +71,17 @@ export default function RateInputs({
   onBaseRateBlur,
   onSip2RateBlur,
   isSip2On,
+  headingId,
   className = '',
 }) {
   const { t } = useI18n();
   const rangeHint = t('rateInputs.rangeHint', { min: MIN_RATE, max: MAX_RATE });
 
   return (
-    <div className={`hairline pt-6 ${className}`}>
-      <span className="eyebrow">{t('rateInputs.eyebrow')}</span>
+    <div className={className}>
+      <span className="eyebrow" id={headingId}>
+        {t('rateInputs.eyebrow')}
+      </span>
 
       <div className="mt-3 flex flex-col gap-5">
         <RateField

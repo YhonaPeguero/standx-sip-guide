@@ -147,6 +147,15 @@ export default function GuideOverlay({
         }
       : null;
 
+  // The panel goes on whichever side of the spotlight has more room, so it never sits on
+  // top of the element it is describing. Anchored at the bottom by default, which is where
+  // it belongs when nothing is highlighted.
+  const viewportHeight = typeof window === 'undefined' ? 0 : window.innerHeight;
+  const panelAtTop = spotlight
+    ? spotlight.top > viewportHeight - (spotlight.top + spotlight.height)
+    : false;
+  const panelPlacement = panelAtTop ? 'top-4 sm:top-6' : 'bottom-4 sm:bottom-6';
+
   return (
     <>
       <AnimatePresence>
@@ -165,7 +174,7 @@ export default function GuideOverlay({
               <button
                 type="button"
                 onClick={onStartGuide}
-                className="inline-flex h-9 items-center border border-[rgba(0,102,50,0.7)] bg-[rgba(0,102,50,0.14)] px-3 text-[13px] font-medium text-[var(--sx-primary-bright)] transition-colors duration-200 hover:bg-[rgba(0,102,50,0.22)]"
+                className="tap-target inline-flex h-9 items-center border border-[rgba(0,102,50,0.7)] bg-[rgba(0,102,50,0.14)] px-3 text-[13px] font-medium text-[var(--sx-primary-bright)] transition-colors duration-200 hover:bg-[rgba(0,102,50,0.22)]"
                 style={{ borderRadius: 4 }}
               >
                 {t('guide.start')}
@@ -173,7 +182,7 @@ export default function GuideOverlay({
               <button
                 type="button"
                 onClick={onDismissPrompt}
-                className="inline-flex h-9 items-center border border-[var(--sx-border)] bg-transparent px-3 text-[13px] text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
+                className="tap-target inline-flex h-9 items-center border border-[var(--sx-border)] bg-transparent px-3 text-[13px] text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
                 style={{ borderRadius: 4 }}
               >
                 {t('guide.skip')}
@@ -246,7 +255,7 @@ export default function GuideOverlay({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 12 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed bottom-4 left-1/2 z-[71] w-[min(94vw,420px)] -translate-x-1/2 border border-[var(--sx-border-strong)] bg-[rgba(9,15,12,0.98)] p-4 shadow-[var(--sx-shadow-lg)] outline-none pointer-events-auto sm:bottom-6 sm:left-auto sm:right-6 sm:w-[380px] sm:translate-x-0"
+              className={`fixed left-1/2 z-[71] w-[min(94vw,420px)] -translate-x-1/2 border border-[var(--sx-border-strong)] bg-[rgba(9,15,12,0.98)] p-4 shadow-[var(--sx-shadow-lg)] outline-none pointer-events-auto sm:left-auto sm:right-6 sm:w-[380px] sm:translate-x-0 ${panelPlacement}`}
               style={{ borderRadius: 8 }}
             >
               <div className="flex items-center justify-between gap-2">
@@ -256,7 +265,7 @@ export default function GuideOverlay({
                 <button
                   type="button"
                   onClick={onSkip}
-                  className="text-[12px] text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
+                  className="tap-target text-[12px] text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
                 >
                   {t('guide.skip')}
                 </button>
@@ -296,7 +305,7 @@ export default function GuideOverlay({
                       <button
                         type="button"
                         onClick={onNarrationPauseToggle}
-                        className="inline-flex h-8 items-center border border-[var(--sx-border)] px-2.5 text-[12px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
+                        className="tap-target inline-flex h-8 items-center border border-[var(--sx-border)] px-2.5 text-[12px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
                         style={{ borderRadius: 4 }}
                       >
                         {isNarrationPaused ? t('guide.resume') : t('guide.pause')}
@@ -304,7 +313,7 @@ export default function GuideOverlay({
                       <button
                         type="button"
                         onClick={onNarrationMute}
-                        className="inline-flex h-8 items-center border border-[var(--sx-border)] px-2.5 text-[12px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
+                        className="tap-target inline-flex h-8 items-center border border-[var(--sx-border)] px-2.5 text-[12px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
                         style={{ borderRadius: 4 }}
                       >
                         {t('guide.mute')}
@@ -325,7 +334,7 @@ export default function GuideOverlay({
                   type="button"
                   onClick={onBack}
                   disabled={stepIndex === 0}
-                  className="inline-flex h-9 items-center border border-[var(--sx-border)] px-3 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-45"
+                  className="tap-target inline-flex h-9 items-center border border-[var(--sx-border)] px-3 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-45"
                   style={{ borderRadius: 4 }}
                 >
                   {t('guide.back')}
@@ -334,7 +343,7 @@ export default function GuideOverlay({
                 <button
                   type="button"
                   onClick={isLastStep ? onFinish : onNext}
-                  className="inline-flex h-9 items-center border border-[rgba(0,102,50,0.75)] bg-[rgba(0,102,50,0.16)] px-3 text-[13px] font-medium text-[var(--sx-primary-bright)] transition-colors duration-200 hover:bg-[rgba(0,102,50,0.24)]"
+                  className="tap-target inline-flex h-9 items-center border border-[rgba(0,102,50,0.75)] bg-[rgba(0,102,50,0.16)] px-3 text-[13px] font-medium text-[var(--sx-primary-bright)] transition-colors duration-200 hover:bg-[rgba(0,102,50,0.24)]"
                   style={{ borderRadius: 4 }}
                 >
                   {isLastStep ? t('guide.finish') : t('guide.next')}

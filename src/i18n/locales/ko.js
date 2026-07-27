@@ -4,10 +4,11 @@ const ko = {
       overview: '개요',
       simulator: '시뮬레이터',
       playbook: '수익 플레이북',
+      playbookShort: '플레이북', // TODO: needs native review
       vaults: 'Vaults',
       ariaLabel: '주요 섹션',
     },
-    community: '커뮤니티',
+    community: '커뮤니티', // TODO: needs native review
     language: {
       button: '언어',
       buttonAria: '언어 메뉴 열기',
@@ -32,27 +33,43 @@ const ko = {
     steps: {
       dusd: {
         title: 'DUSD',
-        text: 'DUSD는 보유만 해도 자동으로 수익이 발생합니다. 항상 켜져 있으며, 스테이킹이나 전환 스위치가 필요 없습니다.',
+        text:
+          'DUSD는 보유만 해도 자동으로 수익이 발생합니다. 항상 켜져 있으며, 스테이킹이나 전환 스위치가 필요 없습니다.',
       },
       sip2: {
         title: 'SIP #2 포지션 수익',
-        text: '이것은 사용자가 직접 제어하는 선택 레이어입니다. SIP #2를 켜면 기준 위에 적격 오픈 포지션의 수익이 더해집니다.',
+        text:
+          '이것은 사용자가 직접 제어하는 선택 레이어입니다. SIP #2를 켜면 기준 위에 적격 오픈 포지션의 수익이 더해집니다.',
       },
       sip3: {
         title: 'SIP #3 DUSD 네이티브 수익 확장',
-        text: 'DUSD 기본 수익처럼 SIP #3도 항상 활성 상태입니다 — StandX의 거래 활동이 백그라운드에서 DUSD 수익으로 연결됩니다.',
+        text:
+          'DUSD 기본 수익처럼 SIP #3도 항상 활성 상태입니다 — StandX의 거래 활동이 백그라운드에서 DUSD 수익으로 연결됩니다.',
       },
-      protocolLayers: {
-        title: '레이어가 쌓이는 방식',
-        text: 'DUSD와 SIP #3은 스스로 작동합니다. SIP #2는 사용자가 켜는 레이어입니다. 컨트롤 패널이 무엇이 자동이고 무엇을 사용자가 켜는지 보여줍니다.',
+      capital: {
+        title: '자본', // TODO: needs native review
+        text:
+          '여기서 시작하세요. 프리셋을 고르거나 원하는 금액을 입력하세요 — 10k와 1.5m 모두 됩니다. 아래 모든 값이 이를 기준으로 다시 계산됩니다.', // TODO: needs native review
       },
-      simulator: {
-        title: '시뮬레이터',
-        text: '직접 비율을 입력한 뒤 다양한 자본과 기간으로 각 계층의 작동 방식을 확인하세요.', // TODO: needs native review
+      rates: {
+        title: '수익률', // TODO: needs native review
+        text:
+          '직접 입력합니다. StandX는 두 수치 모두 공개하지 않으므로 두 필드는 비어 있고 not published 표시가 붙습니다 — 여기서 대신 추정하는 값은 없습니다.', // TODO: needs native review
+      },
+      output: {
+        title: '입력한 숫자의 결과', // TODO: needs native review
+        text:
+          '수익, 차트, 통계 모두 위에서 입력한 값을 따릅니다. 비율을 입력하지 않으면 수익은 0입니다.', // TODO: needs native review
+      },
+      vaults: {
+        title: 'Community Vaults', // TODO: needs native review
+        text:
+          'SIP-5B는 전략, 리워드, 실드 세 가지 vault를 추가합니다. 각각 수익 원천과 출금 방식을 명시합니다.', // TODO: needs native review
       },
       playbook: {
-        title: '수익 플레이북',
-        text: 'StandX SIP를 이해하고 활용하기 위한 커뮤니티 기반의 간단한 흐름을 살펴보세요.',
+        title: '수익 플레이북', // TODO: needs native review
+        text:
+          'SIP를 활용하는 짧은 커뮤니티 플로우로, 각각 몇 단계로 끝납니다.', // TODO: needs native review
       },
     },
   },
@@ -70,7 +87,6 @@ const ko = {
     },
   },
   hero: {
-    tag: '커뮤니티 제작',
     title: {
       line1: 'StandX SIP,',
       line2: '실시간으로 이해',
@@ -84,6 +100,16 @@ const ko = {
       sip2: '포지션 수익 (SIP #2)',
       sip3: 'DUSD 확장 (SIP #3)',
       multilingual: '5개 언어 지원',
+    },
+    meta: {
+      source: '출처', // TODO: needs native review
+      sourceValue: 'docs.standx.com/sip',
+      scope: '범위', // TODO: needs native review
+      languages: '언어', // TODO: needs native review
+      maintainer: '관리자', // TODO: needs native review
+      maintainerValue: 'Thisnotmeme',
+      builtBy: '제작', // TODO: needs native review
+      builtByValue: 'StandX 커뮤니티', // TODO: needs native review
     },
   },
   headline: {
@@ -496,6 +522,11 @@ const ko = {
       'DUSD 기본 수익과 SIP #3은 항상 활성 상태입니다. SIP #2를 켜서 포지션 수익을 더해보세요.',
     sip2Label: 'SIP #2 — 포지션 수익',
     sip2Hint: '선택 레이어. 적격 오픈 포지션에 대해 수익을 활성화합니다.',
+    breakdown: {
+      base: '기본', // TODO: needs native review
+      sip2: 'SIP #2',
+      applied: '적용', // TODO: needs native review
+    },
     learnHowItWorks: '작동 방식 보기',
   },
   protocolStatus: {
@@ -520,6 +551,7 @@ const ko = {
     customAmount: '직접 입력 금액',
     rangeHint: '최소 {min} · 최대 {max}',
     note: '교육 목적의 시뮬레이션 예시입니다. 실제 결과는 달라질 수 있습니다.',
+    suffixHint: '약식 표기: 10k = $10,000, 1.5m = $1,500,000.', // TODO: needs native review
   },
   rangeSelector: {
     ariaLabel: '기간 범위',
