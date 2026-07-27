@@ -377,12 +377,8 @@ const en = {
     },
     gate: {
       eyebrow: 'Trading Gate',
-      title: 'Four conditions before a market goes Live',
       description:
-        'A market moves from Bootstrapping to Live only when all four conditions hold. Toggle them to work the gate — it opens on the fourth, and not before.',
-      stateLabel: 'Market state',
-      bootstrapping: 'Bootstrapping',
-      live: 'Live',
+        'A market moves from Bootstrapping to Live only when all four conditions hold.',
       conditions: {
         sponsorEquity:
           'The Sponsor’s locked equity in the associated Shield Vault meets required_sponsor_commitment.',
@@ -392,9 +388,6 @@ const en = {
           'The market’s Reward Vault holds enough maker budget for its declared release schedule.',
         review: 'The oracle source, maker depth, OI cap and risk parameters pass review.',
       },
-      openCopy: 'All four conditions hold, so the market can open for trading.',
-      closedCopy:
-        '{met} of {total} conditions met. The market stays in Bootstrapping until all four hold.',
       footnote:
         'required_sponsor_commitment is set per market from its OI cap, maximum leverage, expected volatility, oracle quality and projected liquidation scale — markets do not share one fixed number.',
     },

@@ -378,12 +378,8 @@ const es = {
     },
     gate: {
       eyebrow: 'Trading Gate',
-      title: 'Cuatro condiciones antes de que un mercado pase a Live',
       description:
-        'Un mercado pasa de Bootstrapping a Live solo cuando se cumplen las cuatro condiciones. Actívalas para operar la puerta: se abre con la cuarta, no antes.',
-      stateLabel: 'Estado del mercado',
-      bootstrapping: 'Bootstrapping',
-      live: 'Live',
+        'Un mercado pasa de Bootstrapping a Live solo cuando se cumplen las cuatro condiciones.',
       conditions: {
         sponsorEquity:
           'El equity bloqueado del Sponsor en el Shield Vault asociado cumple required_sponsor_commitment.',
@@ -393,9 +389,6 @@ const es = {
           'El Reward Vault del mercado tiene presupuesto de makers suficiente para el calendario de liberación declarado.',
         review: 'La fuente de oráculo, la profundidad de makers, el OI cap y los parámetros de riesgo pasan la revisión.',
       },
-      openCopy: 'Se cumplen las cuatro condiciones, así que el mercado puede abrir a trading.',
-      closedCopy:
-        '{met} de {total} condiciones cumplidas. El mercado sigue en Bootstrapping hasta que se cumplan las cuatro.',
       footnote:
         'required_sponsor_commitment se fija por mercado a partir de su OI cap, apalancamiento máximo, volatilidad esperada, calidad del oráculo y escala de liquidación proyectada: los mercados no comparten una cifra fija.',
     },

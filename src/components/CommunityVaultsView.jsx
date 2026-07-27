@@ -2,7 +2,6 @@ import { useI18n } from '../i18n';
 import { Reveal } from './Reveal';
 import SectionHeader from './ui/SectionHeader';
 import LiquidationFlow from './vaults/LiquidationFlow';
-import TradingGateChecklist from './vaults/TradingGateChecklist';
 import VaultTypesCompare from './vaults/VaultTypesCompare';
 
 export const VAULTS_DOC_URL = 'https://docs.standx.com/sip/sip-5b-community-vault';
@@ -71,9 +70,10 @@ export default function CommunityVaultsView() {
         </Reveal>
       </div>
 
-      {/* Three modules; Shield Health rides along inside the liquidation flow as a strip */}
+      {/* Two sections now. The trading gate rides at the end of the vault types section as
+          a strip, the way Shield Health rides inside the liquidation flow, which leaves the
+          liquidation flow the whole second section for the explanation it already carries. */}
       <VaultTypesCompare />
-      <TradingGateChecklist />
       <LiquidationFlow />
     </div>
   );

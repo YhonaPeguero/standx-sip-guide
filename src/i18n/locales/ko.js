@@ -374,12 +374,8 @@ const ko = {
     },
     gate: {
       eyebrow: 'Trading Gate',
-      title: '마켓이 Live가 되기 위한 네 가지 조건',
       description:
-        '마켓은 네 조건이 모두 충족될 때만 Bootstrapping에서 Live로 넘어갑니다. 각 조건을 켜서 게이트를 확인하세요. 네 번째가 충족되는 순간에만 열립니다.',
-      stateLabel: '마켓 상태',
-      bootstrapping: 'Bootstrapping',
-      live: 'Live',
+        '시장은 네 가지 조건이 모두 충족될 때만 Bootstrapping에서 Live로 전환됩니다.',  // TODO: needs native review
       conditions: {
         sponsorEquity:
           '연결된 Shield Vault에 있는 Sponsor의 락업 equity가 required_sponsor_commitment를 충족합니다.',
@@ -389,9 +385,6 @@ const ko = {
           '마켓의 Reward Vault가 공표된 배포 일정에 필요한 maker 예산을 보유합니다.',
         review: '오라클 소스, maker depth, OI cap, 리스크 파라미터가 심사를 통과합니다.',
       },
-      openCopy: '네 조건이 모두 충족되어 마켓이 트레이딩을 시작할 수 있습니다.',
-      closedCopy:
-        '{total}개 중 {met}개 조건 충족. 네 조건이 모두 충족될 때까지 마켓은 Bootstrapping에 머무릅니다.',
       footnote:
         'required_sponsor_commitment는 마켓의 OI cap, 최대 레버리지, 예상 변동성, 오라클 품질, 예상 청산 규모를 바탕으로 마켓별로 설정됩니다. 모든 마켓이 하나의 고정 수치를 공유하지 않습니다.',
     },

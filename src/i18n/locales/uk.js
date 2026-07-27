@@ -380,12 +380,8 @@ const uk = {
     },
     gate: {
       eyebrow: 'Trading Gate',
-      title: 'Чотири умови, перш ніж ринок стане Live',
       description:
-        'Ринок переходить із Bootstrapping у Live лише тоді, коли виконано всі чотири умови. Перемикайте їх, щоб побачити роботу воріт: вони відкриваються на четвертій, не раніше.',
-      stateLabel: 'Стан ринку',
-      bootstrapping: 'Bootstrapping',
-      live: 'Live',
+        'Ринок переходить із Bootstrapping до Live лише тоді, коли виконано всі чотири умови.',  // TODO: needs native review
       conditions: {
         sponsorEquity:
           'Заблокований equity Sponsor у пов’язаному Shield Vault відповідає required_sponsor_commitment.',
@@ -395,9 +391,6 @@ const uk = {
           'Reward Vault ринку має достатній maker-бюджет для заявленого графіка розподілу.',
         review: 'Джерело оракула, maker depth, OI cap і параметри ризику проходять перевірку.',
       },
-      openCopy: 'Усі чотири умови виконані, тож ринок може відкритися для торгів.',
-      closedCopy:
-        'Виконано {met} з {total} умов. Ринок залишається у Bootstrapping, поки не виконано всі чотири.',
       footnote:
         'required_sponsor_commitment встановлюється для кожного ринку окремо — з його OI cap, максимального левериджу, очікуваної волатильності, якості оракула та прогнозованого масштабу ліквідацій; ринки не мають однієї фіксованої цифри.',
     },
