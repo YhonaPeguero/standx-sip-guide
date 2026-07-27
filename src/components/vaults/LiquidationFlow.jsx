@@ -7,6 +7,7 @@ import { Reveal } from '../Reveal';
 import Card from '../ui/Card';
 import SectionHeader from '../ui/SectionHeader';
 import ShieldHealthStrip from './ShieldHealthStrip';
+import TradingGateChecklist from './TradingGateChecklist';
 import { IllustrativeNote, NotPublishedChip } from '../ui/Markers';
 
 const AMOUNT_PATTERN = /^\d*(\.\d{0,2})?$/;
@@ -246,6 +247,9 @@ export default function LiquidationFlow() {
           <ShieldHealthStrip />
         </Card>
       </Reveal>
+
+      {/* Closes the section: the gate a market passes before any of this applies to it. */}
+      <TradingGateChecklist />
     </div>
   );
 }

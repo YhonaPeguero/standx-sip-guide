@@ -4,7 +4,6 @@ import { useI18n } from '../../i18n';
 import { Reveal, StaggerGroup, StaggerItem } from '../Reveal';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
-import TradingGateChecklist from './TradingGateChecklist';
 import Chip from '../ui/Chip';
 import SectionHeader from '../ui/SectionHeader';
 
@@ -113,9 +112,6 @@ export default function VaultTypesCompare() {
           );
         })}
       </StaggerGroup>
-
-      {/* The gate a market passes before any of these vaults can trade. */}
-      <TradingGateChecklist />
     </div>
   );
 }
