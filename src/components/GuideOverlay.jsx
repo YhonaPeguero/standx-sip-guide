@@ -1,5 +1,17 @@
+import { useCallback, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../i18n';
+
+const STEP_TITLE_ID = 'guide-step-title';
+
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ');
 
 function DimmingLayer({ style }) {
   return <motion.div layout className="fixed pointer-events-auto bg-[rgba(2,8,6,0.68)]" style={style} />;
@@ -31,6 +43,99 @@ export default function GuideOverlay({
   const totalSteps = steps.length;
   const isLastStep = totalSteps > 0 && stepIndex === totalSteps - 1;
   const progress = totalSteps > 0 ? ((stepIndex + 1) / totalSteps) * 100 : 0;
+
+  const panelRef = useRef(null);
+  const restoreFocusRef = useRef(null);
+
+  // Move focus into the panel when the guide opens, and hand it back when the guide
+  // closes. Without this focus stays on <body>: the panel's own Back/Next/Skip sit
+  // after the whole dimmed page in tab order, so the only controls that advance or
+  // exit the guide are the last things a keyboard user can reach.
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    restoreFocusRef.current = document.activeElement;
+    panelRef.current?.focus();
+
+    return () => {
+      const previous = restoreFocusRef.current;
+      restoreFocusRef.current = null;
+
+      // The prompt's "Start Guide" button unmounts when the guide opens, so fall
+      // back to the persistent Guide Mode trigger rather than dropping focus.
+      const target =
+        previous && document.contains(previous) ? previous : document.querySelector('[data-guide-trigger]');
+
+      if (target && typeof target.focus === 'function') {
+        target.focus();
+      }
+    };
+  }, [isOpen]);
+
+  // Escape lives on the document, not the panel: the spotlight deliberately leaves the
+  // highlighted control clickable, so focus can legitimately sit outside the panel and
+  // a panel-scoped handler would miss the key exactly when the reader is most stuck.
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onSkip();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onSkip]);
+
+  // Keep Tab inside the panel so it cannot walk into the dimmed, click-blocked page
+  // behind it. Focusables are queried per keystroke because they change by step: Back
+  // is disabled on step 1 and the narration controls are conditional.
+  const handlePanelKeyDown = useCallback((event) => {
+    if (event.key !== 'Tab') {
+      return;
+    }
+
+    const panel = panelRef.current;
+
+    if (!panel) {
+      return;
+    }
+
+    const focusables = Array.from(panel.querySelectorAll(FOCUSABLE_SELECTOR)).filter(
+      (element) => element.offsetParent !== null,
+    );
+
+    if (focusables.length === 0) {
+      event.preventDefault();
+      panel.focus();
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+    const isInsidePanel = panel.contains(active) && active !== panel;
+
+    if (event.shiftKey) {
+      if (!isInsidePanel || active === first) {
+        event.preventDefault();
+        last.focus();
+      }
+
+      return;
+    }
+
+    if (!isInsidePanel || active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }, []);
 
   const spotlight =
     spotlightRect && spotlightRect.width > 0 && spotlightRect.height > 0
@@ -131,11 +236,17 @@ export default function GuideOverlay({
             )}
 
             <motion.section
+              ref={panelRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={STEP_TITLE_ID}
+              tabIndex={-1}
+              onKeyDown={handlePanelKeyDown}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 12 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed bottom-4 left-1/2 z-[71] w-[min(94vw,420px)] -translate-x-1/2 border border-[var(--sx-border-strong)] bg-[rgba(9,15,12,0.98)] p-4 shadow-[var(--sx-shadow-lg)] pointer-events-auto sm:bottom-6 sm:left-auto sm:right-6 sm:w-[380px] sm:translate-x-0"
+              className="fixed bottom-4 left-1/2 z-[71] w-[min(94vw,420px)] -translate-x-1/2 border border-[var(--sx-border-strong)] bg-[rgba(9,15,12,0.98)] p-4 shadow-[var(--sx-shadow-lg)] outline-none pointer-events-auto sm:bottom-6 sm:left-auto sm:right-6 sm:w-[380px] sm:translate-x-0"
               style={{ borderRadius: 8 }}
             >
               <div className="flex items-center justify-between gap-2">
@@ -151,7 +262,10 @@ export default function GuideOverlay({
                 </button>
               </div>
 
-              <h3 className="mt-2.5 text-[19px] font-semibold tracking-[-0.015em] text-[var(--sx-text)]">
+              <h3
+                id={STEP_TITLE_ID}
+                className="mt-2.5 text-[19px] font-semibold tracking-[-0.015em] text-[var(--sx-text)]"
+              >
                 {step.title}
               </h3>
               <p className="mt-2 text-[14px] leading-[1.64] text-[var(--sx-text-muted)]">{step.text}</p>
