@@ -90,6 +90,9 @@
   --sx-dur-base: 220ms;
   --sx-dur-slow: 320ms;
 
+  /* Interactive minimum — platform touch target floor */
+  --sx-control-min: 44px;
+
   /* Layout */
   --sx-container: 1240px;
   --sx-container-tight: 980px;
@@ -237,6 +240,38 @@ button:disabled {
 
 .hairline {
   border-top: 1px solid var(--sx-border);
+}
+
+/* --- Interactive minimum ------------------------------------------------------
+   Every control here failed the 44px touch minimum on height, never on width, so
+   both utilities only ever grow the vertical axis. Scoped to coarse pointers: a
+   mouse does not need 44px, and forcing it would inflate the footer and the
+   timeframe row on desktop for no one's benefit.
+
+   .control-min  the element's own box grows. Use where layout can absorb it.
+   .tap-target   the visible mark keeps its size and an invisible centred overlay
+                 carries the hit area. Use where growing the box would change the
+                 design — a 24px switch stays a 24px switch and still takes a thumb. */
+@media (pointer: coarse) {
+  .control-min {
+    min-height: var(--sx-control-min);
+  }
+
+  .tap-target {
+    position: relative;
+  }
+
+  .tap-target::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: var(--sx-control-min);
+    min-height: var(--sx-control-min);
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* A region inside an already-framed surface. One frame per nesting level: the Card

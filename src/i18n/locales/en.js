@@ -4,6 +4,7 @@ const en = {
       overview: 'Overview',
       simulator: 'Simulator',
       playbook: 'Yield Playbook',
+      playbookShort: 'Playbook',
       vaults: 'Vaults',
       ariaLabel: 'Primary sections',
     },

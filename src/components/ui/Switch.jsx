@@ -13,7 +13,7 @@ export default function Switch({ isOn, onChange, ariaLabel, id }) {
       aria-checked={isOn}
       aria-label={ariaLabel}
       onClick={onChange}
-      className="relative block h-[24px] w-[44px] shrink-0 cursor-pointer outline-none"
+      className="tap-target relative block h-[24px] w-[44px] shrink-0 cursor-pointer outline-none"
       style={{
         borderRadius: 999,
         backgroundColor: isOn ? 'rgba(0, 102, 50, 0.85)' : 'var(--sx-surface-2)',

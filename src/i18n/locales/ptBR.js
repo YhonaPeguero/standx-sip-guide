@@ -4,6 +4,7 @@ const ptBR = {
       overview: 'Visão Geral',
       simulator: 'Simulador',
       playbook: 'Playbook de Yield',
+      playbookShort: 'Playbook',
       vaults: 'Vaults',
       ariaLabel: 'Seções principais',
     },

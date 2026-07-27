@@ -4,6 +4,7 @@ const ko = {
       overview: '개요',
       simulator: '시뮬레이터',
       playbook: '수익 플레이북',
+      playbookShort: '플레이북', // TODO: needs native review
       vaults: 'Vaults',
       ariaLabel: '주요 섹션',
     },

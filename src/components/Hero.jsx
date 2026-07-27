@@ -88,7 +88,7 @@ export default function Hero({ onPrimary, onSecondary }) {
                     href={field.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-[var(--sx-border-strong)] underline-offset-4 transition-colors duration-200 hover:decoration-[var(--sx-primary-bright)]"
+                    className="tap-target inline-flex items-center underline decoration-[var(--sx-border-strong)] underline-offset-4 transition-colors duration-200 hover:decoration-[var(--sx-primary-bright)]"
                   >
                     {field.value}
                     <span aria-hidden="true"> ↗</span>
@@ -108,7 +108,7 @@ export default function Hero({ onPrimary, onSecondary }) {
           <button
             type="button"
             onClick={onSecondary}
-            className="text-[14px] font-medium text-[var(--sx-text-muted)] underline decoration-[var(--sx-border-strong)] underline-offset-4 outline-none transition-colors duration-200 hover:text-[var(--sx-text)] hover:decoration-[var(--sx-primary-bright)]"
+            className="tap-target text-[14px] font-medium text-[var(--sx-text-muted)] underline decoration-[var(--sx-border-strong)] underline-offset-4 outline-none transition-colors duration-200 hover:text-[var(--sx-text)] hover:decoration-[var(--sx-primary-bright)]"
           >
             {t('hero.secondaryCta')}
           </button>

@@ -165,7 +165,7 @@ export default function GuideOverlay({
               <button
                 type="button"
                 onClick={onStartGuide}
-                className="inline-flex h-9 items-center border border-[rgba(0,102,50,0.7)] bg-[rgba(0,102,50,0.14)] px-3 text-[13px] font-medium text-[var(--sx-primary-bright)] transition-colors duration-200 hover:bg-[rgba(0,102,50,0.22)]"
+                className="tap-target inline-flex h-9 items-center border border-[rgba(0,102,50,0.7)] bg-[rgba(0,102,50,0.14)] px-3 text-[13px] font-medium text-[var(--sx-primary-bright)] transition-colors duration-200 hover:bg-[rgba(0,102,50,0.22)]"
                 style={{ borderRadius: 4 }}
               >
                 {t('guide.start')}
@@ -173,7 +173,7 @@ export default function GuideOverlay({
               <button
                 type="button"
                 onClick={onDismissPrompt}
-                className="inline-flex h-9 items-center border border-[var(--sx-border)] bg-transparent px-3 text-[13px] text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
+                className="tap-target inline-flex h-9 items-center border border-[var(--sx-border)] bg-transparent px-3 text-[13px] text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
                 style={{ borderRadius: 4 }}
               >
                 {t('guide.skip')}
@@ -256,7 +256,7 @@ export default function GuideOverlay({
                 <button
                   type="button"
                   onClick={onSkip}
-                  className="text-[12px] text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
+                  className="tap-target text-[12px] text-[var(--sx-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
                 >
                   {t('guide.skip')}
                 </button>
@@ -296,7 +296,7 @@ export default function GuideOverlay({
                       <button
                         type="button"
                         onClick={onNarrationPauseToggle}
-                        className="inline-flex h-8 items-center border border-[var(--sx-border)] px-2.5 text-[12px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
+                        className="tap-target inline-flex h-8 items-center border border-[var(--sx-border)] px-2.5 text-[12px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
                         style={{ borderRadius: 4 }}
                       >
                         {isNarrationPaused ? t('guide.resume') : t('guide.pause')}
@@ -304,7 +304,7 @@ export default function GuideOverlay({
                       <button
                         type="button"
                         onClick={onNarrationMute}
-                        className="inline-flex h-8 items-center border border-[var(--sx-border)] px-2.5 text-[12px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
+                        className="tap-target inline-flex h-8 items-center border border-[var(--sx-border)] px-2.5 text-[12px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-text)]"
                         style={{ borderRadius: 4 }}
                       >
                         {t('guide.mute')}
@@ -325,7 +325,7 @@ export default function GuideOverlay({
                   type="button"
                   onClick={onBack}
                   disabled={stepIndex === 0}
-                  className="inline-flex h-9 items-center border border-[var(--sx-border)] px-3 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-45"
+                  className="tap-target inline-flex h-9 items-center border border-[var(--sx-border)] px-3 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-45"
                   style={{ borderRadius: 4 }}
                 >
                   {t('guide.back')}
@@ -334,7 +334,7 @@ export default function GuideOverlay({
                 <button
                   type="button"
                   onClick={isLastStep ? onFinish : onNext}
-                  className="inline-flex h-9 items-center border border-[rgba(0,102,50,0.75)] bg-[rgba(0,102,50,0.16)] px-3 text-[13px] font-medium text-[var(--sx-primary-bright)] transition-colors duration-200 hover:bg-[rgba(0,102,50,0.24)]"
+                  className="tap-target inline-flex h-9 items-center border border-[rgba(0,102,50,0.75)] bg-[rgba(0,102,50,0.16)] px-3 text-[13px] font-medium text-[var(--sx-primary-bright)] transition-colors duration-200 hover:bg-[rgba(0,102,50,0.24)]"
                   style={{ borderRadius: 4 }}
                 >
                   {isLastStep ? t('guide.finish') : t('guide.next')}

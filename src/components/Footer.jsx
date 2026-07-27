@@ -50,7 +50,7 @@ export default function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
+                  className="control-min inline-flex items-center gap-1.5 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
                 >
                   <span>{t(`footer.resources.${link.key}`)}</span>
                   <span aria-hidden="true" className="text-[10px] text-[var(--sx-muted-soft)]">↗</span>
@@ -69,7 +69,7 @@ export default function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
+                  className="control-min inline-flex items-center gap-2 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
                 >
                   <IconX />
                   <span>{t(`footer.community.${link.key}`)}</span>

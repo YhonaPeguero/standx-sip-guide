@@ -75,7 +75,7 @@ export default function TradingGateChecklist() {
                     role="checkbox"
                     aria-checked={checked}
                     onClick={() => toggle(condition.id)}
-                    className="group flex w-full items-start gap-3 text-left outline-none"
+                    className="control-min group flex w-full items-start gap-3 py-1 text-left outline-none"
                     style={{ borderRadius: 4 }}
                   >
                     <span className="mt-0.5">

@@ -4,6 +4,7 @@ const uk = {
       overview: 'Огляд',
       simulator: 'Симулятор',
       playbook: 'Плейбук прибутковості',
+      playbookShort: 'Плейбук', // TODO: needs native review
       vaults: 'Vaults',
       ariaLabel: 'Основні розділи',
     },

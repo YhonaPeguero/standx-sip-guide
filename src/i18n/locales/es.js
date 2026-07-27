@@ -4,6 +4,7 @@ const es = {
       overview: 'Resumen',
       simulator: 'Simulador',
       playbook: 'Playbook de Yield',
+      playbookShort: 'Playbook',
       vaults: 'Vaults',
       ariaLabel: 'Secciones principales',
     },

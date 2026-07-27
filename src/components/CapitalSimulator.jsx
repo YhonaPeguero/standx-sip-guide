@@ -48,7 +48,7 @@ export default function CapitalSimulator({
                 color: active ? 'var(--sx-text)' : 'var(--sx-muted-soft)',
               }}
               transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className={`mono border px-3 py-2.5 text-[13px] tracking-[0.12em] ${
+              className={`tap-target mono border px-3 py-2.5 text-[13px] tracking-[0.12em] ${
                 active ? 'font-bold' : 'font-medium'
               }`}
               style={{ borderRadius: 4 }}
