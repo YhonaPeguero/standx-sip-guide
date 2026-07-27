@@ -320,3 +320,73 @@ button:disabled {
   box-shadow: var(--sx-shadow-focus);
   border-radius: var(--sx-r-sm);
 }
+
+/* --- Hero ripple field -------------------------------------------------------
+   The rings are static SVG animated only by CSS, on transform and opacity.
+   Nothing about them passes through React, and the animated groups carry no
+   <mask>: the radial falloff lives in the stroke gradient instead, so a frame
+   never re-rasterizes the whole ring system (which is what made everything
+   above the background shimmer). Per-ring cadence arrives as inline custom
+   properties, so the loop itself stays in CSS. */
+@keyframes sx-ring-pulse {
+  0%,
+  100% {
+    opacity: var(--sx-ring-opacity-lo);
+    transform: scale(var(--sx-ring-scale-lo));
+  }
+  50% {
+    opacity: var(--sx-ring-opacity-hi);
+    transform: scale(var(--sx-ring-scale-hi));
+  }
+}
+
+.sx-ring {
+  /* All rings are concentric on the ripple origin, so one origin serves them all */
+  transform-box: view-box;
+  transform-origin: 180px 140px;
+  will-change: transform;
+  animation-name: sx-ring-pulse;
+  animation-duration: var(--sx-ring-dur, 10s);
+  animation-delay: var(--sx-ring-delay, 0s);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Scale ranges stay tight on purpose: a hairline stroke crawling across
+   sub-pixel positions is what reads as grain. Stroke widths carry the presence. */
+.sx-ring--primary {
+  --sx-ring-opacity-lo: 0.45;
+  --sx-ring-opacity-hi: 0.62;
+  --sx-ring-scale-lo: 0.9965;
+  --sx-ring-scale-hi: 1.0035;
+}
+
+.sx-ring--soft {
+  --sx-ring-opacity-lo: 0.2;
+  --sx-ring-opacity-hi: 0.36;
+  --sx-ring-scale-lo: 0.998;
+  --sx-ring-scale-hi: 1.004;
+}
+
+.sx-ring--focal {
+  --sx-ring-opacity-lo: 0.5;
+  --sx-ring-opacity-hi: 0.75;
+  --sx-ring-scale-lo: 1;
+  --sx-ring-scale-hi: 1.012;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-ring {
+    animation-name: none;
+    opacity: var(--sx-ring-opacity-lo);
+    transform: none;
+    will-change: auto;
+  }
+}
+
+/* Content that sits over the ripple field gets its own compositing layer, so
+   background frames cannot drag it into a repaint. */
+.content-layer {
+  isolation: isolate;
+  transform: translateZ(0);
+}

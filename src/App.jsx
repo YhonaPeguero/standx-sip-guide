@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import BackgroundFX from './components/BackgroundFX';
 import BottomNav from './components/BottomNav';
+import CommunityVaultsView from './components/CommunityVaultsView';
 import Footer from './components/Footer';
 import GuideOverlay from './components/GuideOverlay';
 import OverviewView from './components/OverviewView';
@@ -21,6 +22,7 @@ import {
 import { useSipMotion } from './hooks/useSipMotion';
 import { useI18n } from './i18n';
 import { formatCurrencyAdaptive, formatPercentValue } from './lib/formatters';
+import { readRoute, subscribeRoute, writeRoute } from './lib/route';
 import { calculateScenarioSnapshot } from './lib/simulator';
 import { canNarrateLanguage, speakGuideStep } from './lib/speechSynthesis';
 
@@ -30,7 +32,8 @@ const MIN_ERROR_KEY = 'minAmount';
 const EDUCATION_SECTION_ID = 'overview-learn-flow';
 const GUIDE_PROMPT_SESSION_KEY = 'standx.guidePromptSeen';
 const GUIDE_SPOTLIGHT_PADDING = 10;
-const TABS = ['overview', 'simulator', 'playbook'];
+const TABS = ['overview', 'simulator', 'playbook', 'vaults'];
+const DEFAULT_TAB = 'overview';
 
 const GUIDE_STEPS = [
   {
@@ -136,7 +139,8 @@ const buildSpotlightRect = (rect) => {
 
 export default function App() {
   const { t, locale } = useI18n();
-  const [activeTab, setActiveTab] = useState('overview');
+  // The tab lives in the URL (`#/<locale>/<tab>`), so every section is deep-linkable.
+  const [route, setRoute] = useState(() => readRoute());
   const [isSip2On, setIsSip2On] = useState(false);
   const [sip2ScenarioId, setSip2ScenarioId] = useState(DEFAULT_SCENARIO_ID);
   const [rangeId, setRangeId] = useState(DEFAULT_RANGE_ID);
@@ -150,7 +154,21 @@ export default function App() {
   const [isNarratedGuide, setIsNarratedGuide] = useState(false);
   const [isNarrationPaused, setIsNarrationPaused] = useState(false);
   const [showVoiceUnavailableNotice, setShowVoiceUnavailableNotice] = useState(false);
-  const safeActiveTab = TABS.includes(activeTab) ? activeTab : 'overview';
+  const activeTab = route.tab;
+  const safeActiveTab = TABS.includes(activeTab) ? activeTab : DEFAULT_TAB;
+
+  const setActiveTab = useCallback((tabId, options) => {
+    writeRoute({ tab: tabId }, options);
+  }, []);
+
+  useEffect(() => subscribeRoute(() => setRoute(readRoute())), []);
+
+  // Canonicalize an unknown or missing tab segment without adding a history entry.
+  useEffect(() => {
+    if (!TABS.includes(readRoute().tab)) {
+      writeRoute({ tab: DEFAULT_TAB }, { replace: true });
+    }
+  }, []);
 
   const narrationRequestRef = useRef(0);
   const narrationToggleRequestRef = useRef(0);
@@ -295,10 +313,13 @@ export default function App() {
     [capitalAmount, safeTarget, sip2Multiplier],
   );
 
-  const handleTabChange = useCallback((tabId) => {
-    setActiveTab(tabId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  const handleTabChange = useCallback(
+    (tabId) => {
+      setActiveTab(tabId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    [setActiveTab],
+  );
 
   const handleDismissGuidePrompt = useCallback(() => {
     setShowGuidePrompt(false);
@@ -316,9 +337,10 @@ export default function App() {
       window.speechSynthesis.cancel();
     }
 
-    setActiveTab('overview');
+    // Guide-driven moves replace, so a tour does not fill the history stack.
+    setActiveTab('overview', { replace: true });
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [narrationSupported]);
+  }, [narrationSupported, setActiveTab]);
 
   const handleCloseGuide = useCallback(() => {
     narrationRequestRef.current += 1;
@@ -391,7 +413,7 @@ export default function App() {
     }
 
     if (activeTab !== step.tabId) {
-      setActiveTab(step.tabId);
+      setActiveTab(step.tabId, { replace: true });
       return;
     }
 
@@ -402,7 +424,7 @@ export default function App() {
     return () => {
       window.clearTimeout(timer);
     };
-  }, [activeTab, guideStepIndex, guideSteps, isGuideOpen, locateGuideTarget]);
+  }, [activeTab, guideStepIndex, guideSteps, isGuideOpen, locateGuideTarget, setActiveTab]);
 
   useEffect(() => {
     if (!isGuideOpen) {
@@ -560,7 +582,7 @@ export default function App() {
   const handleOpenSimulator = useCallback(() => {
     setActiveTab('simulator');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  }, [setActiveTab]);
 
   const handleOpenOverviewLearning = useCallback(() => {
     setActiveTab('overview');
@@ -572,7 +594,7 @@ export default function App() {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 90);
-  }, []);
+  }, [setActiveTab]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--sx-bg)] text-[var(--sx-text)]">
@@ -656,6 +678,8 @@ export default function App() {
               onLearnMore={handleOpenOverviewLearning}
             />
           ) : null}
+
+          {safeActiveTab === 'vaults' ? <CommunityVaultsView /> : null}
         </motion.div>
 
         <Footer />

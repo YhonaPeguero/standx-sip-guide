@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n } from '../i18n';
 import StandXBrand from './StandXBrand';
 
-const NAV_IDS = ['overview', 'simulator', 'playbook'];
+const NAV_IDS = ['overview', 'simulator', 'playbook', 'vaults'];
 
 export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
   const { t, locale, setLocale, localeOptions } = useI18n();
@@ -16,6 +16,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
       { id: NAV_IDS[0], label: t('topBar.nav.overview') },
       { id: NAV_IDS[1], label: t('topBar.nav.simulator') },
       { id: NAV_IDS[2], label: t('topBar.nav.playbook') },
+      { id: NAV_IDS[3], label: t('topBar.nav.vaults') },
     ],
     [t],
   );

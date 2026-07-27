@@ -34,10 +34,21 @@ function PlaybookIcon(props) {
   );
 }
 
+function VaultsIcon(props) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...props}>
+      <rect x="2.5" y="3.5" width="15" height="13" rx="1.6" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="10" cy="10" r="3.4" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M10 6.6V4.9M10 15.1v-1.7M13.4 10h1.7M4.9 10h1.7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 const NAV_ITEMS = [
   { id: 'overview', Icon: OverviewIcon },
   { id: 'simulator', Icon: SimulatorIcon },
   { id: 'playbook', Icon: PlaybookIcon },
+  { id: 'vaults', Icon: VaultsIcon },
 ];
 
 export default function BottomNav({ activeTab, onTabChange }) {
@@ -55,7 +66,7 @@ export default function BottomNav({ activeTab, onTabChange }) {
         borderTop: '1px solid var(--sx-border)',
       }}
     >
-      <div className="mx-auto grid max-w-[520px] grid-cols-3">
+      <div className="mx-auto grid max-w-[520px] grid-cols-4">
         {NAV_ITEMS.map(({ id, Icon }) => {
           const active = id === activeTab;
 

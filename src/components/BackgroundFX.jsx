@@ -8,9 +8,26 @@ const BASE_RADII = [
   60, 110, 160, 215, 275, 340, 410, 485, 565, 650, 740, 835, 935, 1040, 1150, 1265, 1385, 1510,
 ];
 
+// Cadence is computed once at module load and handed to CSS as custom properties.
+// These are static style attributes — the animation loop itself lives in the stylesheet.
 const WAVE_RINGS = BASE_RADII.map((radius, index) => ({
   radius,
-  delay: (index % 6) * 0.55,
+  primaryStyle: {
+    '--sx-ring-dur': `${10 + (index % 4) * 1.2}s`,
+    '--sx-ring-delay': `${(index % 6) * 0.55}s`,
+  },
+  softStyle: {
+    '--sx-ring-dur': `${12 + (index % 5) * 1.1}s`,
+    '--sx-ring-delay': `${(index % 6) * 0.55 + 0.4}s`,
+  },
+}));
+
+const FOCAL_RINGS = [30, 52, 78].map((radius, index) => ({
+  radius,
+  style: {
+    '--sx-ring-dur': `${7 + index * 0.8}s`,
+    '--sx-ring-delay': `${index * 0.5}s`,
+  },
 }));
 
 function WaveLayer() {
@@ -22,124 +39,75 @@ function WaveLayer() {
       aria-hidden="true"
     >
       <defs>
-        {/* Fade mask: strong near origin, softens toward bottom-right */}
+        {/* The radial falloff that used to be an SVG <mask> now lives in the stroke itself.
+            Rings are concentric on the origin, so a radial gradient in user space gives each
+            ring a flat colour at its own distance — same look, no per-frame re-rasterization. */}
         <radialGradient
-          id="sx-wave-fade"
-          cx={`${(WAVE_ORIGIN_X / 1440) * 100}%`}
-          cy={`${(WAVE_ORIGIN_Y / 900) * 100}%`}
-          r="95%"
-          fx={`${(WAVE_ORIGIN_X / 1440) * 100}%`}
-          fy={`${(WAVE_ORIGIN_Y / 900) * 100}%`}
+          id="sx-wave-stroke"
+          gradientUnits="userSpaceOnUse"
+          cx={WAVE_ORIGIN_X}
+          cy={WAVE_ORIGIN_Y}
+          r={1200}
         >
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-          <stop offset="30%" stopColor="#ffffff" stopOpacity="0.92" />
-          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.55" />
-          <stop offset="78%" stopColor="#ffffff" stopOpacity="0.22" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          <stop offset="0%" stopColor="rgba(232, 238, 234, 0.85)" />
+          <stop offset="26%" stopColor="rgba(178, 220, 198, 0.6)" />
+          <stop offset="52%" stopColor="rgba(140, 205, 170, 0.38)" />
+          <stop offset="78%" stopColor="rgba(0, 102, 50, 0.18)" />
+          <stop offset="100%" stopColor="rgba(0, 102, 50, 0)" />
         </radialGradient>
 
-        <mask id="sx-wave-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1440" height="900">
-          <rect x="0" y="0" width="1440" height="900" fill="url(#sx-wave-fade)" />
-        </mask>
-
-        {/* Stroke gradient: bright near origin -> green-tinted -> fades out */}
-        <linearGradient id="sx-wave-stroke" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="rgba(232, 238, 234, 0.85)" />
-          <stop offset="45%" stopColor="rgba(140, 205, 170, 0.6)" />
-          <stop offset="80%" stopColor="rgba(0, 102, 50, 0.22)" />
-          <stop offset="100%" stopColor="rgba(0, 102, 50, 0)" />
-        </linearGradient>
-
-        <linearGradient id="sx-wave-stroke-soft" x1="0" y1="0" x2="1" y2="1">
+        <radialGradient
+          id="sx-wave-stroke-soft"
+          gradientUnits="userSpaceOnUse"
+          cx={WAVE_ORIGIN_X}
+          cy={WAVE_ORIGIN_Y}
+          r={1200}
+        >
           <stop offset="0%" stopColor="rgba(232, 238, 234, 0.5)" />
-          <stop offset="60%" stopColor="rgba(140, 205, 170, 0.22)" />
+          <stop offset="40%" stopColor="rgba(140, 205, 170, 0.24)" />
+          <stop offset="72%" stopColor="rgba(0, 102, 50, 0.12)" />
           <stop offset="100%" stopColor="rgba(0, 102, 50, 0)" />
-        </linearGradient>
+        </radialGradient>
       </defs>
 
       {/* Primary ripple layer */}
-      <g
-        mask="url(#sx-wave-mask)"
-        fill="none"
-        stroke="url(#sx-wave-stroke)"
-        strokeWidth="1.05"
-      >
-        {WAVE_RINGS.map((ring, index) => (
-          <motion.circle
+      <g fill="none" stroke="url(#sx-wave-stroke)" strokeWidth="1.3">
+        {WAVE_RINGS.map((ring) => (
+          <circle
             key={`primary-${ring.radius}`}
+            className="sx-ring sx-ring--primary"
             cx={WAVE_ORIGIN_X}
             cy={WAVE_ORIGIN_Y}
             r={ring.radius}
-            initial={{ opacity: 0.5, scale: 0.992 }}
-            animate={{
-              opacity: [0.45, 0.62, 0.45],
-              scale: [0.992, 1.008, 0.992],
-            }}
-            transition={{
-              duration: 10 + (index % 4) * 1.2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: ring.delay,
-            }}
-            style={{ transformOrigin: `${WAVE_ORIGIN_X}px ${WAVE_ORIGIN_Y}px` }}
+            style={ring.primaryStyle}
           />
         ))}
       </g>
 
       {/* Secondary interleaved ripple layer for denser ripple feel */}
-      <g
-        mask="url(#sx-wave-mask)"
-        fill="none"
-        stroke="url(#sx-wave-stroke-soft)"
-        strokeWidth="0.7"
-      >
-        {WAVE_RINGS.map((ring, index) => (
-          <motion.circle
+      <g fill="none" stroke="url(#sx-wave-stroke-soft)" strokeWidth="0.95">
+        {WAVE_RINGS.map((ring) => (
+          <circle
             key={`secondary-${ring.radius}`}
+            className="sx-ring sx-ring--soft"
             cx={WAVE_ORIGIN_X}
             cy={WAVE_ORIGIN_Y}
             r={ring.radius + 25}
-            initial={{ opacity: 0.25 }}
-            animate={{
-              opacity: [0.2, 0.36, 0.2],
-              scale: [0.995, 1.012, 0.995],
-            }}
-            transition={{
-              duration: 12 + (index % 5) * 1.1,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: ring.delay + 0.4,
-            }}
-            style={{ transformOrigin: `${WAVE_ORIGIN_X}px ${WAVE_ORIGIN_Y}px` }}
+            style={ring.softStyle}
           />
         ))}
       </g>
 
       {/* Green-tinted focal rings near the origin */}
-      <g
-        mask="url(#sx-wave-mask)"
-        fill="none"
-        stroke="rgba(0, 102, 50, 0.55)"
-        strokeWidth="0.75"
-      >
-        {[30, 52, 78].map((radius, index) => (
-          <motion.circle
-            key={`focal-${radius}`}
+      <g fill="none" stroke="rgba(0, 102, 50, 0.55)" strokeWidth="0.9">
+        {FOCAL_RINGS.map((ring) => (
+          <circle
+            key={`focal-${ring.radius}`}
+            className="sx-ring sx-ring--focal"
             cx={WAVE_ORIGIN_X}
             cy={WAVE_ORIGIN_Y}
-            r={radius}
-            initial={{ opacity: 0.55 }}
-            animate={{
-              opacity: [0.5, 0.75, 0.5],
-              scale: [1, 1.04, 1],
-            }}
-            transition={{
-              duration: 7 + index * 0.8,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: index * 0.5,
-            }}
-            style={{ transformOrigin: `${WAVE_ORIGIN_X}px ${WAVE_ORIGIN_Y}px` }}
+            r={ring.radius}
+            style={ring.style}
           />
         ))}
       </g>

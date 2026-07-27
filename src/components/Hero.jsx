@@ -51,8 +51,9 @@ export default function Hero({ onPrimary, onSecondary }) {
     show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
   };
 
+  // content-layer keeps the hero on its own compositing layer, off the background's
   return (
-    <section className="relative">
+    <section className="content-layer relative">
       <motion.div
         variants={container}
         initial="hidden"

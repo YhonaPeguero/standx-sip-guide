@@ -4,6 +4,7 @@ const ptBR = {
       overview: 'Visão Geral',
       simulator: 'Simulador',
       playbook: 'Playbook de Yield',
+      vaults: 'Vaults',
       ariaLabel: 'Seções principais',
     },
     community: 'Comunidade',
@@ -176,10 +177,10 @@ const ptBR = {
       eyebrow: 'Visão Geral SIP',
       title: 'Os SIPs da StandX',
       description:
-        'Cada SIP tem um papel específico — do sistema de yield ativo (SIP #1–#3) às novas propostas que definem o que vem a seguir (SIP #4–#5).',
+        'Cada SIP tem um papel específico — do sistema de yield já implementado (SIP #1–#4) ao SIP #5, o framework em desenvolvimento que define o que vem a seguir.',
     },
     sipStatus: {
-      live: 'Ativo',
+      implemented: 'Implementado',
       review: 'Em revisão',
       wip: 'Em desenvolvimento',
       draft: 'Rascunho',
@@ -203,18 +204,24 @@ const ptBR = {
       },
       sip5: {
         title: 'Universal Markets Listing',
-        copy: 'Um framework em desenvolvimento para listagem de perps sem permissão, agora dividido em sub-propostas por etapas. Expanda para ver o que está ativo (5A) e o que está por vir (5B).',
+        copy: 'Um framework em desenvolvimento para listagem de perps sem permissão, agora dividido em sub-propostas por etapas. Expanda para ver o que já está implementado (5A, 5B) e o que segue como rascunho (5C).',
       },
       sip5a: {
         title: 'Community Maker Yield',
         copy: 'A primeira peça ativa do Universal Markets. Transforma o Market Maker Uptime Program em um yield diário: makers que cotam liquidez de dois lados perto do preço de marca acumulam "Maker Hours" — ponderadas pela proximidade do preço e pelo uptime — e dividem um pool diário de recompensas em DUSD/token, reforçado por taxas de trading recicladas.',
       },
       sip5b: {
-        title: 'Universal Markets — Próxima Fase',
-        copy: 'A próxima fase do Universal Markets, estendendo o framework de listagem sem permissão. Rascunho — detalhes em breve.',
+        title: 'Community Vaults',
+        copy: 'A camada de capital do Universal Markets, em três tipos de vault comunitário: Strategy Vaults permitem apoiar um trader, Reward Vaults guardam o orçamento de makers de um par e Shield Vaults assumem o risco de cauda das liquidações à frente do ADL. Um mercado não pode abrir até que seu Sponsor mantenha equity bloqueado em um deles.',
+      },
+      sip5c: {
+        // Título placeholder, literal do índice oficial de SIPs — ainda sem documento público.
+        title: 'Cooooooking',
       },
     },
+    draftPlaceholderNote: 'Placeholder no índice oficial de SIPs — ainda sem documento público.',
     readMore: 'Ler mais',
+    openSection: 'Abrir seção',
     showSubProposals: 'Ver sub-propostas',
     hideSubProposals: 'Ocultar sub-propostas',
     communityNote:
@@ -278,6 +285,168 @@ const ptBR = {
       docs: 'Docs oficiais',
       thread: 'Thread da StandX',
       intern: 'Thread de análise',
+    },
+  },
+  vaults: {
+    eyebrow: 'SIP #5B · Implementado',
+    title: 'Community Vaults',
+    description:
+      'A camada de capital do Universal Markets: três tipos de vault comunitário que fornecem o capital de trading, os orçamentos de makers e os colchões de seguro sobre os quais os Universal Markets são construídos.',
+    intro:
+      'Se o SIP-5A ativou a camada de yield do Universal Markets, o SIP-5B ativa a camada de capital. O tipo de um vault é fixado na criação e cada tipo carrega sua própria economia, suas regras de risco e suas regras de saída: um orçamento feito para ser distribuído não pode compartilhar a economia de LP de uma estratégia de trading, e o capital de seguro, que precisa estar presente de forma confiável, não pode compartilhar as regras de saída de nenhum dos dois.',
+    meta: {
+      sip: 'SIP',
+      parent: 'Pai',
+      status: 'Status',
+      date: 'Data',
+      release: 'Data de release',
+      author: 'Autor',
+    },
+    metaValues: {
+      sip: '5B',
+      parent: 'SIP-5: Universal Markets Listing',
+      status: 'Implementado',
+      date: '2026-06-30',
+      release: '2026-07-18',
+      author: 'StandX Team',
+    },
+    docLink: 'Ler o SIP-5B',
+    illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',
+    notPublished: 'not published',
+    types: {
+      eyebrow: 'Três tipos de vault',
+      title: 'Um padrão, três produtos',
+      description:
+        'O tipo do vault é definido na criação, então quem deposita sempre sabe em qual produto está entrando. Natureza, fonte de retorno e saída são a comparação que a proposta faz na sua Motivation.',
+      columns: {
+        nature: 'Natureza',
+        return: 'Fonte de retorno',
+        exit: 'Saída',
+      },
+      showDetail: 'O que é',
+      hideDetail: 'Ocultar',
+      strategy: {
+        tag: 'Strategy',
+        name: 'Community Strategy Vault',
+        nature: 'Capital delegado a um trader',
+        return: 'PnL de trading, yield do DUSD',
+        exit: 'Janela de processamento de saques',
+        detail:
+          'Os depositantes financiam o vault, o owner opera com ele no StandX Perps e os depositantes recebem LP tokens precificados pelo NAV do vault. O capital do owner e o dos depositantes ficam na mesma contabilidade de LP e ao mesmo preço, então ganhos e perdas são suportados proporcionalmente; o que o owner abre mão é da possibilidade de sair primeiro.',
+        params: [
+          { label: 'Participação mínima do owner — parâmetro de protocolo no lançamento inicial', value: '5%' },
+          { label: 'Janela de processamento de saques, em condições normais', value: 'máx. 4 dias' },
+        ],
+      },
+      reward: {
+        tag: 'Reward',
+        name: 'Community Reward Vault',
+        nature: 'O orçamento de incentivos de um mercado',
+        return: 'Fee share e reciclagem via Stand Mode',
+        exit: 'Sem saque livre',
+        detail:
+          'O orçamento de incentivos para makers de um par, obrigatório quando um Sponsor o lista. Seus ativos são feitos para serem gastos: fluem diariamente para os makers da comunidade via SIP-5A, então o vault não emite LP tokens e espera-se que seu saldo caia. O Stand Mode devolve o fee share do Sponsor ao vault, e as contribuições da comunidade não geram nenhum direito sobre o orçamento.',
+      },
+      shield: {
+        tag: 'Shield',
+        name: 'Community Shield Vault',
+        nature: 'O capital de seguro de um mercado',
+        return: 'Liquidation fees, prêmios de seguro, PnL de posições',
+        exit: 'Período de aviso',
+        detail:
+          'Capital de seguro posicionado à frente do ADL para os pares que respalda. Os depositantes recebem LP tokens precificados pelo NAV e assumem o risco de cauda em troca de receita de seguro, com risco isolado por par. Um Shield Vault opera um negócio de seguros, e ganha como tal e perde como tal.',
+      },
+    },
+    gate: {
+      eyebrow: 'Trading Gate',
+      title: 'Quatro condições antes de um mercado ir para Live',
+      description:
+        'Um mercado passa de Bootstrapping para Live somente quando as quatro condições se cumprem. Ative-as para operar o portão: ele abre na quarta, não antes.',
+      stateLabel: 'Estado do mercado',
+      bootstrapping: 'Bootstrapping',
+      live: 'Live',
+      conditions: {
+        sponsorEquity:
+          'O equity bloqueado do Sponsor no Shield Vault associado atende ao required_sponsor_commitment.',
+        shieldCapital:
+          'O capital total de cobertura do Shield Vault atende ao requisito de risco do mercado.',
+        rewardBudget:
+          'O Reward Vault do mercado tem orçamento de makers suficiente para o cronograma de liberação declarado.',
+        review: 'A fonte de oráculo, a profundidade de makers, o OI cap e os parâmetros de risco passam pela revisão.',
+      },
+      openCopy: 'As quatro condições se cumprem, então o mercado pode abrir para trading.',
+      closedCopy:
+        '{met} de {total} condições cumpridas. O mercado permanece em Bootstrapping até que as quatro se cumpram.',
+      footnote:
+        'O required_sponsor_commitment é definido por mercado a partir do seu OI cap, alavancagem máxima, volatilidade esperada, qualidade do oráculo e escala de liquidação projetada: os mercados não compartilham um número fixo.',
+    },
+    shield: {
+      eyebrow: 'Shield Health',
+      description:
+        'A saúde do Shield continua agindo sobre a receita do Sponsor e o estado do mercado depois do lançamento. Percorra a escada para ver o que dispara cada estágio.',
+      triggerLabel: 'Disparo',
+      thresholdLabel: 'Limite',
+      footnote:
+        'O SIP-5B diz o que dispara cada estágio, mas não publica nenhum limite, janela de reposição ou índice de cobertura, então nenhum aparece aqui. A escada estende o fee share condicionado à saúde do SIP-5 até a camada de capital: Sponsors são pagos por manter seu mercado solvente, não por tê-lo lançado.',
+      stages: {
+        escrow: {
+          name: 'O fee share vai para escrow',
+          trigger:
+            'O equity bloqueado do Sponsor ou a cobertura geral do vault cai abaixo do requisito, e um aviso de reposição é emitido.',
+        },
+        oiCut: {
+          name: 'OI cap reduzido, ou rebaixado para Watchlist',
+          trigger: 'O déficit não é restaurado dentro da janela de reposição.',
+        },
+        reduceOnly: {
+          name: 'O mercado entra em ReduceOnly',
+          trigger: 'A cobertura rompe o limite rígido, ou segue comprometida.',
+        },
+        sunset: {
+          name: 'O mercado entra em Sunset',
+          trigger:
+            'O déficit não pode ser reparado. As shares do Sponsor só são desbloqueadas depois que toda posição e responsabilidade é liquidada.',
+        },
+      },
+    },
+    liquidation: {
+      eyebrow: 'Fluxo de liquidação',
+      title: 'Order book, depois Shield Vault, depois ADL',
+      description:
+        'Quando o order book não consegue absorver uma liquidação a preços aceitáveis, o Shield Vault assume a posição pelo preço de liquidação e recebe o liquidation fee. O ADL só é alcançado quando a capacidade reservada para aquele par se esgota. Digite seus próprios valores para percorrer o caminho.',
+      inputs: {
+        positionSize: 'Tamanho da posição',
+        reservedCapacity: 'Capacidade reservada para o par',
+        liquidationFee: 'Liquidation fee',
+      },
+      nodes: {
+        orderBook: {
+          title: 'Order book',
+          copy: 'A liquidação vai primeiro ao book. O que ele não absorver a preços aceitáveis segue adiante.',
+        },
+        shield: {
+          title: 'Shield Vault',
+          copy: 'Assume a posição pelo preço de liquidação e recebe o liquidation fee; depois desmonta ou faz hedge a critério do owner, dentro dos seus próprios limites de risco.',
+        },
+        adl: {
+          title: 'ADL',
+          copy: 'Alcançado somente quando a capacidade reservada para este par se esgota. A proteção de todos os outros pares fica intacta.',
+        },
+      },
+      results: {
+        absorbed: 'Absorvido pelo Shield Vault',
+        fee: 'Liquidation fee para o vault',
+        remaining: 'Capacidade reservada restante',
+        adl: 'Chega ao ADL',
+      },
+      states: {
+        idle: 'Digite um tamanho de posição para ver onde ela para.',
+        covered:
+          'A capacidade reservada deste par cobre a posição, então o Shield Vault a absorve antes do ADL.',
+        adl: 'A posição excede a capacidade reservada para este par, então o excedente chega ao ADL.',
+      },
+      isolationNote:
+        'Um Shield Vault pode respaldar vários pares, com a cobertura de cada par isolada e seu capital reservado exclusivamente: o mesmo capital nunca conta como cobertura de dois pares ao mesmo tempo. Limites de tomada por evento, restrições de unwind e fórmulas de fee são publicados com os termos de associação de cada par, não no SIP-5B.',
     },
   },
   playbook: {
