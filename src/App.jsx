@@ -789,6 +789,8 @@ export default function App() {
               onCapitalInputBlur={handleCapitalInputBlur}
               onPresetSelect={handleCapitalPreset}
               activeCapital={capitalAmount}
+              baseRate={baseRate}
+              sip2Rate={sip2Rate}
               baseRateInput={baseRateInput}
               sip2RateInput={sip2RateInput}
               baseRateError={baseRateError}

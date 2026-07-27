@@ -510,6 +510,11 @@ const ptBR = {
       'O yield base de DUSD e o SIP #3 estão sempre ativos. Acione o SIP #2 para somar o yield de posições.',
     sip2Label: 'SIP #2 — Position Yield',
     sip2Hint: 'Camada opcional. Ativa o yield em posições abertas elegíveis.',
+    breakdown: {
+      base: 'Base',
+      sip2: 'SIP #2',
+      applied: 'Aplicada',
+    },
     learnHowItWorks: 'Entender como funciona',
   },
   protocolStatus: {

@@ -510,6 +510,11 @@ const es = {
       'El rendimiento base de DUSD y SIP #3 están siempre activos. Activa SIP #2 para sumar rendimiento de posiciones por encima.',
     sip2Label: 'SIP #2 — Rendimiento de posición',
     sip2Hint: 'Capa opcional. Activa el rendimiento en posiciones abiertas elegibles.',
+    breakdown: {
+      base: 'Base',
+      sip2: 'SIP #2',
+      applied: 'Aplicada',
+    },
     learnHowItWorks: 'Aprender cómo funciona',
   },
   protocolStatus: {

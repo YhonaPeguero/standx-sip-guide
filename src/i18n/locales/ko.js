@@ -505,6 +505,11 @@ const ko = {
       'DUSD 기본 수익과 SIP #3은 항상 활성 상태입니다. SIP #2를 켜서 포지션 수익을 더해보세요.',
     sip2Label: 'SIP #2 — 포지션 수익',
     sip2Hint: '선택 레이어. 적격 오픈 포지션에 대해 수익을 활성화합니다.',
+    breakdown: {
+      base: '기본', // TODO: needs native review
+      sip2: 'SIP #2',
+      applied: '적용', // TODO: needs native review
+    },
     learnHowItWorks: '작동 방식 보기',
   },
   protocolStatus: {

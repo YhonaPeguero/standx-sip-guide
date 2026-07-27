@@ -37,7 +37,7 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
           onChange={(event) => onChange(event.target.value)}
           onBlur={onBlur}
           placeholder={placeholder}
-          className="mono h-11 w-full border bg-[var(--sx-surface-2)] pl-3 pr-8 text-[14px] text-[var(--sx-text)] outline-none transition-colors duration-200 focus:bg-[var(--sx-surface-3)] disabled:cursor-not-allowed disabled:opacity-55"
+          className="mono h-12 w-full border bg-[var(--sx-surface-2)] pl-3 pr-9 text-[18px] font-semibold tracking-[-0.015em] text-[var(--sx-text)] outline-none transition-colors duration-200 focus:bg-[var(--sx-surface-3)] disabled:cursor-not-allowed disabled:opacity-55"
           style={{
             borderRadius: 4,
             borderColor: error ? 'var(--sx-accent)' : 'var(--sx-border)',
@@ -45,7 +45,7 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
           aria-invalid={Boolean(error)}
           aria-describedby={error ? errorId : undefined}
         />
-        <span className="mono pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-[var(--sx-muted)]">
+        <span className="mono pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[16px] text-[var(--sx-muted)]">
           %
         </span>
       </div>

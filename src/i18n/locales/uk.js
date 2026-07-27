@@ -512,6 +512,11 @@ const uk = {
       'Базовий дохід DUSD і SIP #3 завжди активні. Увімкніть SIP #2, щоб додати дохід від позицій.',
     sip2Label: 'SIP #2 — Дохід від позицій',
     sip2Hint: 'Опціональний шар. Активує дохід для прийнятних відкритих позицій.',
+    breakdown: {
+      base: 'Базова', // TODO: needs native review
+      sip2: 'SIP #2',
+      applied: 'Застосована', // TODO: needs native review
+    },
     learnHowItWorks: 'Дізнатися, як це працює',
   },
   protocolStatus: {

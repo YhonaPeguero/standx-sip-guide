@@ -509,6 +509,11 @@ const en = {
       'DUSD base yield and SIP #3 are always on. Toggle SIP #2 to layer position yield on top.',
     sip2Label: 'SIP #2 — Position Yield',
     sip2Hint: 'Optional layer. Activates yield on eligible open positions.',
+    breakdown: {
+      base: 'Base',
+      sip2: 'SIP #2',
+      applied: 'Applied',
+    },
     learnHowItWorks: 'Learn how it works',
   },
   protocolStatus: {

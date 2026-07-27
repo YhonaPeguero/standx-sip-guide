@@ -38,6 +38,8 @@ export default function SimulatorView({
   onCapitalInputBlur,
   onPresetSelect,
   activeCapital,
+  baseRate,
+  sip2Rate,
   baseRateInput,
   sip2RateInput,
   baseRateError,
@@ -74,6 +76,9 @@ export default function SimulatorView({
         <ControlBand
           isSip2On={isSip2On}
           onToggleSip2={onToggleSip2}
+          baseRate={baseRate}
+          sip2Rate={sip2Rate}
+          appliedRate={simulated.appliedRate}
           capitalInput={capitalInput}
           capitalError={capitalError}
           onCapitalInputChange={onCapitalInputChange}
