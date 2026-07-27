@@ -56,13 +56,10 @@ function AmountField({ id, label, value, onChange, notPublished }) {
 function FlowNode({ index, title, copy, active, accent }) {
   return (
     <motion.div
-      animate={{
-        borderColor: active ? accent : 'var(--sx-border)',
-        backgroundColor: active ? 'rgba(0, 102, 50, 0.1)' : 'var(--sx-surface-2)',
-      }}
+      initial={false}
+      animate={{ borderTopColor: active ? accent : 'var(--sx-border-soft)' }}
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-      className="flex min-w-0 flex-1 flex-col border p-4"
-      style={{ borderRadius: 6 }}
+      className="subregion flex min-w-0 flex-1 flex-col"
     >
       <div className="flex items-center justify-between gap-2">
         <span

@@ -64,46 +64,39 @@ export default function SimulatorView({
         </div>
       </Reveal>
 
-      <Reveal as="section" delay={0.08} className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <div className="space-y-5">
-          <Card as="article" tone="default" padding="lg" elevated>
-            <div className="flex items-start justify-between gap-5">
-              <ValueDisplay
-                estimatedGainLabel={estimatedGainLabel}
-                yieldPctLabel={yieldPctLabel}
-                isOn={isSip2On}
-              />
-              <TrendSignal isOn={isSip2On} />
-            </div>
-
-            <Chart
-              linePath={linePath}
-              areaPath={areaPath}
-              endY={endY}
-              isOn={isSip2On}
-              ticks={ticks}
-              ariaLabel={chartAriaLabel}
-            />
-
-            <ProtocolStats
-              initialCapital={simulated.initialCapital}
-              estimatedValue={simulated.estimatedValue}
-              appliedRate={simulated.appliedRate}
+      {/* items-start: neither column stretches to the other's height, so the row is the
+          taller column's natural height and nothing is padded out to match it. */}
+      <Reveal
+        as="section"
+        delay={0.08}
+        className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_340px]"
+      >
+        <Card as="article" tone="default" padding="lg" elevated>
+          <div className="flex items-start justify-between gap-5">
+            <ValueDisplay
+              estimatedGainLabel={estimatedGainLabel}
+              yieldPctLabel={yieldPctLabel}
               isOn={isSip2On}
             />
+            <TrendSignal isOn={isSip2On} />
+          </div>
 
-            <ScenarioComparison
-              initialCapital={scenario.initialCapital}
-              offEstimatedValue={scenario.offEstimatedValue}
-              offEstimatedGain={scenario.offEstimatedGain}
-              offYieldPct={scenario.offYieldPct}
-              onEstimatedValue={scenario.onEstimatedValue}
-              onEstimatedGain={scenario.onEstimatedGain}
-              onYieldPct={scenario.onYieldPct}
-              isSip2On={isSip2On}
-            />
-          </Card>
-        </div>
+          <Chart
+            linePath={linePath}
+            areaPath={areaPath}
+            endY={endY}
+            isOn={isSip2On}
+            ticks={ticks}
+            ariaLabel={chartAriaLabel}
+          />
+
+          <ProtocolStats
+            initialCapital={simulated.initialCapital}
+            estimatedValue={simulated.estimatedValue}
+            appliedRate={simulated.appliedRate}
+            isOn={isSip2On}
+          />
+        </Card>
 
         <ControlPanel
           isSip2On={isSip2On}
@@ -123,6 +116,22 @@ export default function SimulatorView({
           onSip2RateChange={onSip2RateChange}
           onBaseRateBlur={onBaseRateBlur}
           onSip2RateBlur={onSip2RateBlur}
+        />
+      </Reveal>
+
+      {/* The OFF/ON pair spans both columns. Inside the left card it was trapped under
+          the chart, far from the toggle that drives it; as a full-width band it closes
+          the grid instead of leaving a ragged bottom edge beside the control panel. */}
+      <Reveal as="section" delay={0.12}>
+        <ScenarioComparison
+          initialCapital={scenario.initialCapital}
+          offEstimatedValue={scenario.offEstimatedValue}
+          offEstimatedGain={scenario.offEstimatedGain}
+          offYieldPct={scenario.offYieldPct}
+          onEstimatedValue={scenario.onEstimatedValue}
+          onEstimatedGain={scenario.onEstimatedGain}
+          onYieldPct={scenario.onYieldPct}
+          isSip2On={isSip2On}
         />
       </Reveal>
     </div>

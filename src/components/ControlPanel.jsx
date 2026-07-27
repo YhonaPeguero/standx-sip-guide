@@ -28,7 +28,7 @@ export default function ControlPanel({
 
   return (
     <aside
-      className="border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)] lg:p-7"
+      className="border border-[var(--sx-border-strong)] bg-[var(--sx-surface)] p-6 shadow-[var(--sx-shadow-lg)] lg:self-start lg:p-7"
       style={{ borderRadius: 6 }}
     >
       <div className="flex flex-col gap-2 text-center">

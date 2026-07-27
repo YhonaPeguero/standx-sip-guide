@@ -21,10 +21,12 @@ export default function Chart({ linePath, areaPath, endY, isOn, ticks, ariaLabel
             <stop offset="100%" stopColor="#006632" stopOpacity="0.02" />
           </linearGradient>
 
+          {/* The line brightens toward the present instead of ending in the danger
+              colour. #00FF80 is --sx-primary-glow, the same green focus now uses. */}
           <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#006632" stopOpacity="0.4" />
             <stop offset="65%" stopColor="#3D976F" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#FAC6C3" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#00FF80" stopOpacity="0.95" />
           </linearGradient>
         </defs>
 
@@ -73,7 +75,7 @@ export default function Chart({ linePath, areaPath, endY, isOn, ticks, ariaLabel
             cy={endY}
             r={4}
             fill="none"
-            stroke="#FAC6C3"
+            stroke="#00FF80"
             strokeWidth="1.5"
             initial={{ r: 4, opacity: 0.55 }}
             animate={{ r: [4, 14], opacity: [0.55, 0] }}
@@ -85,7 +87,7 @@ export default function Chart({ linePath, areaPath, endY, isOn, ticks, ariaLabel
           cx={VB_W - 6}
           cy={endY}
           r="4"
-          fill="#FAC6C3"
+          fill="#00FF80"
           animate={{ opacity: isOn ? 1 : 0.6 }}
           transition={{ duration: 0.3 }}
         />

@@ -67,7 +67,7 @@ export default function Button({
   const isExternalLink = typeof href === 'string' && /^https?:\/\//i.test(href);
   const linkTarget = target ?? (isExternalLink ? '_blank' : undefined);
   const linkRel = rel ?? (linkTarget === '_blank' ? 'noopener noreferrer' : undefined);
-  const classes = `group inline-flex items-center justify-center gap-2 font-medium tracking-[-0.005em] outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--sx-bg)] ${palette.base} ${sizeClass} ${widthClass} ${className}`;
+  const classes = `group inline-flex items-center justify-center gap-2 font-medium tracking-[-0.005em] outline-none transition-colors duration-200 ${palette.base} ${sizeClass} ${widthClass} ${className}`;
 
   const content = (
     <>

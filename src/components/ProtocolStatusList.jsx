@@ -39,7 +39,7 @@ function InlineSwitch({ isOn, onChange, ariaLabel }) {
       aria-checked={isOn}
       aria-label={ariaLabel}
       onClick={onChange}
-      className="relative block h-[24px] w-[44px] shrink-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--sx-bg)]"
+      className="relative block h-[24px] w-[44px] shrink-0 cursor-pointer outline-none"
       style={{
         borderRadius: 999,
         backgroundColor: isOn ? 'rgba(0, 102, 50, 0.85)' : 'var(--sx-surface-2)',

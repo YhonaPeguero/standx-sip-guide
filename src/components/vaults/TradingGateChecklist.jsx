@@ -75,7 +75,7 @@ export default function TradingGateChecklist() {
                     role="checkbox"
                     aria-checked={checked}
                     onClick={() => toggle(condition.id)}
-                    className="group flex w-full items-start gap-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70"
+                    className="group flex w-full items-start gap-3 text-left outline-none"
                     style={{ borderRadius: 4 }}
                   >
                     <span className="mt-0.5">
