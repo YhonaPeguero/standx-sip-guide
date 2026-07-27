@@ -20,7 +20,9 @@ export default function ScenarioComparison({
   const onYieldLabel = formatPercentValue(onYieldPct);
 
   return (
-    <div className="mt-7 border-t border-[var(--sx-border)] pt-6">
+    // Spacing comes from section-block's gap now that this is a sibling of the grid
+    // rather than the last child inside the card, so it carries no top margin of its own.
+    <div className="hairline pt-6">
       <span className="eyebrow">{t('scenario.eyebrow')}</span>
 
       <div className={`mt-4 grid gap-3 ${isSip2On ? 'sm:grid-cols-2' : ''}`}>
