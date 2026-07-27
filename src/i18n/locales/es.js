@@ -320,7 +320,7 @@ const es = {
     description:
       'La capa de capital de Universal Markets: tres tipos de vault comunitario que aportan el capital de trading, los presupuestos de makers y los colchones de seguro sobre los que se construyen los Universal Markets.',
     intro:
-      'Si SIP-5A activó la capa de rendimiento de Universal Markets, SIP-5B activa la capa de capital. El tipo de un vault queda fijado en su creación y cada tipo lleva su propia economía, sus reglas de riesgo y sus reglas de salida: un presupuesto diseñado para repartirse no puede compartir la economía LP de una estrategia de trading, y el capital de seguro, que debe estar presente de forma fiable, no puede compartir las reglas de salida de ninguno de los dos.',
+      'Si SIP-5A activó la capa de rendimiento de Universal Markets, SIP-5B activa la capa de capital. El tipo de un vault queda fijado en su creación, y cada tipo lleva su propia economía, sus reglas de riesgo y sus reglas de salida.',
     meta: {
       status: 'Estado',
       release: 'Fecha de release',

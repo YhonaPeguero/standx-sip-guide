@@ -320,7 +320,7 @@ const ptBR = {
     description:
       'A camada de capital do Universal Markets: três tipos de vault comunitário que fornecem o capital de trading, os orçamentos de makers e os colchões de seguro sobre os quais os Universal Markets são construídos.',
     intro:
-      'Se o SIP-5A ativou a camada de yield do Universal Markets, o SIP-5B ativa a camada de capital. O tipo de um vault é fixado na criação e cada tipo carrega sua própria economia, suas regras de risco e suas regras de saída: um orçamento feito para ser distribuído não pode compartilhar a economia de LP de uma estratégia de trading, e o capital de seguro, que precisa estar presente de forma confiável, não pode compartilhar as regras de saída de nenhum dos dois.',
+      'Se o SIP-5A ativou a camada de yield do Universal Markets, o SIP-5B ativa a camada de capital. O tipo de um vault é fixado na criação, e cada tipo carrega sua própria economia, suas regras de risco e suas regras de saída.',
     meta: {
       status: 'Status',
       release: 'Data de release',

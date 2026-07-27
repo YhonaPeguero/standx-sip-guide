@@ -316,7 +316,7 @@ const ko = {
     description:
       'Universal Markets의 자본 레이어입니다. Universal Markets가 기반으로 삼는 트레이딩 자본, maker 예산, 보험 버퍼를 공급하는 세 가지 커뮤니티 vault 유형입니다.',
     intro:
-      'SIP-5A가 Universal Markets의 수익 레이어를 활성화했다면, SIP-5B는 자본 레이어를 활성화합니다. vault의 유형은 생성 시점에 확정되며 각 유형은 고유한 경제 구조, 리스크 규칙, 출금 규칙을 갖습니다. 지급을 전제로 설계된 예산은 트레이딩 전략의 LP 경제 구조를 공유할 수 없고, 항상 신뢰할 수 있게 존재해야 하는 보험 자본은 둘 중 어느 쪽의 출금 규칙도 공유할 수 없습니다.',
+      'SIP-5A가 Universal Markets의 수익 레이어를 활성화했다면, SIP-5B는 자본 레이어를 활성화합니다. vault의 유형은 생성 시점에 확정되며, 각 유형은 고유한 경제 구조, 리스크 규칙, 출금 규칙을 갖습니다.',  // TODO: needs native review
     meta: {
       status: '상태',
       release: '릴리스 날짜',

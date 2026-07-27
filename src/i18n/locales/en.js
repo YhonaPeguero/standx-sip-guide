@@ -318,7 +318,7 @@ const en = {
     description:
       'The capital layer of Universal Markets: three community vault types supplying the trading capital, maker budgets and insurance buffers that Universal Markets are built on.',
     intro:
-      'Where SIP-5A activated the yield layer of Universal Markets, SIP-5B activates the capital layer. A vault’s type is fixed at creation and each type carries its own economics, risk rules and exit rules — a budget designed to be paid out cannot share LP economics with a trading strategy, and insurance capital that must stay reliably present cannot share exit rules with either.',
+      'Where SIP-5A activated the yield layer of Universal Markets, SIP-5B activates the capital layer. A vault’s type is fixed at creation, and each type carries its own economics, risk rules and exit rules.',
     meta: {
       status: 'Status',
       release: 'Release date',
