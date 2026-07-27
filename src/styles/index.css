@@ -77,7 +77,10 @@
   --sx-shadow-md: inset 0 1px 0 rgba(242, 248, 244, 0.05), 0 10px 28px rgba(0, 0, 0, 0.38);
   --sx-shadow-lg: inset 0 1px 0 rgba(242, 248, 244, 0.06), 0 28px 56px rgba(0, 0, 0, 0.44);
   --sx-shadow-glow: 0 0 0 1px rgba(0, 102, 50, 0.35), 0 16px 36px rgba(0, 102, 50, 0.18);
-  --sx-shadow-focus: 0 0 0 2px var(--sx-bg), 0 0 0 4px rgba(250, 198, 195, 0.7);
+  /* Focus is green, not pink. Two rings: the bg spacer separates the indicator from the
+     control's own edge, the glow carries it. ~14.9:1 on --sx-bg, against 6.7:1 for the
+     pink it replaces — and it frees --sx-accent to mean error and danger only. */
+  --sx-shadow-focus: 0 0 0 2px var(--sx-bg), 0 0 0 4px var(--sx-primary-glow);
 
   /* Motion */
   --sx-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -329,11 +332,13 @@ button:disabled {
   scrollbar-width: none;
 }
 
-/* Stable focus ring across the app */
-:where(button, a, input, select, textarea):focus-visible {
+/* The single focus system. Every focusable element gets its ring from here — no
+   component re-declares one, which is what let a third, un-themed treatment leak in.
+   No border-radius: the ring is a box-shadow, so it already follows whatever shape the
+   control has. Forcing 4px here squared off the pill switches when they took focus. */
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
   outline: none;
   box-shadow: var(--sx-shadow-focus);
-  border-radius: var(--sx-r-sm);
 }
 
 /* --- Hero ripple field -------------------------------------------------------

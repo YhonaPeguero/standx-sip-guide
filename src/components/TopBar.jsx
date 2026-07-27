@@ -90,7 +90,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
               data-guide-trigger=""
               aria-label={t('guide.button')}
               title={t('guide.button')}
-              className="inline-flex h-9 shrink-0 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 text-[12px] font-medium uppercase tracking-[0.1em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70 lg:px-3 lg:tracking-[0.12em]"
+              className="inline-flex h-9 shrink-0 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 text-[12px] font-medium uppercase tracking-[0.1em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] lg:px-3 lg:tracking-[0.12em]"
               style={{ borderRadius: 4 }}
             >
               <svg
@@ -119,7 +119,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                 aria-haspopup="listbox"
                 aria-expanded={isLanguageMenuOpen}
                 aria-label={t('topBar.language.buttonAria')}
-                className="inline-flex h-9 shrink-0 items-center gap-1.5 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/70 sm:gap-2 sm:px-3"
+                className="inline-flex h-9 shrink-0 items-center gap-1.5 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 outline-none transition-colors duration-200 sm:gap-2 sm:px-3"
                 style={{ borderRadius: 4 }}
               >
                 <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0 text-[var(--sx-muted)]" fill="none" aria-hidden="true">

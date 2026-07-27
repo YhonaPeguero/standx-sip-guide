@@ -10,7 +10,7 @@ export default function ToggleSwitch({ isOn, onChange }) {
       onClick={onChange}
       aria-pressed={isOn}
       aria-label={isOn ? t('toggle.ariaOn') : t('toggle.ariaOff')}
-      className="relative block h-[170px] w-[122px] cursor-pointer overflow-hidden border border-[var(--sx-border)] bg-[var(--sx-surface-2)] px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sx-accent)]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--sx-bg)]"
+      className="relative block h-[170px] w-[122px] cursor-pointer overflow-hidden border border-[var(--sx-border)] bg-[var(--sx-surface-2)] px-4 py-3 outline-none"
       style={{ borderRadius: 8 }}
     >
       <motion.div
