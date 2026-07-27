@@ -35,6 +35,7 @@ const RATE_MAX_ERROR_KEY = 'maxRate';
 const RATE_MIN_ERROR_KEY = 'minRate';
 const EDUCATION_SECTION_ID = 'overview-learn-flow';
 const GUIDE_PROMPT_SESSION_KEY = 'standx.guidePromptSeen';
+const GUIDE_PROMPT_DELAY_MS = 1800;
 const GUIDE_SPOTLIGHT_PADDING = 10;
 const TABS = ['overview', 'simulator', 'playbook', 'vaults'];
 const DEFAULT_TAB = 'overview';
@@ -427,21 +428,26 @@ export default function App() {
     setShowVoiceUnavailableNotice(false);
   }, [locale]);
 
+  // Held back until the hero has finished arriving and can be read. The hero's staggered
+  // entrance settles at ~0.82s; the rest is reading time for the headline and the first
+  // line of the abstract, so the offer lands after the reader knows what is on offer
+  // rather than before. It used to fire on mount, over the H1.
   useEffect(() => {
     if (typeof window === 'undefined') {
-      return;
+      return undefined;
     }
 
     try {
-      const seenPrompt = window.sessionStorage.getItem(GUIDE_PROMPT_SESSION_KEY);
-
-      if (!seenPrompt) {
-        setShowGuidePrompt(true);
-        window.sessionStorage.setItem(GUIDE_PROMPT_SESSION_KEY, '1');
+      if (window.sessionStorage.getItem(GUIDE_PROMPT_SESSION_KEY)) {
+        return undefined;
       }
+      window.sessionStorage.setItem(GUIDE_PROMPT_SESSION_KEY, '1');
     } catch {
-      setShowGuidePrompt(true);
+      // Private mode and blocked storage still get the prompt, just once per load.
     }
+
+    const timer = window.setTimeout(() => setShowGuidePrompt(true), GUIDE_PROMPT_DELAY_MS);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const estimatedGainLabel = useMemo(

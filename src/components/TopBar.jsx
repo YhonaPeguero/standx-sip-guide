@@ -83,16 +83,17 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
           </div>
 
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-            <motion.button
+            {/* The one action in the header. It used to be styled exactly like the language
+                selector beside it, so it read as chrome rather than as something to do.
+                Accent green on the text and the border separates it — same height, same
+                padding, same radius, and no motion: colour alone carries it. */}
+            <button
               type="button"
-              whileHover={{ borderColor: 'var(--sx-border-strong)', y: -1 }}
-              whileTap={{ scale: 0.985 }}
-              transition={{ duration: 0.18 }}
               onClick={onStartGuide}
               data-guide-trigger=""
               aria-label={t('guide.button')}
               title={t('guide.button')}
-              className="tap-target inline-flex h-9 shrink-0 items-center gap-2 border border-[var(--sx-border)] bg-[var(--sx-surface)] px-2.5 text-[12px] font-medium uppercase tracking-[0.1em] text-[var(--sx-text-muted)] outline-none transition-colors duration-200 hover:text-[var(--sx-text)] lg:px-3 lg:tracking-[0.12em]"
+              className="tap-target inline-flex h-9 shrink-0 items-center gap-2 border border-[var(--sx-primary-bright)] bg-[rgba(0,102,50,0.12)] px-2.5 text-[12px] font-medium uppercase tracking-[0.1em] text-[var(--sx-primary-bright)] outline-none transition-colors duration-200 hover:border-[var(--sx-primary-glow)] hover:bg-[rgba(0,102,50,0.2)] hover:text-[var(--sx-primary-glow)] lg:px-3 lg:tracking-[0.12em]"
               style={{ borderRadius: 4 }}
             >
               <svg
@@ -109,7 +110,7 @@ export default function TopBar({ activeTab, onTabChange, onStartGuide }) {
                 />
               </svg>
               <span className="hidden whitespace-nowrap lg:inline">{t('guide.button')}</span>
-            </motion.button>
+            </button>
 
             <div className="relative" ref={menuRef}>
               <motion.button
