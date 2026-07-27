@@ -10,14 +10,13 @@ import SimulatorView from './components/SimulatorView';
 import TopBar from './components/TopBar';
 import YieldPlaybookView from './components/YieldPlaybookView';
 import {
-  BASE_VALUE,
   DEFAULT_CAPITAL,
-  DEFAULT_RANGE_ID,
-  DEFAULT_SCENARIO_ID,
+  DEFAULT_HORIZON_ID,
+  HORIZONS,
   MAX_CAPITAL,
+  MAX_RATE,
   MIN_CAPITAL,
-  SIP2_SCENARIOS,
-  TIME_RANGES,
+  MIN_RATE,
 } from './constants/chart';
 import { useSipMotion } from './hooks/useSipMotion';
 import { useI18n } from './i18n';
@@ -27,8 +26,11 @@ import { calculateScenarioSnapshot } from './lib/simulator';
 import { canNarrateLanguage, speakGuideStep } from './lib/speechSynthesis';
 
 const CAPITAL_PATTERN = /^\d*(\.\d{0,2})?$/;
+const RATE_PATTERN = /^\d*(\.\d{0,2})?$/;
 const MAX_ERROR_KEY = 'maxAmount';
 const MIN_ERROR_KEY = 'minAmount';
+const RATE_MAX_ERROR_KEY = 'maxRate';
+const RATE_MIN_ERROR_KEY = 'minRate';
 const EDUCATION_SECTION_ID = 'overview-learn-flow';
 const GUIDE_PROMPT_SESSION_KEY = 'standx.guidePromptSeen';
 const GUIDE_SPOTLIGHT_PADDING = 10;
@@ -107,6 +109,26 @@ const validateCapitalAmount = (value) => {
   return { isValid: true, amount: value, errorKey: '' };
 };
 
+// Rates are annual percentages the reader types. An empty field is a valid state that means
+// "no rate stated" and yields 0, not a hidden default.
+const validateRate = (raw) => {
+  if (raw.trim().length === 0) {
+    return { isValid: true, rate: 0, errorKey: '' };
+  }
+
+  const value = Number(raw);
+
+  if (!Number.isFinite(value) || value < MIN_RATE) {
+    return { isValid: false, errorKey: RATE_MIN_ERROR_KEY };
+  }
+
+  if (value > MAX_RATE) {
+    return { isValid: false, errorKey: RATE_MAX_ERROR_KEY };
+  }
+
+  return { isValid: true, rate: value, errorKey: '' };
+};
+
 const buildSpotlightRect = (rect) => {
   if (typeof window === 'undefined' || !rect) {
     return null;
@@ -142,11 +164,17 @@ export default function App() {
   // The tab lives in the URL (`#/<locale>/<tab>`), so every section is deep-linkable.
   const [route, setRoute] = useState(() => readRoute());
   const [isSip2On, setIsSip2On] = useState(false);
-  const [sip2ScenarioId, setSip2ScenarioId] = useState(DEFAULT_SCENARIO_ID);
-  const [rangeId, setRangeId] = useState(DEFAULT_RANGE_ID);
+  const [rangeId, setRangeId] = useState(DEFAULT_HORIZON_ID);
   const [capitalAmount, setCapitalAmount] = useState(DEFAULT_CAPITAL);
   const [capitalInput, setCapitalInput] = useState(String(DEFAULT_CAPITAL));
   const [capitalErrorKey, setCapitalErrorKey] = useState('');
+  // Both rates start empty: StandX publishes neither, so there is no honest default.
+  const [baseRateInput, setBaseRateInput] = useState('');
+  const [sip2RateInput, setSip2RateInput] = useState('');
+  const [baseRate, setBaseRate] = useState(0);
+  const [sip2Rate, setSip2Rate] = useState(0);
+  const [baseRateErrorKey, setBaseRateErrorKey] = useState('');
+  const [sip2RateErrorKey, setSip2RateErrorKey] = useState('');
   const [showGuidePrompt, setShowGuidePrompt] = useState(false);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [guideStepIndex, setGuideStepIndex] = useState(0);
@@ -188,28 +216,20 @@ export default function App() {
     [t],
   );
 
-  const selectedRange = useMemo(
-    () => TIME_RANGES.find((range) => range.id === rangeId) ?? TIME_RANGES[0],
+  const selectedHorizon = useMemo(
+    () => HORIZONS.find((horizon) => horizon.id === rangeId) ?? HORIZONS[0],
     [rangeId],
   );
 
-  const selectedScenario = useMemo(
-    () =>
-      SIP2_SCENARIOS.find((scenario) => scenario.id === sip2ScenarioId) ??
-      SIP2_SCENARIOS.find((scenario) => scenario.id === DEFAULT_SCENARIO_ID) ??
-      SIP2_SCENARIOS[0],
-    [sip2ScenarioId],
-  );
-
-  const sip2Multiplier = selectedScenario?.multiplier ?? 1;
-  const safeTarget = Number.isFinite(selectedRange?.target) ? selectedRange.target : BASE_VALUE;
+  const yearFraction = selectedHorizon?.yearFraction ?? 0;
   const isSimulatorTabActive = safeActiveTab === 'simulator';
 
   const { simulated, linePath, areaPath, endY } = useSipMotion({
     isSip2On: isSimulatorTabActive ? isSip2On : false,
-    target: isSimulatorTabActive ? safeTarget : BASE_VALUE,
+    baseRate,
+    sip2Rate,
+    yearFraction,
     capital: capitalAmount,
-    sip2Multiplier,
   });
 
   const handleCapitalPreset = useCallback((amount) => {
@@ -265,15 +285,89 @@ export default function App() {
     setCapitalErrorKey('');
   }, [capitalAmount, capitalInput]);
 
+  // One handler shape for both rate fields: reject characters that cannot form a rate, then
+  // validate the value and keep the numeric state in step with the text.
+  const makeRateChangeHandler = useCallback(
+    (setInput, setRate, setErrorKey) => (rawValue) => {
+      const nextValue = sanitizeInput(rawValue);
+
+      if (nextValue.length > 6 || !RATE_PATTERN.test(nextValue)) {
+        return;
+      }
+
+      setInput(nextValue);
+
+      const validation = validateRate(nextValue);
+
+      if (!validation.isValid) {
+        setErrorKey(validation.errorKey);
+        return;
+      }
+
+      setRate(validation.rate);
+      setErrorKey('');
+    },
+    [],
+  );
+
+  const handleBaseRateChange = useMemo(
+    () => makeRateChangeHandler(setBaseRateInput, setBaseRate, setBaseRateErrorKey),
+    [makeRateChangeHandler],
+  );
+
+  const handleSip2RateChange = useMemo(
+    () => makeRateChangeHandler(setSip2RateInput, setSip2Rate, setSip2RateErrorKey),
+    [makeRateChangeHandler],
+  );
+
+  // On blur an out-of-range entry is clamped to the bound it broke, so the reader keeps a
+  // number they can see and reason about rather than having their input silently discarded.
+  const makeRateBlurHandler = useCallback(
+    (input, setInput, setRate, setErrorKey) => () => {
+      const validation = validateRate(input);
+
+      if (validation.isValid) {
+        setErrorKey('');
+        return;
+      }
+
+      const clamped = validation.errorKey === RATE_MAX_ERROR_KEY ? MAX_RATE : MIN_RATE;
+      setRate(clamped);
+      setInput(String(clamped));
+      setErrorKey('');
+    },
+    [],
+  );
+
+  const handleBaseRateBlur = useMemo(
+    () => makeRateBlurHandler(baseRateInput, setBaseRateInput, setBaseRate, setBaseRateErrorKey),
+    [baseRateInput, makeRateBlurHandler],
+  );
+
+  const handleSip2RateBlur = useMemo(
+    () => makeRateBlurHandler(sip2RateInput, setSip2RateInput, setSip2Rate, setSip2RateErrorKey),
+    [makeRateBlurHandler, sip2RateInput],
+  );
+
   const capitalError = useMemo(
     () => (capitalErrorKey ? t(`app.errors.${capitalErrorKey}`) : ''),
     [capitalErrorKey, t],
   );
 
-  const chartMarkers = useMemo(() => {
-    const localizedMarkers = t('app.chartMarkers');
-    return Array.isArray(localizedMarkers) ? localizedMarkers : [];
-  }, [t]);
+  const baseRateError = useMemo(
+    () => (baseRateErrorKey ? t(`app.errors.${baseRateErrorKey}`) : ''),
+    [baseRateErrorKey, t],
+  );
+
+  const sip2RateError = useMemo(
+    () => (sip2RateErrorKey ? t(`app.errors.${sip2RateErrorKey}`) : ''),
+    [sip2RateErrorKey, t],
+  );
+
+  const chartAriaLabel = useMemo(
+    () => t('simulator.chartAriaLabel', { horizon: selectedHorizon?.label ?? '' }),
+    [selectedHorizon, t],
+  );
 
   useEffect(() => {
     setShowVoiceUnavailableNotice(false);
@@ -296,9 +390,9 @@ export default function App() {
     }
   }, []);
 
-  const estimatedValueLabel = useMemo(
-    () => formatCurrencyAdaptive(simulated.estimatedValue, { threshold: 850000 }),
-    [simulated.estimatedValue],
+  const estimatedGainLabel = useMemo(
+    () => formatCurrencyAdaptive(simulated.estimatedGain, { threshold: 850000 }),
+    [simulated.estimatedGain],
   );
 
   const yieldPctLabel = useMemo(() => formatPercentValue(simulated.yieldPct), [simulated.yieldPct]);
@@ -307,10 +401,11 @@ export default function App() {
     () =>
       calculateScenarioSnapshot({
         capital: capitalAmount,
-        target: safeTarget,
-        sip2Multiplier,
+        baseRate,
+        sip2Rate,
+        yearFraction,
       }),
-    [capitalAmount, safeTarget, sip2Multiplier],
+    [baseRate, capitalAmount, sip2Rate, yearFraction],
   );
 
   const handleTabChange = useCallback(
@@ -652,14 +747,13 @@ export default function App() {
               onRangeChange={setRangeId}
               isSip2On={isSip2On}
               onToggleSip2={() => setIsSip2On((value) => !value)}
-              sip2ScenarioId={sip2ScenarioId}
-              onSip2ScenarioChange={setSip2ScenarioId}
               linePath={linePath}
               areaPath={areaPath}
               endY={endY}
-              markers={chartMarkers}
+              ticks={selectedHorizon?.ticks ?? []}
+              chartAriaLabel={chartAriaLabel}
               simulated={simulated}
-              estimatedValueLabel={estimatedValueLabel}
+              estimatedGainLabel={estimatedGainLabel}
               yieldPctLabel={yieldPctLabel}
               capitalInput={capitalInput}
               capitalError={capitalError}
@@ -667,6 +761,14 @@ export default function App() {
               onCapitalInputBlur={handleCapitalInputBlur}
               onPresetSelect={handleCapitalPreset}
               activeCapital={capitalAmount}
+              baseRateInput={baseRateInput}
+              sip2RateInput={sip2RateInput}
+              baseRateError={baseRateError}
+              sip2RateError={sip2RateError}
+              onBaseRateChange={handleBaseRateChange}
+              onSip2RateChange={handleSip2RateChange}
+              onBaseRateBlur={handleBaseRateBlur}
+              onSip2RateBlur={handleSip2RateBlur}
               onLearnHowItWorks={handleOpenOverviewLearning}
               scenario={scenario}
             />

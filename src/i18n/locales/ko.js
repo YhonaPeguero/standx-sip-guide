@@ -48,7 +48,7 @@ const ko = {
       },
       simulator: {
         title: '시뮬레이터',
-        text: '자본 금액, 기간, 참고 시나리오를 바꿔가며 각 레이어가 어떻게 동작할지 미리 확인해 보세요.',
+        text: '직접 비율을 입력한 뒤 다양한 자본과 기간으로 각 계층의 작동 방식을 확인하세요.', // TODO: needs native review
       },
       playbook: {
         title: '수익 플레이북',
@@ -61,8 +61,9 @@ const ko = {
     errors: {
       minAmount: '최소 금액: $100',
       maxAmount: '최대 금액: $1,000,000',
+      minRate: '최소 비율: 0%', // TODO: needs native review
+      maxRate: '최대 비율: 100%', // TODO: needs native review
     },
-    chartMarkers: ['10월 12일', '10월 26일', '11월 09일', '활성'],
     footer: {
       disclaimer: '교육용 시뮬레이션입니다. 실제 결과는 달라질 수 있습니다.',
       createdBy: '제작: Thisnotmeme,',
@@ -105,7 +106,8 @@ const ko = {
   },
   simulator: {
     tag: '수익 시뮬레이터',
-    rangeHint: '교육용 시뮬레이션입니다. 자본과 기간을 조정해 동작을 미리 보세요.',
+    rangeHint: '교육용 예측입니다. 직접 비율을 입력한 뒤 자본과 기간을 조정하세요.', // TODO: needs native review
+    chartAriaLabel: '입력한 비율을 기준으로 {horizon} 기간의 예상 수익 누적.', // TODO: needs native review
   },
   toggle: {
     ariaOn: '수익 끄기',
@@ -523,22 +525,21 @@ const ko = {
     ariaLabel: '기간 범위',
   },
   valueDisplay: {
-    label: '총 생성 수익',
+    label: '예상 이익', // TODO: needs native review
+  },
+  rateInputs: {
+    eyebrow: '수익률', // TODO: needs native review
+    baseLabel: 'DUSD 기본 연이율', // TODO: needs native review
+    sip2Label: 'SIP #2 연이율', // TODO: needs native review
+    placeholder: '0.00',
+    rangeHint: '{min}–{max}% 입력', // TODO: needs native review
+    sip2DisabledHint: '이 비율을 적용하려면 SIP #2를 켜세요.', // TODO: needs native review
+    note: 'StandX는 DUSD, SIP #2, SIP #3의 수익률을 공개하지 않습니다. 이 수치는 사용자가 입력한 것이며, 예측은 그에 대한 계산입니다.', // TODO: needs native review
   },
   protocolStats: {
     initialCapital: '초기 자본',
     estimatedValue: '예상 가치',
-    estimatedGain: '예상 이익',
-    yieldPct: '수익률 %',
-  },
-  scenarioSelector: {
-    label: 'SIP #2 참고 시나리오',
-    illustrative: '예시일 뿐입니다. 실제 비율은 프로토콜이 결정합니다.',
-    hint: '시나리오는 교육 목적으로 SIP #2의 동작 범위를 예시로 보여줍니다. 실제 SIP #2 수익률은 사용자가 아닌 프로토콜에 의해 결정됩니다. DUSD 기본과 SIP #3은 영향을 받지 않습니다.',
-    disabledHint: '선택한 시나리오를 적용하려면 SIP #2를 켜세요.',
-    conservative: '보수적',
-    base: '기본',
-    optimistic: '낙관적',
+    appliedRate: '적용 수익률', // TODO: needs native review
   },
   scenario: {
     eyebrow: '시나리오 비교',

@@ -48,7 +48,7 @@ const ptBR = {
       },
       simulator: {
         title: 'Simulador',
-        text: 'Teste valores de capital, períodos e cenários de referência para visualizar como cada camada pode se comportar.',
+        text: 'Insira suas próprias taxas e teste diferentes capitais e horizontes para ver como cada camada pode se comportar.',
       },
       playbook: {
         title: 'Playbook de Yield',
@@ -61,8 +61,9 @@ const ptBR = {
     errors: {
       minAmount: 'Valor mínimo: $100',
       maxAmount: 'Valor máximo: $1,000,000',
+      minRate: 'Taxa mínima: 0%',
+      maxRate: 'Taxa máxima: 100%',
     },
-    chartMarkers: ['12 out', '26 out', '09 nov', 'Ativo'],
     footer: {
       disclaimer: 'Simulação educacional. Os resultados reais podem variar.',
       createdBy: 'Criado por: Thisnotmeme,',
@@ -107,8 +108,8 @@ const ptBR = {
   },
   simulator: {
     tag: 'Simulador de Yield',
-    rangeHint:
-      'Simulação educacional. Ajuste capital e período para visualizar o comportamento.',
+    rangeHint: 'Projeção educacional. Insira suas próprias taxas e depois ajuste capital e horizonte.',
+    chartAriaLabel: 'Acúmulo de yield projetado em {horizon}, com base nas taxas que você inseriu.',
   },
   toggle: {
     ariaOn: 'Desativar rendimento',
@@ -529,22 +530,21 @@ const ptBR = {
     ariaLabel: 'Intervalo de tempo',
   },
   valueDisplay: {
-    label: 'Yield total gerado',
+    label: 'Ganho Estimado',
+  },
+  rateInputs: {
+    eyebrow: 'Taxas de Yield',
+    baseLabel: 'Base DUSD — anual',
+    sip2Label: 'SIP #2 — anual',
+    placeholder: '0.00',
+    rangeHint: 'Insira {min}–{max}%',
+    sip2DisabledHint: 'Ative o SIP #2 para aplicar esta taxa.',
+    note: 'A StandX não publica nenhuma taxa para DUSD, SIP #2 ou SIP #3. Estes números são seus, e a projeção é aritmética sobre eles.',
   },
   protocolStats: {
     initialCapital: 'Capital Inicial',
     estimatedValue: 'Valor Estimado',
-    estimatedGain: 'Ganho Estimado',
-    yieldPct: 'Yield %',
-  },
-  scenarioSelector: {
-    label: 'Cenário de referência SIP #2',
-    illustrative: 'Apenas ilustrativo — a taxa real é definida pelo protocolo.',
-    hint: 'Os cenários mostram faixas de comportamento do SIP #2 para fins educacionais. A taxa real do SIP #2 é definida pelo protocolo, não pelo usuário. DUSD base e SIP #3 não são afetados.',
-    disabledHint: 'Ative o SIP #2 para aplicar o cenário selecionado.',
-    conservative: 'Conservador',
-    base: 'Base',
-    optimistic: 'Otimista',
+    appliedRate: 'Taxa Aplicada',
   },
   scenario: {
     eyebrow: 'Comparação de Cenários',

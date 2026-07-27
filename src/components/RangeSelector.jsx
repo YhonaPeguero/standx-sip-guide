@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { TIME_RANGES } from '../constants/chart';
+import { HORIZONS } from '../constants/chart';
 import { useI18n } from '../i18n';
 
 export default function RangeSelector({ value, onChange }) {
@@ -12,7 +12,7 @@ export default function RangeSelector({ value, onChange }) {
       className="inline-flex gap-1 border border-[var(--sx-border)] bg-[var(--sx-surface-2)] p-1"
       style={{ borderRadius: 6 }}
     >
-      {TIME_RANGES.map((range) => {
+      {HORIZONS.map((range) => {
         const active = range.id === value;
 
         return (

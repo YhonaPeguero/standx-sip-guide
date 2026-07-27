@@ -1,5 +1,5 @@
 import { useI18n } from '../../i18n';
-import { NotPublishedChip } from './VaultLabels';
+import { NotPublishedChip } from '../ui/Markers';
 
 // Escalation order from "Shield Health During Operation", rendered as a static strip under
 // the liquidation flow. SIP-5B states what triggers each stage but publishes no threshold,
