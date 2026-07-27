@@ -37,9 +37,10 @@ export default function Hero({ onPrimary, onSecondary }) {
     { key: 'scope', value: scopeValue, wide: true },
     { key: 'languages', value: t('hero.features.multilingual') },
     { key: 'maintainer', value: t('hero.meta.maintainerValue') },
-    // Stated at the same weight as every other field. Non-affiliation is a property of
-    // this document, so it reads as a record entry rather than as a disclaimer.
-    { key: 'affiliation', value: t('hero.meta.affiliationValue') },
+    // Provenance stated positively. Who built it carries the same information as a denial
+    // would, without the page having to argue with a claim nobody made — the COMMUNITY
+    // BUILT badge in the header says the same thing in the same words.
+    { key: 'builtBy', value: t('hero.meta.builtByValue') },
   ];
 
   const container = {

@@ -8,7 +8,7 @@ const ptBR = {
       vaults: 'Vaults',
       ariaLabel: 'Seções principais',
     },
-    community: 'Comunidade',
+    community: 'Feito pela comunidade',
     language: {
       button: 'Idioma',
       buttonAria: 'Abrir menu de idiomas',
@@ -92,8 +92,8 @@ const ptBR = {
       languages: 'Idiomas',
       maintainer: 'Responsável',
       maintainerValue: 'Thisnotmeme',
-      affiliation: 'Afiliação',
-      affiliationValue: 'Sem afiliação com a equipe da StandX',
+      builtBy: 'Feito por',
+      builtByValue: 'A comunidade StandX',
     },
   },
   headline: {

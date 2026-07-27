@@ -8,7 +8,7 @@ const en = {
       vaults: 'Vaults',
       ariaLabel: 'Primary sections',
     },
-    community: 'Community',
+    community: 'Community Built',
     language: {
       button: 'Language',
       buttonAria: 'Open language menu',
@@ -92,8 +92,8 @@ const en = {
       languages: 'Languages',
       maintainer: 'Maintainer',
       maintainerValue: 'Thisnotmeme',
-      affiliation: 'Affiliation',
-      affiliationValue: 'Not affiliated with the StandX team',
+      builtBy: 'Built by',
+      builtByValue: 'The StandX community',
     },
   },
   headline: {
