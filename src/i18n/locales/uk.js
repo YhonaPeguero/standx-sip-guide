@@ -324,20 +324,12 @@ const uk = {
     intro:
       'Якщо SIP-5A увімкнув шар прибутковості Universal Markets, то SIP-5B вмикає шар капіталу. Тип vault фіксується при створенні, і кожен тип має власну економіку, правила ризику та правила виходу: бюджет, створений для виплат, не може мати ту саму LP-економіку, що торгова стратегія, а страховий капітал, який мусить надійно бути на місці, не може мати правила виходу ні першого, ні другої.',
     meta: {
-      sip: 'SIP',
-      parent: 'Батьківський',
       status: 'Статус',
-      date: 'Дата',
       release: 'Дата релізу',
-      author: 'Автор',
     },
     metaValues: {
-      sip: '5B',
-      parent: 'SIP-5: Universal Markets Listing',
       status: 'Реалізовано',
-      date: '2026-06-30',
       release: '2026-07-18',
-      author: 'StandX Team',
     },
     docLink: 'Читати SIP-5B',
     illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',

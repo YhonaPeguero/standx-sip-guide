@@ -322,20 +322,12 @@ const es = {
     intro:
       'Si SIP-5A activó la capa de rendimiento de Universal Markets, SIP-5B activa la capa de capital. El tipo de un vault queda fijado en su creación y cada tipo lleva su propia economía, sus reglas de riesgo y sus reglas de salida: un presupuesto diseñado para repartirse no puede compartir la economía LP de una estrategia de trading, y el capital de seguro, que debe estar presente de forma fiable, no puede compartir las reglas de salida de ninguno de los dos.',
     meta: {
-      sip: 'SIP',
-      parent: 'Padre',
       status: 'Estado',
-      date: 'Fecha',
       release: 'Fecha de release',
-      author: 'Autor',
     },
     metaValues: {
-      sip: '5B',
-      parent: 'SIP-5: Universal Markets Listing',
       status: 'Implementado',
-      date: '2026-06-30',
       release: '2026-07-18',
-      author: 'StandX Team',
     },
     docLink: 'Leer SIP-5B',
     illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',

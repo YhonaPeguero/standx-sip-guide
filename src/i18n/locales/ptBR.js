@@ -322,20 +322,12 @@ const ptBR = {
     intro:
       'Se o SIP-5A ativou a camada de yield do Universal Markets, o SIP-5B ativa a camada de capital. O tipo de um vault é fixado na criação e cada tipo carrega sua própria economia, suas regras de risco e suas regras de saída: um orçamento feito para ser distribuído não pode compartilhar a economia de LP de uma estratégia de trading, e o capital de seguro, que precisa estar presente de forma confiável, não pode compartilhar as regras de saída de nenhum dos dois.',
     meta: {
-      sip: 'SIP',
-      parent: 'Pai',
       status: 'Status',
-      date: 'Data',
       release: 'Data de release',
-      author: 'Autor',
     },
     metaValues: {
-      sip: '5B',
-      parent: 'SIP-5: Universal Markets Listing',
       status: 'Implementado',
-      date: '2026-06-30',
       release: '2026-07-18',
-      author: 'StandX Team',
     },
     docLink: 'Ler o SIP-5B',
     illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',

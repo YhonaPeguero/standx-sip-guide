@@ -320,20 +320,12 @@ const en = {
     intro:
       'Where SIP-5A activated the yield layer of Universal Markets, SIP-5B activates the capital layer. A vault’s type is fixed at creation and each type carries its own economics, risk rules and exit rules — a budget designed to be paid out cannot share LP economics with a trading strategy, and insurance capital that must stay reliably present cannot share exit rules with either.',
     meta: {
-      sip: 'SIP',
-      parent: 'Parent',
       status: 'Status',
-      date: 'Date',
       release: 'Release date',
-      author: 'Author',
     },
     metaValues: {
-      sip: '5B',
-      parent: 'SIP-5: Universal Markets Listing',
       status: 'Implemented',
-      date: '2026-06-30',
       release: '2026-07-18',
-      author: 'StandX Team',
     },
     docLink: 'Read SIP-5B',
     // Fixed markers — identical in every locale, and never attached to an invented number.
