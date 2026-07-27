@@ -58,8 +58,13 @@ export default function Hero({ onPrimary, onSecondary }) {
   return (
     <section className="content-layer relative">
       <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col">
+        {/* Two clauses, two colours. Solid --sx-primary-bright, not the gradient that used
+            to run across this line: the gradient was the detector's one finding and it is
+            not coming back. The contrast between the clauses was always the point, and a
+            flat fill carries it without the effect. */}
         <motion.h1 variants={item} className="type-h1 max-w-[760px]">
-          {t('hero.title.line1')} {t('hero.title.line2')}
+          {t('hero.title.line1')}{' '}
+          <span className="text-[var(--sx-primary-bright)]">{t('hero.title.line2')}</span>
         </motion.h1>
 
         <motion.p
