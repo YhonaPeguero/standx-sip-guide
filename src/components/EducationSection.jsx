@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useI18n } from '../i18n';
+import { buildHash } from '../lib/route';
 import { Reveal, StaggerGroup, StaggerItem } from './Reveal';
 import Button from './ui/Button';
 import Card from './ui/Card';
@@ -9,12 +10,13 @@ import SectionHeader from './ui/SectionHeader';
 
 const FLOW_STEP_KEYS = ['step1', 'step2', 'step3', 'step4'];
 
-// SIP #5 is now a WIP parent that expands into its staged sub-proposals (5A live, 5B coming soon).
+// Statuses mirror the official index at https://docs.standx.com/sip/sip (checked 2026-07-26):
+// SIP #1–#4 Implemented, SIP #5 WIP with 5A/5B Implemented and 5C a Draft placeholder.
 const SIP_OVERVIEW = [
-  { id: 'sip-1', tag: 'SIP #1', key: 'sip1', status: 'live', href: 'https://docs.standx.com/sip/sip-1-block-trade' },
-  { id: 'sip-2', tag: 'SIP #2', key: 'sip2', status: 'live', href: 'https://docs.standx.com/sip/sip-2-position-yield' },
-  { id: 'sip-3', tag: 'SIP #3', key: 'sip3', status: 'live', href: 'https://docs.standx.com/sip/sip-3-dusd-native-yield' },
-  { id: 'sip-4', tag: 'SIP #4', key: 'sip4', status: 'live', href: 'https://docs.standx.com/sip/sip-4-block-options' },
+  { id: 'sip-1', tag: 'SIP #1', key: 'sip1', status: 'implemented', href: 'https://docs.standx.com/sip/sip-1-block-trade' },
+  { id: 'sip-2', tag: 'SIP #2', key: 'sip2', status: 'implemented', href: 'https://docs.standx.com/sip/sip-2-position-yield' },
+  { id: 'sip-3', tag: 'SIP #3', key: 'sip3', status: 'implemented', href: 'https://docs.standx.com/sip/sip-3-dusd-native-yield' },
+  { id: 'sip-4', tag: 'SIP #4', key: 'sip4', status: 'implemented', href: 'https://docs.standx.com/sip/sip-4-block-options' },
   {
     id: 'sip-5',
     tag: 'SIP #5',
@@ -22,17 +24,27 @@ const SIP_OVERVIEW = [
     status: 'wip',
     href: 'https://docs.standx.com/sip/sip-5-universal-markets-listing',
     children: [
-      { id: 'sip-5a', tag: 'SIP #5A', key: 'sip5a', status: 'live', href: 'https://docs.standx.com/sip/sip-5a-community-maker-yield' },
-      { id: 'sip-5b', tag: 'SIP #5B', key: 'sip5b', status: 'draft', href: null },
+      { id: 'sip-5a', tag: 'SIP #5A', key: 'sip5a', status: 'implemented', href: 'https://docs.standx.com/sip/sip-5a-community-maker-yield' },
+      {
+        id: 'sip-5b',
+        tag: 'SIP #5B',
+        key: 'sip5b',
+        status: 'implemented',
+        href: 'https://docs.standx.com/sip/sip-5b-community-vault',
+        // Deep link into the in-app section, locale included
+        sectionTab: 'vaults',
+      },
+      // 5C has no public document and a placeholder title, so it renders without a description.
+      { id: 'sip-5c', tag: 'SIP #5C', key: 'sip5c', status: 'draft', href: null, placeholder: true },
     ],
   },
 ];
 
-// Status → Chip tone: live=green, review/wip=coral (in progress), draft=muted (not yet available)
-const STATUS_TONE = { live: 'primary', review: 'accent', wip: 'accent', draft: 'muted' };
+// Status → Chip tone: implemented=green, review/wip=coral (in progress), draft=muted (not yet available)
+const STATUS_TONE = { implemented: 'primary', review: 'accent', wip: 'accent', draft: 'muted' };
 
 export default function EducationSection({ sectionId }) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [expandedId, setExpandedId] = useState(null);
 
   const flowSteps = FLOW_STEP_KEYS.map((stepKey) => ({
@@ -44,7 +56,8 @@ export default function EducationSection({ sectionId }) {
   const localizeSip = (sip) => ({
     ...sip,
     title: t(`education.sipCards.${sip.key}.title`),
-    copy: t(`education.sipCards.${sip.key}.copy`),
+    copy: sip.placeholder ? null : t(`education.sipCards.${sip.key}.copy`),
+    note: sip.placeholder ? t('education.draftPlaceholderNote') : null,
     statusLabel: t(`education.sipStatus.${sip.status}`),
   });
 
@@ -158,14 +171,33 @@ export default function EducationSection({ sectionId }) {
                                 <h5 className="mt-2.5 text-[15px] font-semibold leading-[1.3] tracking-[-0.01em] text-[var(--sx-text)]">
                                   {child.title}
                                 </h5>
-                                <p className="mt-1.5 text-[13px] leading-[1.58] text-[var(--sx-text-muted)]">
-                                  {child.copy}
-                                </p>
-                                {child.href && (
-                                  <div className="mt-2.5">
-                                    <Button variant="ghost" size="sm" iconRight={<span>→</span>} href={child.href}>
-                                      {t('education.readMore')}
-                                    </Button>
+                                {child.copy && (
+                                  <p className="mt-1.5 text-[13px] leading-[1.58] text-[var(--sx-text-muted)]">
+                                    {child.copy}
+                                  </p>
+                                )}
+                                {child.note && (
+                                  <p className="mt-1.5 text-[12px] italic leading-[1.55] text-[var(--sx-muted)]">
+                                    {child.note}
+                                  </p>
+                                )}
+                                {(child.href || child.sectionTab) && (
+                                  <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                                    {child.sectionTab && (
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        iconRight={<span>→</span>}
+                                        href={buildHash({ locale, tab: child.sectionTab })}
+                                      >
+                                        {t('education.openSection')}
+                                      </Button>
+                                    )}
+                                    {child.href && (
+                                      <Button variant="ghost" size="sm" iconRight={<span>↗</span>} href={child.href}>
+                                        {t('education.readMore')}
+                                      </Button>
+                                    )}
                                   </div>
                                 )}
                               </Card>

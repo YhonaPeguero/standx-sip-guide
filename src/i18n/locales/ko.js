@@ -4,6 +4,7 @@ const ko = {
       overview: '개요',
       simulator: '시뮬레이터',
       playbook: '수익 플레이북',
+      vaults: 'Vaults',
       ariaLabel: '주요 섹션',
     },
     community: '커뮤니티',
@@ -170,10 +171,10 @@ const ko = {
       tag: 'SIP 개요',
       eyebrow: 'SIP 개요',
       title: 'StandX의 SIP들',
-      description: '각 SIP는 고유한 역할을 합니다 — 현재 운영 중인 수익 시스템(SIP #1–#3)부터 다음 단계를 그리는 새로운 제안(SIP #4–#5)까지.',
+      description: '각 SIP는 고유한 역할을 합니다 — 이미 구현된 수익 시스템(SIP #1–#4)부터 다음 단계를 그리는 개발 중 프레임워크(SIP #5)까지.',
     },
     sipStatus: {
-      live: '운영 중',
+      implemented: '구현 완료', // TODO: needs native review
       review: '검토 중',
       wip: '개발 중', // TODO: needs native review
       draft: '초안',
@@ -195,21 +196,27 @@ const ko = {
         title: 'Block Options',
         copy: 'Block Trade 위에 얹는 옵션형 Take Profit·Stop Loss입니다. 소액의 Reservation Fee를 내면 만기 전 언제든 정해진 가격에 청산하거나 진입할 권리를 얻습니다.',
       },
-      // TODO: needs native review (ko) — sip5 / sip5a / sip5b
+      // TODO: needs native review (ko) — sip5 / sip5a / sip5b / sip5c
       sip5: {
         title: 'Universal Markets Listing',
-        copy: '무허가 퍼프(perp) 상장을 위한 개발 중(WIP) 프레임워크로, 이제 단계별 하위 제안으로 나뉩니다. 펼쳐서 무엇이 운영 중(5A)이고 무엇이 예정(5B)인지 확인하세요.',
+        copy: '무허가 퍼프(perp) 상장을 위한 개발 중(WIP) 프레임워크로, 이제 단계별 하위 제안으로 나뉩니다. 펼쳐서 무엇이 이미 구현되었고(5A, 5B) 무엇이 아직 초안인지(5C) 확인하세요.',
       },
       sip5a: {
         title: 'Community Maker Yield',
         copy: 'Universal Markets의 첫 번째 운영 요소입니다. Market Maker Uptime Program을 일일 yield로 업그레이드합니다: mark price 근처에서 양방향 order book 유동성을 제시하는 maker는 "Maker Hours"(가격 근접도와 uptime으로 가중)를 적립하고, 재활용된 트레이딩 수수료로 보강되는 일일 DUSD/token 리워드 풀을 나눠 가집니다.',
       },
       sip5b: {
-        title: 'Universal Markets — 다음 단계',
-        copy: 'Universal Markets의 다음 단계로, 무허가 상장 프레임워크를 확장합니다. 초안 — 세부 내용은 곧 공개됩니다.',
+        title: 'Community Vaults',
+        copy: 'Universal Markets의 자본 레이어로, 세 가지 커뮤니티 vault 유형으로 구성됩니다: Strategy Vault는 트레이더를 후원하게 하고, Reward Vault는 페어의 maker 예산을 보유하며, Shield Vault는 ADL 앞에서 청산 테일 리스크를 인수합니다. Sponsor가 그중 하나에 락업된 equity를 보유하기 전에는 마켓을 열 수 없습니다.',
+      },
+      sip5c: {
+        // Placeholder title, verbatim from the official SIP index — no public document yet.
+        title: 'Cooooooking',
       },
     },
+    draftPlaceholderNote: '공식 SIP 인덱스의 플레이스홀더 — 아직 공개 문서가 없습니다.', // TODO: needs native review
     readMore: '자세히 보기',
+    openSection: '섹션 열기', // TODO: needs native review
     showSubProposals: '하위 제안 보기', // TODO: needs native review
     hideSubProposals: '하위 제안 숨기기', // TODO: needs native review
     communityNote: '사용자가 StandX SIP를 더 빠르게 이해할 수 있도록 커뮤니티가 만들었습니다.',
@@ -272,6 +279,203 @@ const ko = {
       docs: '공식 문서',
       thread: 'StandX 스레드',
       intern: '심층 분석 스레드',
+    },
+  },
+  // TODO: needs native review (ko) — vaults section
+  vaults: {
+    eyebrow: 'SIP #5B · 구현 완료',
+    title: 'Community Vaults',
+    description:
+      'Universal Markets의 자본 레이어입니다. Universal Markets가 기반으로 삼는 트레이딩 자본, maker 예산, 보험 버퍼를 공급하는 세 가지 커뮤니티 vault 유형입니다.',
+    intro:
+      'SIP-5A가 Universal Markets의 수익 레이어를 활성화했다면, SIP-5B는 자본 레이어를 활성화합니다. vault의 유형은 생성 시점에 확정되며 각 유형은 고유한 경제 구조, 리스크 규칙, 출금 규칙을 갖습니다. 지급을 전제로 설계된 예산은 트레이딩 전략의 LP 경제 구조를 공유할 수 없고, 항상 신뢰할 수 있게 존재해야 하는 보험 자본은 둘 중 어느 쪽의 출금 규칙도 공유할 수 없습니다.',
+    meta: {
+      sip: 'SIP',
+      parent: '상위 제안',
+      status: '상태',
+      date: '날짜',
+      release: '릴리스 날짜',
+      author: '작성자',
+    },
+    metaValues: {
+      sip: '5B',
+      parent: 'SIP-5: Universal Markets Listing',
+      status: '구현 완료',
+      date: '2026-06-30',
+      release: '2026-07-18',
+      author: 'StandX Team',
+    },
+    docLink: 'SIP-5B 읽기',
+    illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',
+    notPublished: 'not published',
+    types: {
+      eyebrow: '세 가지 vault 유형',
+      title: '하나의 표준, 세 가지 제품',
+      description:
+        'vault 유형은 생성 시 정해지므로 예치자는 자신이 어떤 제품에 들어가는지 항상 알 수 있습니다. 성격, 수익원, 출금은 제안서의 Motivation에 실린 비교 그대로입니다.',
+      columns: {
+        nature: '성격',
+        return: '수익원',
+        exit: '출금',
+      },
+      showDetail: '무엇인가',
+      hideDetail: '접기',
+      strategy: {
+        tag: 'Strategy',
+        name: 'Community Strategy Vault',
+        nature: '트레이더에게 위임된 자본',
+        return: '트레이딩 PnL, DUSD yield',
+        exit: '출금 처리 기간',
+        detail:
+          '예치자가 vault에 자금을 넣고 owner가 StandX Perps에서 운용하며, 예치자는 vault의 NAV로 가격이 책정된 LP 토큰을 보유합니다. owner의 자본과 예치자의 자본은 같은 LP 회계·같은 가격에 놓이므로 손익은 비례해 부담됩니다. owner가 포기하는 것은 먼저 나갈 수 있는 권리입니다.',
+        params: [
+          { label: 'owner 최소 지분 — 초기 출시 시점의 프로토콜 파라미터', value: '5%' },
+          { label: '정상 시장 조건에서의 출금 처리 기간', value: '최대 4일' },
+        ],
+      },
+      reward: {
+        tag: 'Reward',
+        name: 'Community Reward Vault',
+        nature: '마켓의 인센티브 예산',
+        return: 'fee share 및 Stand Mode 재순환',
+        exit: '자유 출금 불가',
+        detail:
+          '페어의 maker 인센티브 예산으로, Sponsor가 상장할 때 필수입니다. 자산은 지급되도록 설계되어 SIP-5A를 통해 매일 커뮤니티 maker에게 흘러가므로 vault는 LP 토큰을 발행하지 않고 잔액은 감소하는 것이 정상입니다. Stand Mode가 Sponsor의 fee share를 vault로 되돌리며, 커뮤니티 기여는 예산에 대한 어떤 청구권도 갖지 않습니다.',
+      },
+      shield: {
+        tag: 'Shield',
+        name: 'Community Shield Vault',
+        nature: '마켓의 보험 자본',
+        return: 'liquidation fee, 보험료, 포지션 PnL',
+        exit: '사전 통지 기간',
+        detail:
+          '지원하는 페어에 대해 ADL 앞에 서는 보험 자본입니다. 예치자는 NAV로 가격이 책정된 LP 토큰을 보유하고 보험 수익을 받는 대가로 테일 리스크를 인수하며, 리스크는 페어별로 격리됩니다. Shield Vault는 보험업을 운영하며, 그렇게 벌고 그렇게 잃습니다.',
+      },
+    },
+    reward: {
+      eyebrow: 'Reward Vault',
+      title: 'bps/depth tier의 합은 정확히 100%여야 합니다',
+      description:
+        'Sponsor는 mark price로부터의 거리 구간과 리워드 비율을 짝지은 bps/depth tier 집합을 정의합니다. 아래에서 직접 구간을 배분하세요. 합이 정확히 100%가 될 때까지 구성은 잠긴 상태로 유지됩니다.',
+      tiersLabel: 'tier 집합',
+      bandLabel: '거리 구간',
+      bandPlaceholder: '예: 0–10 bps',
+      shareLabel: '리워드 비율',
+      addTier: 'tier 추가',
+      removeTier: 'tier 삭제',
+      total: '배분 합계',
+      valid: '유효 — tier 합이 정확히 100%이며 잠글 수 있습니다.',
+      blocked: '차단됨 — tier 합은 정확히 100%여야 합니다. {remaining}%가 아직 배분되지 않았습니다.',
+      lockValid: 'tier 집합 잠금',
+      lockBlocked: '100%가 될 때까지 잠김',
+      rulesLabel: '제안서에서',
+      rule: '모든 tier 비율의 합은 정확히 1(100%)이어야 합니다.',
+      notes: [
+        'tier는 각 가격 구간이 가져가는 예산 비중을 정하고, 구간 내 개별 maker의 몫은 SIP-5A의 일일 Maker Hours 회계가 정합니다.',
+        'mark price와의 근접도는 SIP-5A 커브 안에서 한 번만 계산됩니다.',
+        '어떤 tier에 자격을 갖춘 maker가 해당 epoch에 없으면 그 예산은 vault에 남아 이후 epoch로 이월됩니다.',
+        '좁은 tier에 가중치를 두면 촘촘한 top of book을 사는 것이고, 넓은 구간에 예산을 펼치면 변동성에서 버티는 depth를 사는 것입니다.',
+        'SIP-5B는 구간 값을 공개하지 않으므로 여기에 보이는 거리 구간은 모두 사용자가 입력한 값입니다.',
+      ],
+    },
+    gate: {
+      eyebrow: 'Trading Gate',
+      title: '마켓이 Live가 되기 위한 네 가지 조건',
+      description:
+        '마켓은 네 조건이 모두 충족될 때만 Bootstrapping에서 Live로 넘어갑니다. 각 조건을 켜서 게이트를 확인하세요. 네 번째가 충족되는 순간에만 열립니다.',
+      stateLabel: '마켓 상태',
+      bootstrapping: 'Bootstrapping',
+      live: 'Live',
+      conditions: {
+        sponsorEquity:
+          '연결된 Shield Vault에 있는 Sponsor의 락업 equity가 required_sponsor_commitment를 충족합니다.',
+        shieldCapital:
+          'Shield Vault의 전체 인수 자본이 해당 마켓의 리스크 요건을 충족합니다.',
+        rewardBudget:
+          '마켓의 Reward Vault가 공표된 배포 일정에 필요한 maker 예산을 보유합니다.',
+        review: '오라클 소스, maker depth, OI cap, 리스크 파라미터가 심사를 통과합니다.',
+      },
+      openCopy: '네 조건이 모두 충족되어 마켓이 트레이딩을 시작할 수 있습니다.',
+      closedCopy:
+        '{total}개 중 {met}개 조건 충족. 네 조건이 모두 충족될 때까지 마켓은 Bootstrapping에 머무릅니다.',
+      footnote:
+        'required_sponsor_commitment는 마켓의 OI cap, 최대 레버리지, 예상 변동성, 오라클 품질, 예상 청산 규모를 바탕으로 마켓별로 설정됩니다. 모든 마켓이 하나의 고정 수치를 공유하지 않습니다.',
+    },
+    shield: {
+      eyebrow: 'Shield Health',
+      title: '출시 이후 네 단계의 에스컬레이션',
+      description:
+        'Shield 상태는 출시 이후에도 Sponsor의 수익과 마켓 상태에 계속 작용합니다. 사다리를 따라가며 각 단계를 촉발하는 조건을 확인하세요.',
+      stageLabel: '단계',
+      healthy: '요건 충족 상태',
+      current: '현재',
+      triggerLabel: '촉발 조건',
+      thresholdLabel: '임계값',
+      footnote:
+        'SIP-5B는 각 단계를 촉발하는 조건은 밝히지만 임계값, 보충 기간, 커버리지 비율은 공개하지 않으므로 여기에도 표시하지 않습니다. 이 사다리는 SIP-5의 건전성 조건부 fee share를 자본 레이어까지 확장합니다. Sponsor는 마켓을 출시한 대가가 아니라 지급 능력을 유지하는 대가로 보상받습니다.',
+      stages: {
+        escrow: {
+          short: 'Escrow',
+          name: 'fee share가 escrow로 이동',
+          trigger:
+            'Sponsor의 락업 equity 또는 vault의 전체 커버리지가 요건 아래로 떨어지고, 보충 통지가 발행됩니다.',
+        },
+        oiCut: {
+          short: 'OI 축소',
+          name: 'OI cap 축소 또는 Watchlist 강등',
+          trigger: '보충 기간 내에 부족분이 복구되지 않습니다.',
+        },
+        reduceOnly: {
+          short: 'ReduceOnly',
+          name: '마켓이 ReduceOnly로 전환',
+          trigger: '커버리지가 하드 임계값을 넘거나 손상 상태가 지속됩니다.',
+        },
+        sunset: {
+          short: 'Sunset',
+          name: '마켓이 Sunset으로 전환',
+          trigger:
+            '부족분을 복구할 수 없습니다. Sponsor의 지분은 모든 포지션과 부채가 정산된 뒤에만 락업이 해제됩니다.',
+        },
+      },
+    },
+    liquidation: {
+      eyebrow: '청산 흐름',
+      title: 'order book, 그다음 Shield Vault, 그다음 ADL',
+      description:
+        'order book이 수용 가능한 가격으로 청산을 흡수하지 못하면 Shield Vault가 청산 가격으로 포지션을 인수하고 해당 liquidation fee를 받습니다. ADL은 그 페어에 예약된 용량이 소진된 뒤에만 도달합니다. 직접 금액을 입력해 경로를 따라가 보세요.',
+      inputs: {
+        positionSize: '포지션 크기',
+        reservedCapacity: '해당 페어에 예약된 용량',
+        liquidationFee: 'liquidation fee',
+      },
+      nodes: {
+        orderBook: {
+          title: 'Order book',
+          copy: '청산은 먼저 book으로 갑니다. 수용 가능한 가격으로 흡수하지 못한 부분이 다음 단계로 넘어갑니다.',
+        },
+        shield: {
+          title: 'Shield Vault',
+          copy: '청산 가격으로 포지션을 인수하고 liquidation fee를 받은 뒤, 자체 리스크 한도 안에서 owner의 재량에 따라 청산하거나 헤지합니다.',
+        },
+        adl: {
+          title: 'ADL',
+          copy: '이 페어에 예약된 용량이 소진될 때만 도달합니다. 다른 모든 페어의 보호는 그대로 유지됩니다.',
+        },
+      },
+      results: {
+        absorbed: 'Shield Vault가 흡수',
+        fee: 'vault가 받는 liquidation fee',
+        remaining: '남은 예약 용량',
+        adl: 'ADL로 넘어가는 금액',
+      },
+      states: {
+        idle: '포지션 크기를 입력하면 어디에서 처리되는지 보여줍니다.',
+        covered:
+          '이 페어의 예약 용량이 포지션을 감당하므로 Shield Vault가 ADL보다 먼저 흡수합니다.',
+        adl: '포지션이 이 페어에 예약된 용량을 초과하므로 초과분이 ADL로 넘어갑니다.',
+      },
+      isolationNote:
+        'Shield Vault는 여러 페어를 지원할 수 있으며, 각 페어의 커버리지는 격리되고 자본은 전용으로 예약됩니다. 같은 자본이 두 페어의 커버리지로 동시에 계산되는 일은 없습니다. 이벤트당 인수 한도, unwind 제약, fee 산식은 SIP-5B가 아니라 각 페어의 연결 조건과 함께 공개됩니다.',
     },
   },
   playbook: {

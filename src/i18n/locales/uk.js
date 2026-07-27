@@ -4,6 +4,7 @@ const uk = {
       overview: 'Огляд',
       simulator: 'Симулятор',
       playbook: 'Плейбук прибутковості',
+      vaults: 'Vaults',
       ariaLabel: 'Основні розділи',
     },
     community: 'Спільнота',
@@ -176,10 +177,10 @@ const uk = {
       eyebrow: 'Огляд SIP',
       title: 'SIP-и StandX',
       description:
-        'Кожен SIP має свою роль — від активної системи прибутковості (SIP #1–#3) до новіших пропозицій, що формують наступний етап (SIP #4–#5).',
+        'Кожен SIP має свою роль — від уже реалізованої системи прибутковості (SIP #1–#4) до SIP #5, фреймворку в розробці, що формує наступний етап.',
     },
     sipStatus: {
-      live: 'Активний',
+      implemented: 'Реалізовано', // TODO: needs native review
       review: 'На розгляді',
       wip: 'В розробці', // TODO: needs native review
       draft: 'Чернетка',
@@ -201,21 +202,27 @@ const uk = {
         title: 'Block Options',
         copy: 'Опціоноподібні Take Profit і Stop Loss поверх Block Trade. Ви сплачуєте невелику Reservation Fee за право вийти — або увійти — за фіксованою ціною будь-коли до завершення терміну.',
       },
-      // TODO: needs native review (uk) — sip5 / sip5a / sip5b
+      // TODO: needs native review (uk) — sip5 / sip5a / sip5b / sip5c
       sip5: {
         title: 'Universal Markets Listing',
-        copy: 'Фреймворк у розробці (WIP) для безпермісійного лістингу перпів, тепер поділений на поетапні під-пропозиції. Розгорніть, щоб побачити, що вже активне (5A) і що готується (5B).',
+        copy: 'Фреймворк у розробці (WIP) для безпермісійного лістингу перпів, тепер поділений на поетапні під-пропозиції. Розгорніть, щоб побачити, що вже реалізовано (5A, 5B) і що досі є чернеткою (5C).',
       },
       sip5a: {
         title: 'Community Maker Yield',
         copy: 'Перший активний елемент Universal Markets. Він оновлює Market Maker Uptime Program до щоденного yield: makerи, що виставляють двосторонню order book ліквідність біля mark price, накопичують "Maker Hours" (зважені за близькістю до ціни та uptime) і ділять щоденний пул винагород у DUSD/token, що поповнюється переробленими торговими комісіями.',
       },
       sip5b: {
-        title: 'Universal Markets — Наступна фаза',
-        copy: 'Наступна фаза Universal Markets, що розширює фреймворк безпермісійного лістингу. Чернетка — деталі незабаром.',
+        title: 'Community Vaults',
+        copy: 'Капітальний шар Universal Markets у трьох типах community vault: Strategy Vault дає змогу підтримати трейдера, Reward Vault тримає maker-бюджет пари, а Shield Vault бере на себе хвостовий ризик ліквідацій перед ADL. Ринок не може відкритися, поки його Sponsor не тримає заблокований equity в одному з них.',
+      },
+      sip5c: {
+        // Placeholder title, verbatim from the official SIP index — no public document yet.
+        title: 'Cooooooking',
       },
     },
+    draftPlaceholderNote: 'Placeholder в офіційному індексі SIP — публічного документа ще немає.', // TODO: needs native review
     readMore: 'Детальніше',
+    openSection: 'Відкрити розділ', // TODO: needs native review
     showSubProposals: 'Показати під-пропозиції', // TODO: needs native review
     hideSubProposals: 'Сховати під-пропозиції', // TODO: needs native review
     communityNote:
@@ -279,6 +286,203 @@ const uk = {
       docs: 'Офіційна документація',
       thread: 'Тред StandX',
       intern: 'Аналітичний тред',
+    },
+  },
+  // TODO: needs native review (uk) — vaults section
+  vaults: {
+    eyebrow: 'SIP #5B · Реалізовано',
+    title: 'Community Vaults',
+    description:
+      'Капітальний шар Universal Markets: три типи community vault, що постачають торговий капітал, maker-бюджети та страхові буфери, на яких тримаються Universal Markets.',
+    intro:
+      'Якщо SIP-5A увімкнув шар прибутковості Universal Markets, то SIP-5B вмикає шар капіталу. Тип vault фіксується при створенні, і кожен тип має власну економіку, правила ризику та правила виходу: бюджет, створений для виплат, не може мати ту саму LP-економіку, що торгова стратегія, а страховий капітал, який мусить надійно бути на місці, не може мати правила виходу ні першого, ні другої.',
+    meta: {
+      sip: 'SIP',
+      parent: 'Батьківський',
+      status: 'Статус',
+      date: 'Дата',
+      release: 'Дата релізу',
+      author: 'Автор',
+    },
+    metaValues: {
+      sip: '5B',
+      parent: 'SIP-5: Universal Markets Listing',
+      status: 'Реалізовано',
+      date: '2026-06-30',
+      release: '2026-07-18',
+      author: 'StandX Team',
+    },
+    docLink: 'Читати SIP-5B',
+    illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',
+    notPublished: 'not published',
+    types: {
+      eyebrow: 'Три типи vault',
+      title: 'Один стандарт, три продукти',
+      description:
+        'Тип vault визначається при створенні, тому вкладник завжди знає, у який продукт входить. Природа, джерело доходу та вихід — це порівняння, яке пропозиція наводить у своїй Motivation.',
+      columns: {
+        nature: 'Природа',
+        return: 'Джерело доходу',
+        exit: 'Вихід',
+      },
+      showDetail: 'Що це',
+      hideDetail: 'Згорнути',
+      strategy: {
+        tag: 'Strategy',
+        name: 'Community Strategy Vault',
+        nature: 'Капітал, делегований трейдеру',
+        return: 'Торговий PnL, yield DUSD',
+        exit: 'Вікно обробки виведення',
+        detail:
+          'Вкладники фінансують vault, owner торгує ним на StandX Perps, а вкладники тримають LP-токени за NAV вольту. Капітал owner і капітал вкладників лежать в одному LP-обліку за однією ціною, тому прибутки та збитки розподіляються пропорційно; owner відмовляється саме від можливості вийти першим.',
+        params: [
+          { label: 'Мінімальна частка owner — параметр протоколу на початковому запуску', value: '5%' },
+          { label: 'Вікно обробки виведення за нормальних умов', value: 'макс. 4 дні' },
+        ],
+      },
+      reward: {
+        tag: 'Reward',
+        name: 'Community Reward Vault',
+        nature: 'Бюджет стимулів ринку',
+        return: 'Fee share і рецикл через Stand Mode',
+        exit: 'Без вільного виведення',
+        detail:
+          'Бюджет maker-стимулів пари, обов’язковий, коли Sponsor її лістить. Його активи створені, щоб витрачатися: вони щодня йдуть до community makers через SIP-5A, тому vault не випускає LP-токенів, і зменшення балансу є очікуваним. Stand Mode повертає fee share Sponsor у vault, а внески спільноти не дають жодних прав на бюджет.',
+      },
+      shield: {
+        tag: 'Shield',
+        name: 'Community Shield Vault',
+        nature: 'Страховий капітал ринку',
+        return: 'Liquidation fees, страхові премії, PnL позицій',
+        exit: 'Період попередження',
+        detail:
+          'Страховий капітал, що стоїть перед ADL для пар, які він підтримує. Вкладники тримають LP-токени за NAV і беруть на себе хвостовий ризик в обмін на страховий дохід, з ізоляцією ризику по кожній парі. Shield Vault веде страховий бізнес — і зароблює, і втрачає відповідно.',
+      },
+    },
+    reward: {
+      eyebrow: 'Reward Vault',
+      title: 'Tier-и bps/depth мусять давати рівно 100%',
+      description:
+        'Sponsor визначає набір tier-ів bps/depth, кожен з яких поєднує смугу відстані від mark price із відсотком винагороди. Розподіліть власні смуги нижче — набір залишається заблокованим, поки сума не становить рівно 100%.',
+      tiersLabel: 'Набір tier-ів',
+      bandLabel: 'Смуга відстані',
+      bandPlaceholder: 'напр. 0–10 bps',
+      shareLabel: 'Частка винагороди',
+      addTier: 'Додати tier',
+      removeTier: 'Видалити tier',
+      total: 'Усього розподілено',
+      valid: 'Дійсно — набір дає рівно 100% і його можна зафіксувати.',
+      blocked: 'Заблоковано — tier-и мусять давати рівно 100%. Ще {remaining}% не розподілено.',
+      lockValid: 'Зафіксувати набір',
+      lockBlocked: 'Заблоковано до 100%',
+      rulesLabel: 'З пропозиції',
+      rule: 'Усі відсотки tier-ів мусять давати в сумі рівно 1 (100%).',
+      notes: [
+        'Tier-и визначають, скільки бюджету несе кожна смуга ціни; щоденний облік Maker Hours із SIP-5A визначає частку кожного maker у межах смуги.',
+        'Близькість до mark price враховується один раз — у кривій SIP-5A.',
+        'Якщо в tier немає makers, що відповідають умовам в епосі, цей бюджет залишається у vault і переходить на майбутні епохи.',
+        'Вага на вузьких tier-ах купує щільний top of book; розподіл бюджету по ширших смугах купує глибину, що витримує волатильність.',
+        'SIP-5B не публікує значень смуг, тому кожна смуга відстані тут — ваша власна.',
+      ],
+    },
+    gate: {
+      eyebrow: 'Trading Gate',
+      title: 'Чотири умови, перш ніж ринок стане Live',
+      description:
+        'Ринок переходить із Bootstrapping у Live лише тоді, коли виконано всі чотири умови. Перемикайте їх, щоб побачити роботу воріт: вони відкриваються на четвертій, не раніше.',
+      stateLabel: 'Стан ринку',
+      bootstrapping: 'Bootstrapping',
+      live: 'Live',
+      conditions: {
+        sponsorEquity:
+          'Заблокований equity Sponsor у пов’язаному Shield Vault відповідає required_sponsor_commitment.',
+        shieldCapital:
+          'Загальний капітал покриття Shield Vault відповідає вимозі ризику цього ринку.',
+        rewardBudget:
+          'Reward Vault ринку має достатній maker-бюджет для заявленого графіка розподілу.',
+        review: 'Джерело оракула, maker depth, OI cap і параметри ризику проходять перевірку.',
+      },
+      openCopy: 'Усі чотири умови виконані, тож ринок може відкритися для торгів.',
+      closedCopy:
+        'Виконано {met} з {total} умов. Ринок залишається у Bootstrapping, поки не виконано всі чотири.',
+      footnote:
+        'required_sponsor_commitment встановлюється для кожного ринку окремо — з його OI cap, максимального левериджу, очікуваної волатильності, якості оракула та прогнозованого масштабу ліквідацій; ринки не мають однієї фіксованої цифри.',
+    },
+    shield: {
+      eyebrow: 'Shield Health',
+      title: 'Чотири стадії escalation після запуску',
+      description:
+        'Стан Shield продовжує впливати на дохід Sponsor і стан ринку після запуску. Пройдіть драбину, щоб побачити, що запускає кожну стадію.',
+      stageLabel: 'Стадія',
+      healthy: 'У межах вимоги',
+      current: 'Поточна',
+      triggerLabel: 'Тригер',
+      thresholdLabel: 'Порог',
+      footnote:
+        'SIP-5B зазначає, що запускає кожну стадію, але не публікує ні порогів, ні вікна поповнення, ні коефіцієнта покриття — тому їх тут немає. Драбина розширює умовний за станом fee share із SIP-5 до шару капіталу: Sponsor отримує плату за платоспроможність свого ринку, а не за те, що його запустив.',
+      stages: {
+        escrow: {
+          short: 'Escrow',
+          name: 'Fee share переходить у escrow',
+          trigger:
+            'Заблокований equity Sponsor або загальне покриття vault падає нижче вимоги, і видається повідомлення про поповнення.',
+        },
+        oiCut: {
+          short: 'Зниження OI',
+          name: 'OI cap знижено або переведення у Watchlist',
+          trigger: 'Дефіцит не відновлено протягом вікна поповнення.',
+        },
+        reduceOnly: {
+          short: 'ReduceOnly',
+          name: 'Ринок переходить у ReduceOnly',
+          trigger: 'Покриття пробиває жорсткий поріг або залишається ослабленим.',
+        },
+        sunset: {
+          short: 'Sunset',
+          name: 'Ринок переходить у Sunset',
+          trigger:
+            'Дефіцит неможливо виправити. Частки Sponsor розблоковуються лише після розрахунку всіх позицій і зобов’язань.',
+        },
+      },
+    },
+    liquidation: {
+      eyebrow: 'Потік ліквідації',
+      title: 'Order book, далі Shield Vault, далі ADL',
+      description:
+        'Коли order book не може поглинути ліквідацію за прийнятними цінами, Shield Vault перебирає позицію за ціною ліквідації та отримує liquidation fee. ADL настає лише тоді, коли зарезервована для цієї пари ємність вичерпана. Введіть власні суми, щоб пройти цей шлях.',
+      inputs: {
+        positionSize: 'Розмір позиції',
+        reservedCapacity: 'Зарезервована ємність для пари',
+        liquidationFee: 'Liquidation fee',
+      },
+      nodes: {
+        orderBook: {
+          title: 'Order book',
+          copy: 'Ліквідація спершу йде в book. Те, що він не може поглинути за прийнятними цінами, рухається далі.',
+        },
+        shield: {
+          title: 'Shield Vault',
+          copy: 'Перебирає позицію за ціною ліквідації та отримує liquidation fee, а потім закриває або хеджує її на розсуд owner у межах власних лімітів ризику.',
+        },
+        adl: {
+          title: 'ADL',
+          copy: 'Настає лише тоді, коли зарезервована для цієї пари ємність вичерпана. Захист усіх інших пар залишається недоторканим.',
+        },
+      },
+      results: {
+        absorbed: 'Поглинуто Shield Vault',
+        fee: 'Liquidation fee для vault',
+        remaining: 'Залишок зарезервованої ємності',
+        adl: 'Доходить до ADL',
+      },
+      states: {
+        idle: 'Введіть розмір позиції, щоб побачити, де вона опиниться.',
+        covered:
+          'Зарезервована ємність цієї пари покриває позицію, тож Shield Vault поглинає її перед ADL.',
+        adl: 'Позиція перевищує зарезервовану для цієї пари ємність, тож надлишок доходить до ADL.',
+      },
+      isolationNote:
+        'Shield Vault може підтримувати кілька пар, де покриття кожної пари ізольоване, а капітал зарезервований виключно за нею: той самий капітал ніколи не рахується покриттям двох пар одночасно. Ліміти перебирання на подію, обмеження unwind і формули fee публікуються разом з умовами асоціації кожної пари, а не в SIP-5B.',
     },
   },
   playbook: {

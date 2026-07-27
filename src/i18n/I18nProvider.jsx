@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { readRoute, subscribeRoute, writeRoute } from '../lib/route';
 import { I18nContext } from './context';
 import en from './locales/en';
 import es from './locales/es';
@@ -24,6 +25,17 @@ const LOCALE_OPTIONS = [
   { code: 'uk', label: 'UK', name: 'Українська' },
   { code: 'ko', label: 'KO', name: '한국어' },
 ];
+
+// Locale codes are matched case-insensitively so `#/pt-br/...` from a pasted link still
+// resolves, and always normalized back to the canonical code the dictionary uses.
+function normalizeLocale(value) {
+  if (!value) {
+    return null;
+  }
+
+  const lower = String(value).toLowerCase();
+  return Object.keys(DICTIONARY).find((code) => code.toLowerCase() === lower) ?? null;
+}
 
 function resolvePath(messages, path) {
   return path.split('.').reduce((current, segment) => {
@@ -51,6 +63,13 @@ function formatMessage(message, values) {
 
 export function I18nProvider({ children }) {
   const [locale, setLocaleState] = useState(() => {
+    // A locale in the URL wins: a shared link must open in the language it was shared in,
+    // regardless of what this browser used last.
+    const fromUrl = normalizeLocale(readRoute().locale);
+    if (fromUrl) {
+      return fromUrl;
+    }
+
     if (typeof window === 'undefined') {
       return DEFAULT_LOCALE;
     }
@@ -68,10 +87,37 @@ export function I18nProvider({ children }) {
     document.documentElement.lang = locale;
   }, [locale]);
 
-  const setLocale = useCallback((nextLocale) => {
-    if (DICTIONARY[nextLocale]) {
-      setLocaleState(nextLocale);
+  // Keep the URL carrying the active locale, including when it arrived without one.
+  useEffect(() => {
+    if (!normalizeLocale(readRoute().locale)) {
+      writeRoute({ locale }, { replace: true });
     }
+  }, [locale]);
+
+  // Back/forward and links pasted into the address bar change the locale segment.
+  useEffect(
+    () =>
+      subscribeRoute(() => {
+        const fromUrl = normalizeLocale(readRoute().locale);
+
+        if (fromUrl) {
+          setLocaleState(fromUrl);
+        }
+      }),
+    [],
+  );
+
+  const setLocale = useCallback((nextLocale) => {
+    const normalized = normalizeLocale(nextLocale);
+
+    if (!normalized) {
+      return;
+    }
+
+    setLocaleState(normalized);
+    // Language switches replace rather than push: the back button should undo navigation,
+    // not step back through language changes.
+    writeRoute({ locale: normalized }, { replace: true });
   }, []);
 
   const t = useCallback(
