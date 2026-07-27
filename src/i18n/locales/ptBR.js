@@ -320,22 +320,14 @@ const ptBR = {
     description:
       'A camada de capital do Universal Markets: três tipos de vault comunitário que fornecem o capital de trading, os orçamentos de makers e os colchões de seguro sobre os quais os Universal Markets são construídos.',
     intro:
-      'Se o SIP-5A ativou a camada de yield do Universal Markets, o SIP-5B ativa a camada de capital. O tipo de um vault é fixado na criação e cada tipo carrega sua própria economia, suas regras de risco e suas regras de saída: um orçamento feito para ser distribuído não pode compartilhar a economia de LP de uma estratégia de trading, e o capital de seguro, que precisa estar presente de forma confiável, não pode compartilhar as regras de saída de nenhum dos dois.',
+      'Se o SIP-5A ativou a camada de yield do Universal Markets, o SIP-5B ativa a camada de capital. O tipo de um vault é fixado na criação, e cada tipo carrega sua própria economia, suas regras de risco e suas regras de saída.',
     meta: {
-      sip: 'SIP',
-      parent: 'Pai',
       status: 'Status',
-      date: 'Data',
       release: 'Data de release',
-      author: 'Autor',
     },
     metaValues: {
-      sip: '5B',
-      parent: 'SIP-5: Universal Markets Listing',
       status: 'Implementado',
-      date: '2026-06-30',
       release: '2026-07-18',
-      author: 'StandX Team',
     },
     docLink: 'Ler o SIP-5B',
     illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',
@@ -386,12 +378,8 @@ const ptBR = {
     },
     gate: {
       eyebrow: 'Trading Gate',
-      title: 'Quatro condições antes de um mercado ir para Live',
       description:
-        'Um mercado passa de Bootstrapping para Live somente quando as quatro condições se cumprem. Ative-as para operar o portão: ele abre na quarta, não antes.',
-      stateLabel: 'Estado do mercado',
-      bootstrapping: 'Bootstrapping',
-      live: 'Live',
+        'Um mercado passa de Bootstrapping para Live apenas quando as quatro condições são atendidas.',
       conditions: {
         sponsorEquity:
           'O equity bloqueado do Sponsor no Shield Vault associado atende ao required_sponsor_commitment.',
@@ -401,9 +389,6 @@ const ptBR = {
           'O Reward Vault do mercado tem orçamento de makers suficiente para o cronograma de liberação declarado.',
         review: 'A fonte de oráculo, a profundidade de makers, o OI cap e os parâmetros de risco passam pela revisão.',
       },
-      openCopy: 'As quatro condições se cumprem, então o mercado pode abrir para trading.',
-      closedCopy:
-        '{met} de {total} condições cumpridas. O mercado permanece em Bootstrapping até que as quatro se cumpram.',
       footnote:
         'O required_sponsor_commitment é definido por mercado a partir do seu OI cap, alavancagem máxima, volatilidade esperada, qualidade do oráculo e escala de liquidação projetada: os mercados não compartilham um número fixo.',
     },
@@ -589,18 +574,14 @@ const ptBR = {
   footer: {
     brand: 'StandX SIP Guide',
     tagline:
-      'Um explicador feito pela comunidade para o sistema SIP da StandX. Sem vínculo com a equipe StandX.',
+      'Um explicador do sistema de SIPs da StandX, feito pela comunidade.',
     disclaimer:
       'Apenas simulação educacional. Os números são ilustrativos — os resultados reais podem variar.',
+    sectionsTitle: 'Seções',
     resourcesTitle: 'Recursos',
     resources: {
-      docs: 'Docs da StandX',
+      sipDocs: 'Documentação dos SIPs',
       website: 'StandX.com',
-      sip1: 'SIP #1 — Block Trades',
-      sip2: 'SIP #2 — Position Yield',
-      sip3: 'SIP #3 — DUSD Native Yield',
-      sip4: 'SIP #4 — Block Options',
-      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: 'Comunidade',
     community: {

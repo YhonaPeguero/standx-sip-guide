@@ -322,22 +322,14 @@ const uk = {
     description:
       'Капітальний шар Universal Markets: три типи community vault, що постачають торговий капітал, maker-бюджети та страхові буфери, на яких тримаються Universal Markets.',
     intro:
-      'Якщо SIP-5A увімкнув шар прибутковості Universal Markets, то SIP-5B вмикає шар капіталу. Тип vault фіксується при створенні, і кожен тип має власну економіку, правила ризику та правила виходу: бюджет, створений для виплат, не може мати ту саму LP-економіку, що торгова стратегія, а страховий капітал, який мусить надійно бути на місці, не може мати правила виходу ні першого, ні другої.',
+      'Якщо SIP-5A увімкнув шар прибутковості Universal Markets, то SIP-5B вмикає шар капіталу. Тип vault фіксується при створенні, і кожен тип має власну економіку, правила ризику та правила виходу.',  // TODO: needs native review
     meta: {
-      sip: 'SIP',
-      parent: 'Батьківський',
       status: 'Статус',
-      date: 'Дата',
       release: 'Дата релізу',
-      author: 'Автор',
     },
     metaValues: {
-      sip: '5B',
-      parent: 'SIP-5: Universal Markets Listing',
       status: 'Реалізовано',
-      date: '2026-06-30',
       release: '2026-07-18',
-      author: 'StandX Team',
     },
     docLink: 'Читати SIP-5B',
     illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',
@@ -388,12 +380,8 @@ const uk = {
     },
     gate: {
       eyebrow: 'Trading Gate',
-      title: 'Чотири умови, перш ніж ринок стане Live',
       description:
-        'Ринок переходить із Bootstrapping у Live лише тоді, коли виконано всі чотири умови. Перемикайте їх, щоб побачити роботу воріт: вони відкриваються на четвертій, не раніше.',
-      stateLabel: 'Стан ринку',
-      bootstrapping: 'Bootstrapping',
-      live: 'Live',
+        'Ринок переходить із Bootstrapping до Live лише тоді, коли виконано всі чотири умови.',  // TODO: needs native review
       conditions: {
         sponsorEquity:
           'Заблокований equity Sponsor у пов’язаному Shield Vault відповідає required_sponsor_commitment.',
@@ -403,9 +391,6 @@ const uk = {
           'Reward Vault ринку має достатній maker-бюджет для заявленого графіка розподілу.',
         review: 'Джерело оракула, maker depth, OI cap і параметри ризику проходять перевірку.',
       },
-      openCopy: 'Усі чотири умови виконані, тож ринок може відкритися для торгів.',
-      closedCopy:
-        'Виконано {met} з {total} умов. Ринок залишається у Bootstrapping, поки не виконано всі чотири.',
       footnote:
         'required_sponsor_commitment встановлюється для кожного ринку окремо — з його OI cap, максимального левериджу, очікуваної волатильності, якості оракула та прогнозованого масштабу ліквідацій; ринки не мають однієї фіксованої цифри.',
     },
@@ -591,18 +576,14 @@ const uk = {
   footer: {
     brand: 'StandX SIP Guide',
     tagline:
-      'Пояснювач, створений спільнотою для системи SIP від StandX. Не пов’язаний з командою StandX.',
+      'Пояснювач системи SIP від StandX, створений спільнотою.',  // TODO: needs native review
     disclaimer:
       'Лише освітня симуляція. Числа є ілюстративними — фактичні результати можуть відрізнятися.',
+    sectionsTitle: 'Розділи',  // TODO: needs native review
     resourcesTitle: 'Ресурси',
     resources: {
-      docs: 'Документація StandX',
+      sipDocs: 'Документація SIP',  // TODO: needs native review
       website: 'StandX.com',
-      sip1: 'SIP #1 — Block Trades',
-      sip2: 'SIP #2 — Position Yield',
-      sip3: 'SIP #3 — DUSD Native Yield',
-      sip4: 'SIP #4 — Block Options',
-      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: 'Спільнота',
     community: {

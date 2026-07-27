@@ -1,17 +1,22 @@
 import { useI18n } from '../i18n';
 import { Reveal } from './Reveal';
-import Button from './ui/Button';
-import Card from './ui/Card';
 import SectionHeader from './ui/SectionHeader';
 import LiquidationFlow from './vaults/LiquidationFlow';
-import TradingGateChecklist from './vaults/TradingGateChecklist';
 import VaultTypesCompare from './vaults/VaultTypesCompare';
 
 export const VAULTS_DOC_URL = 'https://docs.standx.com/sip/sip-5b-community-vault';
 
-// Header field table of SIP-5B, verbatim. Every figure in this view is either from the
-// proposal, typed in by the reader, or marked as not published.
-const META_FIELDS = ['sip', 'parent', 'status', 'date', 'release', 'author'];
+// SIP-5B's header table used to run here as a six-field band: SIP, PARENT, STATUS, DATE,
+// RELEASE DATE, AUTHOR. Four of those earned their removal rather than a smaller type size.
+//
+// AUTHOR was the worst of them. "StandX Team" set directly under this page's own title
+// reads as the byline of the page, not of the proposal it describes — precisely the
+// impression a community-built, unaffiliated guide must not give. SIP and PARENT were
+// already carried by the section badge and by the prose below it, and DATE said nothing
+// the release date does not.
+//
+// What survives is what a reader actually needs before deciding to read on: whether the
+// proposal is live, when it shipped, and where to find it.
 
 export default function CommunityVaultsView() {
   const { t } = useI18n();
@@ -27,40 +32,48 @@ export default function CommunityVaultsView() {
             description={t('vaults.description')}
           />
           <p className="type-body max-w-[760px] text-[var(--sx-text-muted)]">{t('vaults.intro')}</p>
-        </Reveal>
 
-        <Reveal delay={0.08}>
-          <Card tone="subtle" padding="md">
-            <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-3 lg:grid-cols-6">
-              {META_FIELDS.map((field) => (
-                <div key={field} className="flex flex-col gap-1.5">
-                  <dt className="mono text-[10.5px] uppercase tracking-[0.14em] text-[var(--sx-muted)]">
-                    {t(`vaults.meta.${field}`)}
-                  </dt>
-                  <dd className="mono text-[13px] font-semibold tracking-[-0.01em] text-[var(--sx-text)]">
-                    {t(`vaults.metaValues.${field}`)}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+          {/* One line: is it live, when did it ship, where do I read it. */}
+          <p className="mono flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[12px] text-[var(--sx-muted)]">
+            <span>
+              {t('vaults.meta.status')}{' '}
+              <span className="font-semibold text-[var(--sx-text)]">
+                {t('vaults.metaValues.status')}
+              </span>
+            </span>
 
-            <div className="hairline mt-5 pt-4">
-              <Button
-                variant="outline"
-                size="sm"
-                href={VAULTS_DOC_URL}
-                iconRight={<span aria-hidden="true">↗</span>}
-              >
-                {t('vaults.docLink')}
-              </Button>
-            </div>
-          </Card>
+            <span aria-hidden="true" className="text-[var(--sx-muted-soft)]">
+              ·
+            </span>
+
+            <span>
+              {t('vaults.meta.release')}{' '}
+              <span className="font-semibold text-[var(--sx-text)]">
+                {t('vaults.metaValues.release')}
+              </span>
+            </span>
+
+            <span aria-hidden="true" className="text-[var(--sx-muted-soft)]">
+              ·
+            </span>
+
+            <a
+              href={VAULTS_DOC_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tap-target inline-flex items-center font-semibold text-[var(--sx-primary-bright)] underline decoration-[var(--sx-border-strong)] underline-offset-4 transition-colors duration-200 hover:decoration-[var(--sx-primary-bright)]"
+            >
+              {t('vaults.docLink')}
+              <span aria-hidden="true">&nbsp;↗</span>
+            </a>
+          </p>
         </Reveal>
       </div>
 
-      {/* Three modules; Shield Health rides along inside the liquidation flow as a strip */}
+      {/* Two sections now. The trading gate rides at the end of the vault types section as
+          a strip, the way Shield Health rides inside the liquidation flow, which leaves the
+          liquidation flow the whole second section for the explanation it already carries. */}
       <VaultTypesCompare />
-      <TradingGateChecklist />
       <LiquidationFlow />
     </div>
   );

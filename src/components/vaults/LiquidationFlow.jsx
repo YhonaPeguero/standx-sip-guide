@@ -7,6 +7,7 @@ import { Reveal } from '../Reveal';
 import Card from '../ui/Card';
 import SectionHeader from '../ui/SectionHeader';
 import ShieldHealthStrip from './ShieldHealthStrip';
+import TradingGateChecklist from './TradingGateChecklist';
 import { IllustrativeNote, NotPublishedChip } from '../ui/Markers';
 
 const AMOUNT_PATTERN = /^\d*(\.\d{0,2})?$/;
@@ -147,7 +148,7 @@ export default function LiquidationFlow() {
 
       <Reveal delay={0.06} className="flex flex-col gap-3">
         <Card tone="default" padding="lg">
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-3.5 sm:grid-cols-3">
             {INPUTS.map((input) => (
               <AmountField
                 key={input.id}
@@ -160,7 +161,7 @@ export default function LiquidationFlow() {
             ))}
           </div>
 
-          <div className="mt-7 flex flex-col items-stretch gap-2 lg:flex-row lg:items-center">
+          <div className="mt-9 flex flex-col items-stretch gap-2.5 lg:flex-row lg:items-center">
             <FlowNode
               index={1}
               title={t('vaults.liquidation.nodes.orderBook.title')}
@@ -198,7 +199,7 @@ export default function LiquidationFlow() {
 
           {/* Values sit in a fixed-width right-aligned column so changing digits never
               reflow the labels beside them */}
-          <dl className="mt-7 grid gap-x-6 gap-y-3.5 sm:grid-cols-2">
+          <dl className="mt-9 grid gap-x-8 gap-y-4 sm:grid-cols-2">
             {results.map((result) => (
               <div
                 key={result.id}
@@ -225,7 +226,7 @@ export default function LiquidationFlow() {
 
           <p
             aria-live="polite"
-            className="mt-5 text-[13px] leading-[1.58]"
+            className="mt-7 text-[13.5px] leading-[1.62]"
             style={{ color: reachesAdl ? 'var(--sx-accent)' : 'var(--sx-text-muted)' }}
           >
             {!hasPosition
@@ -235,7 +236,7 @@ export default function LiquidationFlow() {
                 : t('vaults.liquidation.states.covered')}
           </p>
 
-          <div className="hairline mt-5 pt-4">
+          <div className="hairline mt-7 pt-5">
             <p className="text-[12.5px] leading-[1.58] text-[var(--sx-muted)]">
               {t('vaults.liquidation.isolationNote')}
             </p>
@@ -246,6 +247,9 @@ export default function LiquidationFlow() {
           <ShieldHealthStrip />
         </Card>
       </Reveal>
+
+      {/* Closes the section: the gate a market passes before any of this applies to it. */}
+      <TradingGateChecklist />
     </div>
   );
 }

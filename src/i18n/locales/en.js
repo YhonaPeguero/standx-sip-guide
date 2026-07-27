@@ -318,22 +318,14 @@ const en = {
     description:
       'The capital layer of Universal Markets: three community vault types supplying the trading capital, maker budgets and insurance buffers that Universal Markets are built on.',
     intro:
-      'Where SIP-5A activated the yield layer of Universal Markets, SIP-5B activates the capital layer. A vault’s type is fixed at creation and each type carries its own economics, risk rules and exit rules — a budget designed to be paid out cannot share LP economics with a trading strategy, and insurance capital that must stay reliably present cannot share exit rules with either.',
+      'Where SIP-5A activated the yield layer of Universal Markets, SIP-5B activates the capital layer. A vault’s type is fixed at creation, and each type carries its own economics, risk rules and exit rules.',
     meta: {
-      sip: 'SIP',
-      parent: 'Parent',
       status: 'Status',
-      date: 'Date',
       release: 'Release date',
-      author: 'Author',
     },
     metaValues: {
-      sip: '5B',
-      parent: 'SIP-5: Universal Markets Listing',
       status: 'Implemented',
-      date: '2026-06-30',
       release: '2026-07-18',
-      author: 'StandX Team',
     },
     docLink: 'Read SIP-5B',
     // Fixed markers — identical in every locale, and never attached to an invented number.
@@ -385,12 +377,8 @@ const en = {
     },
     gate: {
       eyebrow: 'Trading Gate',
-      title: 'Four conditions before a market goes Live',
       description:
-        'A market moves from Bootstrapping to Live only when all four conditions hold. Toggle them to work the gate — it opens on the fourth, and not before.',
-      stateLabel: 'Market state',
-      bootstrapping: 'Bootstrapping',
-      live: 'Live',
+        'A market moves from Bootstrapping to Live only when all four conditions hold.',
       conditions: {
         sponsorEquity:
           'The Sponsor’s locked equity in the associated Shield Vault meets required_sponsor_commitment.',
@@ -400,9 +388,6 @@ const en = {
           'The market’s Reward Vault holds enough maker budget for its declared release schedule.',
         review: 'The oracle source, maker depth, OI cap and risk parameters pass review.',
       },
-      openCopy: 'All four conditions hold, so the market can open for trading.',
-      closedCopy:
-        '{met} of {total} conditions met. The market stays in Bootstrapping until all four hold.',
       footnote:
         'required_sponsor_commitment is set per market from its OI cap, maximum leverage, expected volatility, oracle quality and projected liquidation scale — markets do not share one fixed number.',
     },
@@ -588,18 +573,14 @@ const en = {
   footer: {
     brand: 'StandX SIP Guide',
     tagline:
-      'A community-built explainer for the StandX SIP system. Not affiliated with the StandX team.',
+      'A community-built explainer for the StandX SIP system.',
     disclaimer:
       'Educational simulation only. Numbers shown are illustrative — actual results may vary.',
+    sectionsTitle: 'Sections',
     resourcesTitle: 'Resources',
     resources: {
-      docs: 'StandX Docs',
+      sipDocs: 'SIP documentation',
       website: 'StandX.com',
-      sip1: 'SIP #1 — Block Trades',
-      sip2: 'SIP #2 — Position Yield',
-      sip3: 'SIP #3 — DUSD Native Yield',
-      sip4: 'SIP #4 — Block Options',
-      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: 'Community',
     community: {

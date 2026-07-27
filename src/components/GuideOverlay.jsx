@@ -165,7 +165,12 @@ export default function GuideOverlay({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed right-4 top-[92px] z-40 w-[min(92vw,360px)] border border-[var(--sx-border-strong)] bg-[rgba(11,18,15,0.96)] p-4 shadow-[var(--sx-shadow-lg)]"
+            // Anchored to the bottom until there is room beside the headline. It used to
+            // sit at top-[92px] on every width, which on a phone put it directly over the
+            // H1 — the card asked about a 60-second guide before the reader could read
+            // what the guide was for. On mobile it clears the BottomNav; from lg, where
+            // the 760px headline leaves the right column free, it returns to the top.
+            className="fixed inset-x-4 bottom-[calc(88px+env(safe-area-inset-bottom))] z-40 border border-[var(--sx-border-strong)] bg-[rgba(11,18,15,0.96)] p-4 shadow-[var(--sx-shadow-lg)] sm:bottom-6 lg:inset-x-auto lg:bottom-auto lg:right-4 lg:top-[92px] lg:w-[min(92vw,360px)]"
             style={{ borderRadius: 6 }}
           >
             <p className="text-[14px] leading-[1.6] text-[var(--sx-text)]">{t('guide.prompt')}</p>

@@ -1,14 +1,20 @@
 import { useI18n } from '../i18n';
+import { buildHash } from '../lib/route';
 
+// The resource list used to run seven links: StandX Docs, StandX.com, and one per SIP.
+// Docs and the site are the same destination as far as a reader is concerned, and picking
+// out individual SIPs is arbitrary — the guide already has a section for each. One link to
+// the SIP documentation replaces the five, and it is the primary link here because it is
+// the source everything on this site is transcribed from.
 const RESOURCE_LINKS = [
-  { key: 'docs', href: 'https://docs.standx.com' },
+  { key: 'sipDocs', href: 'https://docs.standx.com/sip/', primary: true },
   { key: 'website', href: 'https://standx.com' },
-  { key: 'sip1', href: 'https://docs.standx.com/sip/sip-1-block-trade' },
-  { key: 'sip2', href: 'https://docs.standx.com/sip/sip-2-position-yield' },
-  { key: 'sip3', href: 'https://docs.standx.com/sip/sip-3-dusd-native-yield' },
-  { key: 'sip4', href: 'https://docs.standx.com/sip/sip-4-block-options' },
-  { key: 'sip5', href: 'https://docs.standx.com/sip/sip-5-universal-markets-listing' },
 ];
+
+// The guide's own surfaces. These are the only internal links in the footer, and they are
+// what makes the external marker mean anything: before this every link went off-site, so
+// the ↗ on all of them distinguished nothing.
+const SECTION_TABS = ['overview', 'simulator', 'playbook', 'vaults'];
 
 const COMMUNITY_LINKS = [
   { key: 'author', href: 'https://x.com/thisnotmeeme' },
@@ -23,12 +29,19 @@ function IconX() {
   );
 }
 
+function ColumnTitle({ children }) {
+  return <span className="eyebrow eyebrow-accent">{children}</span>;
+}
+
 export default function Footer() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+
+  const linkBase =
+    'control-min inline-flex items-center gap-1.5 text-[13px] underline-offset-4 transition-colors duration-200 hover:text-[var(--sx-primary-bright)] hover:underline hover:decoration-[var(--sx-primary-bright)]';
 
   return (
     <footer className="mt-[var(--sx-gap-section)] border-t border-[var(--sx-border)] pt-12">
-      <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
           <span className="mono text-[11px] uppercase tracking-[0.18em] text-[var(--sx-primary-bright)]">
             {t('footer.brand')}
@@ -41,19 +54,46 @@ export default function Footer() {
           </p>
         </div>
 
+        {/* Internal: no arrow, because nothing leaves the page. */}
         <div className="flex flex-col gap-3">
-          <span className="eyebrow">{t('footer.resourcesTitle')}</span>
-          <ul className="space-y-2">
+          <ColumnTitle>{t('footer.sectionsTitle')}</ColumnTitle>
+          <ul className="space-y-1">
+            {SECTION_TABS.map((tab) => (
+              <li key={tab}>
+                <a href={buildHash({ locale, tab })} className={`${linkBase} text-[var(--sx-text-muted)]`}>
+                  {t(`topBar.nav.${tab}`)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* External: the ↗ marks the boundary, and the primary link carries full-strength
+            text and weight so the source of every figure on this site reads first. */}
+        <div className="flex flex-col gap-3">
+          <ColumnTitle>{t('footer.resourcesTitle')}</ColumnTitle>
+          <ul className="space-y-1">
             {RESOURCE_LINKS.map((link) => (
               <li key={link.key}>
                 <a
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="control-min inline-flex items-center gap-1.5 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
+                  className={`${linkBase} ${
+                    link.primary
+                      ? 'font-semibold text-[var(--sx-text)]'
+                      : 'text-[var(--sx-text-muted)]'
+                  }`}
                 >
                   <span>{t(`footer.resources.${link.key}`)}</span>
-                  <span aria-hidden="true" className="text-[10px] text-[var(--sx-muted-soft)]">↗</span>
+                  <span
+                    aria-hidden="true"
+                    className={`text-[10px] ${
+                      link.primary ? 'text-[var(--sx-primary-bright)]' : 'text-[var(--sx-muted-soft)]'
+                    }`}
+                  >
+                    ↗
+                  </span>
                 </a>
               </li>
             ))}
@@ -61,15 +101,15 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <span className="eyebrow">{t('footer.communityTitle')}</span>
-          <ul className="space-y-2">
+          <ColumnTitle>{t('footer.communityTitle')}</ColumnTitle>
+          <ul className="space-y-1">
             {COMMUNITY_LINKS.map((link) => (
               <li key={link.key}>
                 <a
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="control-min inline-flex items-center gap-2 text-[13px] text-[var(--sx-text-muted)] transition-colors duration-200 hover:text-[var(--sx-primary-bright)]"
+                  className={`${linkBase} gap-2 text-[var(--sx-text-muted)]`}
                 >
                   <IconX />
                   <span>{t(`footer.community.${link.key}`)}</span>

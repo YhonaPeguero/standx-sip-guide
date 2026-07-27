@@ -316,22 +316,14 @@ const ko = {
     description:
       'Universal Markets의 자본 레이어입니다. Universal Markets가 기반으로 삼는 트레이딩 자본, maker 예산, 보험 버퍼를 공급하는 세 가지 커뮤니티 vault 유형입니다.',
     intro:
-      'SIP-5A가 Universal Markets의 수익 레이어를 활성화했다면, SIP-5B는 자본 레이어를 활성화합니다. vault의 유형은 생성 시점에 확정되며 각 유형은 고유한 경제 구조, 리스크 규칙, 출금 규칙을 갖습니다. 지급을 전제로 설계된 예산은 트레이딩 전략의 LP 경제 구조를 공유할 수 없고, 항상 신뢰할 수 있게 존재해야 하는 보험 자본은 둘 중 어느 쪽의 출금 규칙도 공유할 수 없습니다.',
+      'SIP-5A가 Universal Markets의 수익 레이어를 활성화했다면, SIP-5B는 자본 레이어를 활성화합니다. vault의 유형은 생성 시점에 확정되며, 각 유형은 고유한 경제 구조, 리스크 규칙, 출금 규칙을 갖습니다.',  // TODO: needs native review
     meta: {
-      sip: 'SIP',
-      parent: '상위 제안',
       status: '상태',
-      date: '날짜',
       release: '릴리스 날짜',
-      author: '작성자',
     },
     metaValues: {
-      sip: '5B',
-      parent: 'SIP-5: Universal Markets Listing',
       status: '구현 완료',
-      date: '2026-06-30',
       release: '2026-07-18',
-      author: 'StandX Team',
     },
     docLink: 'SIP-5B 읽기',
     illustrative: 'Illustrative — user-entered amounts, not StandX parameters.',
@@ -382,12 +374,8 @@ const ko = {
     },
     gate: {
       eyebrow: 'Trading Gate',
-      title: '마켓이 Live가 되기 위한 네 가지 조건',
       description:
-        '마켓은 네 조건이 모두 충족될 때만 Bootstrapping에서 Live로 넘어갑니다. 각 조건을 켜서 게이트를 확인하세요. 네 번째가 충족되는 순간에만 열립니다.',
-      stateLabel: '마켓 상태',
-      bootstrapping: 'Bootstrapping',
-      live: 'Live',
+        '시장은 네 가지 조건이 모두 충족될 때만 Bootstrapping에서 Live로 전환됩니다.',  // TODO: needs native review
       conditions: {
         sponsorEquity:
           '연결된 Shield Vault에 있는 Sponsor의 락업 equity가 required_sponsor_commitment를 충족합니다.',
@@ -397,9 +385,6 @@ const ko = {
           '마켓의 Reward Vault가 공표된 배포 일정에 필요한 maker 예산을 보유합니다.',
         review: '오라클 소스, maker depth, OI cap, 리스크 파라미터가 심사를 통과합니다.',
       },
-      openCopy: '네 조건이 모두 충족되어 마켓이 트레이딩을 시작할 수 있습니다.',
-      closedCopy:
-        '{total}개 중 {met}개 조건 충족. 네 조건이 모두 충족될 때까지 마켓은 Bootstrapping에 머무릅니다.',
       footnote:
         'required_sponsor_commitment는 마켓의 OI cap, 최대 레버리지, 예상 변동성, 오라클 품질, 예상 청산 규모를 바탕으로 마켓별로 설정됩니다. 모든 마켓이 하나의 고정 수치를 공유하지 않습니다.',
     },
@@ -584,18 +569,14 @@ const ko = {
   footer: {
     brand: 'StandX SIP 가이드',
     tagline:
-      'StandX의 SIP 시스템을 위한 커뮤니티 기반 설명서입니다. StandX 팀과 공식적인 연관은 없습니다.',
+      '커뮤니티가 만든 StandX SIP 시스템 해설서입니다.',  // TODO: needs native review
     disclaimer:
       '교육 목적의 시뮬레이션입니다. 표시되는 수치는 예시이며, 실제 결과는 다를 수 있습니다.',
+    sectionsTitle: '섹션',  // TODO: needs native review
     resourcesTitle: '리소스',
     resources: {
-      docs: 'StandX 문서',
+      sipDocs: 'SIP 문서',  // TODO: needs native review
       website: 'StandX.com',
-      sip1: 'SIP #1 — Block Trades',
-      sip2: 'SIP #2 — Position Yield',
-      sip3: 'SIP #3 — DUSD Native Yield',
-      sip4: 'SIP #4 — Block Options',
-      sip5: 'SIP #5 — Universal Markets',
     },
     communityTitle: '커뮤니티',
     community: {
