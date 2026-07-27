@@ -38,6 +38,8 @@ for (const [name, flat] of Object.entries(flatLocales)) {
   }
 }
 
-if (!hadIssue) {
-  console.log('All locales match English key set. Total keys per locale:', enKeys.size);
+if (hadIssue) {
+  process.exit(1);
 }
+
+console.log('All locales match English key set. Total keys per locale:', enKeys.size);
