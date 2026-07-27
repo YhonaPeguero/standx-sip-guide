@@ -39,6 +39,18 @@ const GUIDE_SPOTLIGHT_PADDING = 10;
 const TABS = ['overview', 'simulator', 'playbook', 'vaults'];
 const DEFAULT_TAB = 'overview';
 
+// Every step spotlights one concrete element, and every tab appears. The previous list
+// pointed `simulator` at the whole section-block — spotlighting everything, which
+// highlights nothing — and never mentioned vaults, the largest surface in the product. It
+// also predated the simulator restructure, so its copy described a sidebar and a toggle
+// panel that no longer exist.
+//
+// Each targetId must match a live data-guide-id. Current anchors:
+//   guide-dusd / guide-sip-2 / guide-sip-3   YieldLoopFlow nodes      (overview)
+//   guide-capital / guide-rates              ControlBand cards        (simulator)
+//   guide-output                             the output card          (simulator)
+//   guide-vaults                             the vault-type grid      (vaults)
+//   guide-playbook                           the flow grid            (playbook)
 const GUIDE_STEPS = [
   {
     id: 'dusd',
@@ -62,18 +74,32 @@ const GUIDE_STEPS = [
     textKey: 'guide.steps.sip3.text',
   },
   {
-    id: 'protocolLayers',
-    tabId: 'overview',
-    targetId: 'guide-protocol-layers',
-    titleKey: 'guide.steps.protocolLayers.title',
-    textKey: 'guide.steps.protocolLayers.text',
+    id: 'capital',
+    tabId: 'simulator',
+    targetId: 'guide-capital',
+    titleKey: 'guide.steps.capital.title',
+    textKey: 'guide.steps.capital.text',
   },
   {
-    id: 'simulator',
+    id: 'rates',
     tabId: 'simulator',
-    targetId: 'guide-simulator',
-    titleKey: 'guide.steps.simulator.title',
-    textKey: 'guide.steps.simulator.text',
+    targetId: 'guide-rates',
+    titleKey: 'guide.steps.rates.title',
+    textKey: 'guide.steps.rates.text',
+  },
+  {
+    id: 'output',
+    tabId: 'simulator',
+    targetId: 'guide-output',
+    titleKey: 'guide.steps.output.title',
+    textKey: 'guide.steps.output.text',
+  },
+  {
+    id: 'vaults',
+    tabId: 'vaults',
+    targetId: 'guide-vaults',
+    titleKey: 'guide.steps.vaults.title',
+    textKey: 'guide.steps.vaults.text',
   },
   {
     id: 'playbook',

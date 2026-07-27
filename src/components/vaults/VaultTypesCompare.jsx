@@ -32,7 +32,7 @@ export default function VaultTypesCompare() {
         />
       </Reveal>
 
-      <StaggerGroup className="grid gap-3 md:grid-cols-3">
+      <StaggerGroup className="grid gap-3 md:grid-cols-3" data-guide-id="guide-vaults">
         {VAULT_TYPES.map(({ id, tone, hasParams }) => {
           const isOpen = openId === id;
           const params = hasParams ? t(`vaults.types.${id}.params`) : [];

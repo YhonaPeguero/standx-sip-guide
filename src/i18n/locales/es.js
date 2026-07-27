@@ -33,27 +33,43 @@ const es = {
     steps: {
       dusd: {
         title: 'DUSD',
-        text: 'DUSD genera rendimiento automáticamente mientras lo mantienes. Siempre está activo: sin staking, sin interruptor.',
+        text:
+          'DUSD genera rendimiento automáticamente mientras lo mantienes. Siempre está activo: sin staking, sin interruptor.',
       },
       sip2: {
         title: 'SIP #2 Rendimiento de Posición',
-        text: 'Esta es la capa opcional que tú controlas. Activar SIP #2 suma rendimiento sobre posiciones abiertas elegibles por encima del baseline.',
+        text:
+          'Esta es la capa opcional que tú controlas. Activar SIP #2 suma rendimiento sobre posiciones abiertas elegibles por encima del baseline.',
       },
       sip3: {
         title: 'SIP #3 Expansión de Yield Nativo DUSD',
-        text: 'Como el yield base de DUSD, SIP #3 siempre está activo: la actividad de trading en StandX se canaliza al yield de DUSD en segundo plano.',
+        text:
+          'Como el yield base de DUSD, SIP #3 siempre está activo: la actividad de trading en StandX se canaliza al yield de DUSD en segundo plano.',
       },
-      protocolLayers: {
-        title: 'Cómo se apilan las capas',
-        text: 'DUSD y SIP #3 corren solos. SIP #2 es la capa que tú decides encender. El panel de control muestra qué es pasivo y qué activas tú.',
+      capital: {
+        title: 'Capital',
+        text:
+          'Empieza aquí. Elige un preset o escribe cualquier monto: 10k y 1.5m funcionan. Todo lo de abajo se recalcula a partir de esto.',
       },
-      simulator: {
-        title: 'Simulador',
-        text: 'Introduce tus propias tasas y prueba distintos capitales y horizontes para ver cómo puede comportarse cada capa.',
+      rates: {
+        title: 'Tasas de rendimiento',
+        text:
+          'Las pones tú. StandX no publica ninguna de las dos, así que ambos campos empiezan vacíos y llevan la marca not published: aquí no se adivina nada por ti.',
+      },
+      output: {
+        title: 'Lo que producen tus números',
+        text:
+          'La ganancia, el gráfico y las estadísticas se leen de lo que escribiste arriba. Sin tasa, la ganancia es cero.',
+      },
+      vaults: {
+        title: 'Community Vaults',
+        text:
+          'SIP-5B suma tres tipos de vault: estrategia, recompensa y escudo. Cada uno declara su fuente de retorno y cómo se sale.',
       },
       playbook: {
         title: 'Playbook de Yield',
-        text: 'Explora flujos simples de la comunidad para entender y usar los SIPs de StandX.',
+        text:
+          'Flujos breves de la comunidad para usar los SIP, cada uno de pocos pasos de principio a fin.',
       },
     },
   },

@@ -53,7 +53,7 @@ export default function SimulatorView({
   const { t } = useI18n();
 
   return (
-    <div className="section-block" data-guide-id="guide-simulator">
+    <div className="section-block">
       <Reveal as="section" className="flex flex-col gap-8">
         <div className="flex flex-col gap-5">
           <div className="flex flex-wrap items-center gap-3">
@@ -97,7 +97,7 @@ export default function SimulatorView({
       </Reveal>
 
       <Reveal as="section" delay={0.1}>
-        <Card as="article" tone="default" padding="lg" elevated>
+        <Card as="article" tone="default" padding="lg" elevated data-guide-id="guide-output">
           <div className="flex items-start justify-between gap-5">
             <ValueDisplay
               estimatedGainLabel={estimatedGainLabel}

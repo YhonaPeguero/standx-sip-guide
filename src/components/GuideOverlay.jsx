@@ -147,6 +147,15 @@ export default function GuideOverlay({
         }
       : null;
 
+  // The panel goes on whichever side of the spotlight has more room, so it never sits on
+  // top of the element it is describing. Anchored at the bottom by default, which is where
+  // it belongs when nothing is highlighted.
+  const viewportHeight = typeof window === 'undefined' ? 0 : window.innerHeight;
+  const panelAtTop = spotlight
+    ? spotlight.top > viewportHeight - (spotlight.top + spotlight.height)
+    : false;
+  const panelPlacement = panelAtTop ? 'top-4 sm:top-6' : 'bottom-4 sm:bottom-6';
+
   return (
     <>
       <AnimatePresence>
@@ -246,7 +255,7 @@ export default function GuideOverlay({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 12 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed bottom-4 left-1/2 z-[71] w-[min(94vw,420px)] -translate-x-1/2 border border-[var(--sx-border-strong)] bg-[rgba(9,15,12,0.98)] p-4 shadow-[var(--sx-shadow-lg)] outline-none pointer-events-auto sm:bottom-6 sm:left-auto sm:right-6 sm:w-[380px] sm:translate-x-0"
+              className={`fixed left-1/2 z-[71] w-[min(94vw,420px)] -translate-x-1/2 border border-[var(--sx-border-strong)] bg-[rgba(9,15,12,0.98)] p-4 shadow-[var(--sx-shadow-lg)] outline-none pointer-events-auto sm:left-auto sm:right-6 sm:w-[380px] sm:translate-x-0 ${panelPlacement}`}
               style={{ borderRadius: 8 }}
             >
               <div className="flex items-center justify-between gap-2">

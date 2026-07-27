@@ -27,7 +27,7 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
   }));
 
   return (
-    <section className="section-block" data-guide-id="guide-playbook">
+    <section className="section-block">
       <Reveal>
         <SectionHeader
           size="lg"
@@ -37,7 +37,7 @@ export default function YieldPlaybookView({ onTryFlow, onLearnMore }) {
         />
       </Reveal>
 
-      <StaggerGroup className="grid gap-4 md:grid-cols-2">
+      <StaggerGroup className="grid gap-4 md:grid-cols-2" data-guide-id="guide-playbook">
         {playbookCards.map((card) => (
           <StaggerItem key={card.id} className="h-full">
           <Card tone="raised" padding="lg" interactive className="h-full">

@@ -96,7 +96,13 @@ export default function ControlBand({
     // most air. Hierarchy from structure and spacing rather than from a colour the palette
     // does not have.
     <div className="grid items-start gap-4 lg:grid-cols-[1.15fr_1fr_0.9fr]">
-      <Card as="section" tone="raised" padding="lg" aria-labelledby="control-capital-heading">
+      <Card
+        as="section"
+        tone="raised"
+        padding="lg"
+        data-guide-id="guide-capital"
+        aria-labelledby="control-capital-heading"
+      >
         <CapitalSimulator
           headingId="control-capital-heading"
           amountInput={capitalInput}
@@ -108,7 +114,13 @@ export default function ControlBand({
         />
       </Card>
 
-      <Card as="section" tone="default" padding="md" aria-labelledby="control-rates-heading">
+      <Card
+        as="section"
+        tone="default"
+        padding="md"
+        data-guide-id="guide-rates"
+        aria-labelledby="control-rates-heading"
+      >
         <RateInputs
           headingId="control-rates-heading"
           baseRateInput={baseRateInput}
