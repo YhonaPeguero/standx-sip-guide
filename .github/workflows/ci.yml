@@ -41,6 +41,12 @@ jobs:
       - name: Check i18n usage
         run: node scripts/check-i18n-usage.mjs
 
-      # The simulator's 13 invariants, including that an unentered rate yields zero gain.
+      # The simulator's invariants, including that an unentered rate yields zero gain and
+      # that the accrual stays simple rather than compounding.
       - name: Check simulator math
         run: node scripts/check-simulator-math.mjs
+
+      # The simulator's rate copy keeps saying SIP-3 sits inside the DUSD rate, in every
+      # locale, and never presents a rate as a fixed protocol APY.
+      - name: Check simulator copy
+        run: node scripts/check-simulator-copy.mjs

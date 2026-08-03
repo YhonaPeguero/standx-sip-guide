@@ -54,7 +54,7 @@ const es = {
       rates: {
         title: 'Tasas de rendimiento',
         text:
-          'Las pones tú. StandX no publica ninguna de las dos, así que ambos campos empiezan vacíos y llevan la marca not published: aquí no se adivina nada por ti.',
+          'Las pones tú. El primer campo es todo el supuesto de DUSD —sus fuentes de rendimiento actuales con SIP-3 ya dentro— y SIP #2 es la capa opcional que se suma encima. Las especificaciones no fijan ninguna de las dos tasas, así que ambos campos empiezan vacíos y llevan la marca not fixed by SIP.',
       },
       output: {
         title: 'Lo que producen tus números',
@@ -511,11 +511,12 @@ const es = {
     description:
       'El rendimiento base de DUSD y SIP #3 están siempre activos. Activa SIP #2 para sumar rendimiento de posiciones por encima.',
     sip2Label: 'SIP #2 — Rendimiento de posición',
-    sip2Hint: 'Capa opcional. Activa el rendimiento en posiciones abiertas elegibles.',
+    sip2Hint:
+      'SIP-3 ya está incluido en la tasa de DUSD. SIP-2 es una capa opcional para posiciones abiertas elegibles.',
     breakdown: {
-      base: 'Base',
+      base: 'DUSD · Base + SIP-3',
       sip2: 'SIP #2',
-      applied: 'Aplicada',
+      applied: 'Estimación aplicada',
     },
     learnHowItWorks: 'Aprender cómo funciona',
   },
@@ -551,12 +552,16 @@ const es = {
   },
   rateInputs: {
     eyebrow: 'Tasas de rendimiento',
-    baseLabel: 'Base DUSD — anual',
-    sip2Label: 'SIP #2 — anual',
+    baseLabel: 'Rendimiento DUSD — Base + SIP-3',
+    baseHint:
+      'Tasa anual combinada de las fuentes de rendimiento actuales de DUSD y de la capa de comisiones que enruta SIP-3.',
+    sip2Label: 'SIP #2 — tasa anual efectiva',
+    // Igual en todos los idiomas, como los dos marcadores fijos del sitio.
+    notFixedMarker: 'not fixed by SIP',
     placeholder: '0.00',
     rangeHint: 'Introduce {min}–{max}%',
     sip2DisabledHint: 'Activa SIP #2 para aplicar esta tasa.',
-    note: 'StandX no publica ninguna tasa para DUSD, SIP #2 ni SIP #3. Estas cifras son tuyas y la proyección es aritmética sobre ellas.',
+    note: 'Las especificaciones de los SIP no definen APY fijos. Introduce tus propios supuestos. SIP-2 se modela como una tasa anual efectiva ilustrativa y no reproduce la fórmula completa de reparto del pool de comisiones del protocolo.',
   },
   protocolStats: {
     initialCapital: 'Capital inicial',

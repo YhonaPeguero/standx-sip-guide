@@ -23,6 +23,9 @@ import { useI18n } from '../i18n';
 // nothing: the stats row prints the applied rate as a single figure, this shows how that
 // figure is composed, next to the control that composes it — and it gives the shortest
 // column real content instead of a stretched frame.
+//
+// The first row names both layers inside the DUSD rate (`DUSD · Base + SIP-3`) so the
+// composition is legible here too, without a SIP-3 row that would imply a third input.
 function RateBreakdown({ baseRate, sip2Rate, appliedRate, isSip2On, t }) {
   const rows = [
     { key: 'base', label: t('controlPanel.breakdown.base'), value: formatPercentValue(baseRate) },
@@ -41,11 +44,11 @@ function RateBreakdown({ baseRate, sip2Rate, appliedRate, isSip2On, t }) {
           key={row.key}
           className="flex items-baseline justify-between gap-3 border-t border-[var(--sx-border-soft)] py-2.5"
         >
-          <dt className="mono text-[11px] uppercase tracking-[0.12em] text-[var(--sx-muted)]">
+          <dt className="mono text-[11px] uppercase leading-[1.5] tracking-[0.12em] text-[var(--sx-muted)]">
             {row.label}
           </dt>
           <dd
-            className="mono text-[15px] font-semibold tracking-[-0.015em]"
+            className="mono shrink-0 text-[15px] font-semibold tracking-[-0.015em]"
             style={{ color: row.active ? 'var(--sx-primary-bright)' : 'var(--sx-text)' }}
           >
             {row.value}
@@ -54,11 +57,11 @@ function RateBreakdown({ baseRate, sip2Rate, appliedRate, isSip2On, t }) {
       ))}
 
       <div className="flex items-baseline justify-between gap-3 border-t border-[var(--sx-border-strong)] pt-3">
-        <dt className="mono text-[11px] uppercase tracking-[0.12em] text-[var(--sx-text-muted)]">
+        <dt className="mono text-[11px] uppercase leading-[1.5] tracking-[0.12em] text-[var(--sx-text-muted)]">
           {t('controlPanel.breakdown.applied')}
         </dt>
         <dd
-          className="mono text-[22px] font-bold tracking-[-0.025em]"
+          className="mono shrink-0 text-[22px] font-bold tracking-[-0.025em]"
           style={{ color: isSip2On ? 'var(--sx-primary-bright)' : 'var(--sx-text)' }}
         >
           {formatPercentValue(appliedRate)}

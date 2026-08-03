@@ -20,9 +20,11 @@ export function IllustrativeNote({ className = '' }) {
   );
 }
 
-export function NotPublishedChip({ className = '' }) {
-  const { t } = useI18n();
-
+// The chip shell. `not published` is the site-wide marker for a figure StandX has never
+// released; a screen with a narrower claim to make passes its own word through MarkerChip
+// rather than bending the shared one. The simulator does exactly that: its rates are not
+// unpublished, they are `not fixed by SIP` — the specifications define mechanisms, not APYs.
+export function MarkerChip({ children, className = '' }) {
   return (
     <span
       className={`mono inline-flex shrink-0 items-center whitespace-nowrap px-1.5 py-0.5 text-[10px] tracking-[0.1em] ${className}`}
@@ -32,7 +34,13 @@ export function NotPublishedChip({ className = '' }) {
         border: '1px dashed var(--sx-border-strong)',
       }}
     >
-      {t('vaults.notPublished')}
+      {children}
     </span>
   );
+}
+
+export function NotPublishedChip({ className = '' }) {
+  const { t } = useI18n();
+
+  return <MarkerChip className={className}>{t('vaults.notPublished')}</MarkerChip>;
 }

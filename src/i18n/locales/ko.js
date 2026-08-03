@@ -54,7 +54,7 @@ const ko = {
       rates: {
         title: '수익률', // TODO: needs native review
         text:
-          '직접 입력합니다. StandX는 두 수치 모두 공개하지 않으므로 두 필드는 비어 있고 not published 표시가 붙습니다 — 여기서 대신 추정하는 값은 없습니다.', // TODO: needs native review
+          '직접 입력합니다. 첫 번째 필드는 DUSD 가정 전체 — 기존 수익원에 SIP-3까지 포함한 값 — 이고, SIP #2는 그 위에 더하는 선택 레이어입니다. SIP 명세는 두 비율 모두 고정하지 않으므로 두 필드는 비어 있고 not fixed by SIP 표시가 붙습니다.', // TODO: needs native review
       },
       output: {
         title: '입력한 숫자의 결과', // TODO: needs native review
@@ -506,11 +506,12 @@ const ko = {
     description:
       'DUSD 기본 수익과 SIP #3은 항상 활성 상태입니다. SIP #2를 켜서 포지션 수익을 더해보세요.',
     sip2Label: 'SIP #2 — 포지션 수익',
-    sip2Hint: '선택 레이어. 적격 오픈 포지션에 대해 수익을 활성화합니다.',
+    sip2Hint:
+      'SIP-3은 DUSD 수익률에 이미 포함되어 있습니다. SIP-2는 적격 오픈 포지션을 위한 선택 레이어입니다.', // TODO: needs native review
     breakdown: {
-      base: '기본', // TODO: needs native review
+      base: 'DUSD · 기본 + SIP-3', // TODO: needs native review
       sip2: 'SIP #2',
-      applied: '적용', // TODO: needs native review
+      applied: '적용 추정치', // TODO: needs native review
     },
     learnHowItWorks: '작동 방식 보기',
   },
@@ -546,12 +547,16 @@ const ko = {
   },
   rateInputs: {
     eyebrow: '수익률', // TODO: needs native review
-    baseLabel: 'DUSD 기본 연이율', // TODO: needs native review
-    sip2Label: 'SIP #2 연이율', // TODO: needs native review
+    baseLabel: 'DUSD 수익률 — 기본 + SIP-3', // TODO: needs native review
+    baseHint:
+      'DUSD의 기존 수익원과 SIP-3 수수료 라우팅 레이어를 합친 연이율입니다.', // TODO: needs native review
+    sip2Label: 'SIP #2 — 실효 연이율', // TODO: needs native review
+    // 사이트의 고정 마커와 마찬가지로 모든 언어에서 동일한 문구를 사용합니다.
+    notFixedMarker: 'not fixed by SIP',
     placeholder: '0.00',
     rangeHint: '{min}–{max}% 입력', // TODO: needs native review
     sip2DisabledHint: '이 비율을 적용하려면 SIP #2를 켜세요.', // TODO: needs native review
-    note: 'StandX는 DUSD, SIP #2, SIP #3의 수익률을 공개하지 않습니다. 이 수치는 사용자가 입력한 것이며, 예측은 그에 대한 계산입니다.', // TODO: needs native review
+    note: 'SIP 명세는 고정 APY를 정의하지 않습니다. 직접 가정한 수치를 입력하세요. SIP-2는 예시용 실효 연이율로 단순화한 것이며, 프로토콜의 전체 수수료 풀 배분 공식을 그대로 재현하지 않습니다.', // TODO: needs native review
   },
   protocolStats: {
     initialCapital: '초기 자본',
