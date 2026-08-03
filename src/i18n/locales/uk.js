@@ -54,7 +54,7 @@ const uk = {
       rates: {
         title: 'Ставки прибутковості', // TODO: needs native review
         text:
-          'Їх задаєте ви. StandX не публікує жодної з них, тому обидва поля порожні й позначені not published — тут нічого не вгадують за вас.', // TODO: needs native review
+          'Їх задаєте ви. Перше поле — це все припущення щодо DUSD: наявні джерела доходу разом із SIP-3; SIP #2 — опціональний шар зверху. Специфікації не фіксують жодної зі ставок, тому обидва поля порожні й позначені not fixed by SIP.', // TODO: needs native review
       },
       output: {
         title: 'Що дають ваші числа', // TODO: needs native review
@@ -513,11 +513,12 @@ const uk = {
     description:
       'Базовий дохід DUSD і SIP #3 завжди активні. Увімкніть SIP #2, щоб додати дохід від позицій.',
     sip2Label: 'SIP #2 — Дохід від позицій',
-    sip2Hint: 'Опціональний шар. Активує дохід для прийнятних відкритих позицій.',
+    sip2Hint:
+      'SIP-3 уже враховано у ставці DUSD. SIP-2 — опціональний шар для прийнятних відкритих позицій.', // TODO: needs native review
     breakdown: {
-      base: 'Базова', // TODO: needs native review
+      base: 'DUSD · База + SIP-3', // TODO: needs native review
       sip2: 'SIP #2',
-      applied: 'Застосована', // TODO: needs native review
+      applied: 'Застосована оцінка', // TODO: needs native review
     },
     learnHowItWorks: 'Дізнатися, як це працює',
   },
@@ -553,12 +554,16 @@ const uk = {
   },
   rateInputs: {
     eyebrow: 'Ставки прибутковості', // TODO: needs native review
-    baseLabel: 'База DUSD — річна', // TODO: needs native review
-    sip2Label: 'SIP #2 — річна', // TODO: needs native review
+    baseLabel: 'Дохід DUSD — База + SIP-3', // TODO: needs native review
+    baseHint:
+      'Сукупна річна ставка наявних джерел доходу DUSD і шару комісій, які маршрутизує SIP-3.', // TODO: needs native review
+    sip2Label: 'SIP #2 — ефективна річна ставка', // TODO: needs native review
+    // Однаковий рядок у всіх мовах — як і два фіксовані маркери сайту.
+    notFixedMarker: 'not fixed by SIP',
     placeholder: '0.00',
     rangeHint: 'Введіть {min}–{max}%', // TODO: needs native review
     sip2DisabledHint: 'Увімкніть SIP #2, щоб застосувати цю ставку.', // TODO: needs native review
-    note: 'StandX не публікує жодної ставки для DUSD, SIP #2 чи SIP #3. Ці цифри — ваші, а проєкція є арифметикою на їх основі.', // TODO: needs native review
+    note: 'Специфікації SIP не визначають фіксованих APY. Введіть власні припущення. SIP-2 змодельовано як ілюстративну ефективну річну ставку, що не відтворює повну формулу розподілу пулу комісій протоколу.', // TODO: needs native review
   },
   protocolStats: {
     initialCapital: 'Початковий капітал',

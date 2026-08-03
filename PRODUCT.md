@@ -57,6 +57,11 @@ is either published in the source SIP, entered by the reader, or explicitly mark
 - Simulations are illustrative and driven by reader-entered amounts. Two fixed markers,
   identical in every locale, keep the line visible: `Illustrative — user-entered
   amounts, not StandX parameters.` and `not published`.
+- The simulator's rate fields carry a third marker, also identical in every locale:
+  `not fixed by SIP`. Those rates are not withheld figures — the SIP specifications
+  define mechanisms, not APYs — so `not published` would misstate the reason. The DUSD
+  field is the combined assumption (existing DUSD yield sources + SIP-3); SIP-2 is the
+  separate optional layer. `scripts/check-simulator-copy.mjs` enforces both points.
 - The footer already carries `Educational simulation only. Actual results may vary.`
 - All copy lives in `src/i18n/locales/` and must stay coverage-complete across the five
   locales (enforced by `scripts/check-i18n-coverage.mjs` and `check-i18n-usage.mjs`).

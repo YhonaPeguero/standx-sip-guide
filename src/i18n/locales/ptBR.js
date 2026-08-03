@@ -54,7 +54,7 @@ const ptBR = {
       rates: {
         title: 'Taxas de yield',
         text:
-          'Você define. A StandX não publica nenhuma das duas, então ambos os campos começam vazios e levam a marca not published: nada aqui é adivinhado por você.',
+          'Você define. O primeiro campo é toda a premissa de DUSD — suas fontes de yield atuais já com o SIP-3 dentro — e o SIP #2 é a camada opcional somada por cima. As especificações não fixam nenhuma das duas taxas, então ambos os campos começam vazios e levam a marca not fixed by SIP.',
       },
       output: {
         title: 'O que seus números produzem',
@@ -511,11 +511,12 @@ const ptBR = {
     description:
       'O yield base de DUSD e o SIP #3 estão sempre ativos. Acione o SIP #2 para somar o yield de posições.',
     sip2Label: 'SIP #2 — Position Yield',
-    sip2Hint: 'Camada opcional. Ativa o yield em posições abertas elegíveis.',
+    sip2Hint:
+      'O SIP-3 já está incluído na taxa de DUSD. O SIP-2 é uma camada opcional para posições abertas elegíveis.',
     breakdown: {
-      base: 'Base',
+      base: 'DUSD · Base + SIP-3',
       sip2: 'SIP #2',
-      applied: 'Aplicada',
+      applied: 'Estimativa aplicada',
     },
     learnHowItWorks: 'Entender como funciona',
   },
@@ -551,12 +552,16 @@ const ptBR = {
   },
   rateInputs: {
     eyebrow: 'Taxas de Yield',
-    baseLabel: 'Base DUSD — anual',
-    sip2Label: 'SIP #2 — anual',
+    baseLabel: 'Yield DUSD — Base + SIP-3',
+    baseHint:
+      'Taxa anual combinada das fontes de yield atuais do DUSD e da camada de taxas roteada pelo SIP-3.',
+    sip2Label: 'SIP #2 — taxa anual efetiva',
+    // Igual em todos os idiomas, como os dois marcadores fixos do site.
+    notFixedMarker: 'not fixed by SIP',
     placeholder: '0.00',
     rangeHint: 'Insira {min}–{max}%',
     sip2DisabledHint: 'Ative o SIP #2 para aplicar esta taxa.',
-    note: 'A StandX não publica nenhuma taxa para DUSD, SIP #2 ou SIP #3. Estes números são seus, e a projeção é aritmética sobre eles.',
+    note: 'As especificações dos SIPs não definem APYs fixos. Insira suas próprias premissas. O SIP-2 é modelado como uma taxa anual efetiva ilustrativa e não reproduz a fórmula completa de alocação do pool de taxas do protocolo.',
   },
   protocolStats: {
     initialCapital: 'Capital Inicial',

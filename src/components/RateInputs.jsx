@@ -1,16 +1,39 @@
 import { MAX_RATE, MIN_RATE } from '../constants/chart';
 import { useI18n } from '../i18n';
-import { NotPublishedChip } from './ui/Markers';
+import { MarkerChip } from './ui/Markers';
 
-// The two rates the reader supplies. StandX publishes neither, so each label carries the
-// `not published` chip inline beside it, sized to the label rather than shrunk into fine
-// print: the fact that no figure exists is information, not a disclaimer.
+// The two rates the reader supplies. The first one is the whole DUSD yield assumption —
+// DUSD's existing yield sources with SIP-3's fee routing already inside it — and the second
+// is the optional SIP-2 layer. That is why there is no third field: SIP-3 is not a separate
+// input, it is part of the first number, and the label says so.
+//
+// Neither rate is a protocol figure. The SIP specifications define mechanisms, not APYs, so
+// each label carries the `not fixed by SIP` chip inline beside it, sized to the label rather
+// than shrunk into fine print: the absence of a fixed figure is information, not a
+// disclaimer.
 //
 // Both fields start empty. A prefilled rate would be a number the reader never chose, which
 // is the exact failure this screen was rebuilt to remove.
 
-function RateField({ id, label, hint, error, value, placeholder, disabled, onChange, onBlur }) {
+function RateField({
+  id,
+  label,
+  marker,
+  description,
+  hint,
+  error,
+  value,
+  placeholder,
+  disabled,
+  onChange,
+  onBlur,
+}) {
   const errorId = `${id}-error`;
+  const descriptionId = description ? `${id}-description` : undefined;
+  const hintId = `${id}-hint`;
+  // The description explains what the field covers, so it stays in the accessible name-and-
+  // description chain whether or not the field is currently in error.
+  const describedBy = [error ? errorId : hintId, descriptionId].filter(Boolean).join(' ');
 
   return (
     <div>
@@ -24,8 +47,17 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
         >
           {label}
         </label>
-        <NotPublishedChip className="ml-2 align-middle text-[11px]" />
+        <MarkerChip className="ml-2 align-middle text-[11px]">{marker}</MarkerChip>
       </div>
+
+      {description ? (
+        <p
+          id={descriptionId}
+          className="mt-1.5 text-[12px] leading-[1.5] text-[var(--sx-muted)]"
+        >
+          {description}
+        </p>
+      ) : null}
 
       <div className="relative mt-2">
         <input
@@ -43,7 +75,7 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
             borderColor: error ? 'var(--sx-accent)' : 'var(--sx-border)',
           }}
           aria-invalid={Boolean(error)}
-          aria-describedby={error ? errorId : undefined}
+          aria-describedby={describedBy}
         />
         <span className="mono pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[16px] text-[var(--sx-muted)]">
           %
@@ -55,7 +87,9 @@ function RateField({ id, label, hint, error, value, placeholder, disabled, onCha
           {error}
         </p>
       ) : (
-        <p className="mt-1.5 text-[12px] leading-[1.5] text-[var(--sx-muted)]">{hint}</p>
+        <p id={hintId} className="mt-1.5 text-[12px] leading-[1.5] text-[var(--sx-muted)]">
+          {hint}
+        </p>
       )}
     </div>
   );
@@ -76,6 +110,7 @@ export default function RateInputs({
 }) {
   const { t } = useI18n();
   const rangeHint = t('rateInputs.rangeHint', { min: MIN_RATE, max: MAX_RATE });
+  const marker = t('rateInputs.notFixedMarker');
 
   return (
     <div className={className}>
@@ -87,6 +122,8 @@ export default function RateInputs({
         <RateField
           id="base-rate"
           label={t('rateInputs.baseLabel')}
+          marker={marker}
+          description={t('rateInputs.baseHint')}
           hint={rangeHint}
           error={baseRateError}
           value={baseRateInput}
@@ -98,6 +135,7 @@ export default function RateInputs({
         <RateField
           id="sip2-rate"
           label={t('rateInputs.sip2Label')}
+          marker={marker}
           hint={isSip2On ? rangeHint : t('rateInputs.sip2DisabledHint')}
           error={sip2RateError}
           value={sip2RateInput}

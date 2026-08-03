@@ -54,7 +54,7 @@ const en = {
       rates: {
         title: 'Yield rates',
         text:
-          'You supply these. StandX publishes neither figure, so both fields start empty and carry the not published marker — nothing here is guessed for you.',
+          'You supply these. The first field is the whole DUSD assumption — its existing yield sources with SIP-3 already inside it — and SIP #2 is the optional layer on top. The specifications fix neither rate, so both fields start empty and carry the not fixed by SIP marker.',
       },
       output: {
         title: 'What your numbers produce',
@@ -510,11 +510,12 @@ const en = {
     description:
       'DUSD base yield and SIP #3 are always on. Toggle SIP #2 to layer position yield on top.',
     sip2Label: 'SIP #2 — Position Yield',
-    sip2Hint: 'Optional layer. Activates yield on eligible open positions.',
+    sip2Hint:
+      'SIP-3 is included in the DUSD rate. SIP-2 is an optional layer for eligible open positions.',
     breakdown: {
-      base: 'Base',
+      base: 'DUSD · Base + SIP-3',
       sip2: 'SIP #2',
-      applied: 'Applied',
+      applied: 'Applied estimate',
     },
     learnHowItWorks: 'Learn how it works',
   },
@@ -550,12 +551,16 @@ const en = {
   },
   rateInputs: {
     eyebrow: 'Yield Rates',
-    baseLabel: 'DUSD base — annual',
-    sip2Label: 'SIP #2 — annual',
+    baseLabel: 'DUSD yield — Base + SIP-3',
+    baseHint:
+      'Combined annual rate for DUSD’s existing yield sources and the SIP-3 fee-routing layer.',
+    sip2Label: 'SIP #2 — effective annual rate',
+    // Kept identical in every locale, like the two site-wide markers it sits beside.
+    notFixedMarker: 'not fixed by SIP',
     placeholder: '0.00',
     rangeHint: 'Enter {min}–{max}%',
     sip2DisabledHint: 'Turn on SIP #2 to apply this rate.',
-    note: 'StandX publishes no yield rate for DUSD, SIP #2 or SIP #3. These figures are yours, and the projection is arithmetic on them.',
+    note: 'The SIP specifications do not define fixed APYs. Enter your own assumptions. SIP-2 is modeled as an illustrative effective annual rate and does not reproduce the protocol’s complete fee-pool allocation formula.',
   },
   protocolStats: {
     initialCapital: 'Initial Capital',

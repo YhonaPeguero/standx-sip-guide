@@ -1,7 +1,11 @@
 import { HORIZONS } from '../src/constants/chart.js';
-import { calculateSimulationSnapshot, calculateScenarioSnapshot } from '../src/lib/simulator.js';
+import {
+  calculateSimulationSnapshot,
+  calculateScenarioSnapshot,
+  resolveAppliedRate,
+} from '../src/lib/simulator.js';
 
-// The simulator no longer ships any rate: StandX publishes none, so both rates are supplied
+// The simulator ships no rate: the SIP specifications fix none, so both rates are supplied
 // by the reader. These fixtures stand in for reader input and exist only to exercise the
 // arithmetic — they are not claims about StandX yields.
 const capital = 10000;
@@ -59,6 +63,38 @@ const checks = [
   ['estimatedValue == capital + gain', Math.abs(yearOn.estimatedValue - (capital + yearOn.estimatedGain)) < 1e-9],
   ['Zero capital is safe', zeroCapital.estimatedGain === 0 && zeroCapital.yieldPct === 0],
   ['appliedRate excludes SIP-2 when off', yearOff.appliedRate === baseRate],
+  // The first rate is the whole DUSD assumption, SIP-3 included; SIP-2 is added to it only
+  // while the toggle is on. Nothing else enters the applied rate.
+  [
+    'appliedRate == DUSD rate + SIP-2 only when SIP-2 is on',
+    resolveAppliedRate({ baseRate, sip2Rate, isSip2On: true }) === baseRate + sip2Rate &&
+      resolveAppliedRate({ baseRate, sip2Rate, isSip2On: false }) === baseRate,
+  ],
+  // Pinned outputs for the fixtures above. A relabelling pass must leave these untouched;
+  // if any of them moves, the arithmetic changed.
+  [
+    'Pinned 1Y values unchanged (10,000 @ 4% / +2%)',
+    yearOff.estimatedGain === 400 &&
+      yearOff.estimatedValue === 10400 &&
+      yearOff.yieldPct === 4 &&
+      yearOn.estimatedGain === 600 &&
+      yearOn.estimatedValue === 10600 &&
+      yearOn.yieldPct === 6,
+  ],
+  [
+    'Pinned 1M values unchanged (simple accrual, 30/365)',
+    Math.abs(monthOn.estimatedGain - 49.31506849315068) < 1e-9 &&
+      Math.abs(monthOn.estimatedValue - 10049.31506849315) < 1e-9,
+  ],
+  // Simple accrual, never compounding: a year taken in twelve monthly steps would exceed
+  // the one-shot figure if a compounding term had crept in.
+  [
+    'No compounding: 1Y gain == 12 × (1Y gain × 1/12)',
+    Math.abs(
+      yearOn.estimatedGain -
+        12 * snap({ yearFraction: 1 / 12, isSip2On: true }).estimatedGain,
+    ) < 1e-9,
+  ],
   // Nothing in the constants may carry a rate, a pool count or a date again.
   ['Horizons carry no target/pool/rebalance fields', HORIZONS.every((h) => !('target' in h) && !('poolLabel' in h) && !('rebalanceLabel' in h))],
   ['No ALL horizon', !HORIZONS.some((h) => h.id === 'all')],
